@@ -1,0 +1,6 @@
+CREATE TABLE vote(
+vote_id INTEGER PRIMARY KEY,
+author_id INTEGER NOT NULL,
+thread_id INTEGER NOT NULL,
+voice INTEGER NOT NULL
+);

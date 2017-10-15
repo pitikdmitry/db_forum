@@ -1,0 +1,6 @@
+CREATE TABLE forum(
+forum_id INTEGER PRIMARY KEY,
+responsible_user_id INT NOT NULL,
+slug CITEXT NOT NULL,
+title TEXT NOT NULL
+);

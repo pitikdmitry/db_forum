@@ -1,0 +1,10 @@
+CREATE TABLE post(
+thread_id INTEGER PRIMARY KEY,
+author_id INTEGER NOT NULL,
+forum_id INTEGER NOT NULL,
+created TEXT NOT NULL,
+message TEXT NOT NULL,
+slug CITEXT NOT NULL UNIQUE,
+title TEXT NOT NULL,
+votes INTEGER NOT NULL
+);

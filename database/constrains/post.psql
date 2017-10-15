@@ -1,0 +1,14 @@
+ALTER TABLE post
+ADD CONSTRAINT author_fk
+FOREIGN KEY(author_id)
+REFERENCES userTable(user_id)
+
+ALTER TABLE post
+ADD CONSTRAINT forum_fk
+FOREIGN KEY(forum_id)
+REFERENCES forum(forum_id)
+
+ALTER TABLE post
+ADD CONSTRAINT thread_fk
+FOREIGN KEY(thread_id)
+REFERENCES thread(thread_id)

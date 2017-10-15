@@ -1,0 +1,9 @@
+CREATE TABLE post(
+post_id INTEGER PRIMARY KEY,
+author_id INTEGER NOT NULL,
+forum_id INTEGER NOT NULL,
+thread_id INTEGER NOT NULL,
+created TIMESTAMP WITH TIME ZONE DEFAULT now(),
+message TEXT NOT NULL,
+isEdited BOOLEAN NOT NULL
+);
