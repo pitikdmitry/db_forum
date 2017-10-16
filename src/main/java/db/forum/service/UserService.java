@@ -21,7 +21,7 @@ public class UserService {
 
     public User create(User user, String nickname) {
         final String  createUserFunction = UserQueries.getCreateUser();
-        DbConnection.executeSqlFunction(createUserFunction, user.getAbout(), user.getEmail(), user.getFullname(), nickname);
+        DbConnection.executeSqlFunction(createUserFunction, nickname, user.getEmail(), user.getAbout(), user.getFullname());
 //
         return null;
     }

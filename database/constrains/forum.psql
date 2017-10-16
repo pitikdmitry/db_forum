@@ -1,4 +1,0 @@
-ALTER TABLE forum
-ADD CONSTRAINT user_fk
-FOREIGN KEY(responsible_user_id)
-REFERENCES userTable(user_id);

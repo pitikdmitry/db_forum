@@ -1,6 +1,10 @@
-FROM maven:3-ibmjava-8
+FROM ubuntu:16.04
 
 MAINTAINER Pitik Dmitry
+ENV http_proxy http://10.100.122.141:3128/
+ENV https_proxy http://10.100.122.141:3128/
+ENV ftp_proxy http://10.100.122.141:3128/
+ENV no_proxy registry.gitlab2.rnd.pkcc.ru, *.rnd.pkcc.ru, 10.*, 192.*, 172.16.*
 
 # Обвновление списка пакетов
 RUN apt-get -y update
@@ -17,10 +21,8 @@ USER postgres
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
 RUN /etc/init.d/postgresql start &&\
+    psql --command "ALTER USER postgres WITH SUPERUSER PASSWORD 'postgres';" &&\
     /etc/init.d/postgresql stop
-#    psql --command "ALTER USER postgres WITH SUPERUSER PASSWORD 'password';" &&\
-#    createdb -O db_tp_proj postgres &&\
-#    /etc/init.d/postgresql stop
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
@@ -41,33 +43,32 @@ USER root
 #
 # Сборка проекта
 #
-
-#RUN apt-get install -y maven
+# Установка JDK
+#RUN apt-get install -y openjdk-8-jdk-headless
 
 # Копируем исходный код в Docker-контейнер
 ENV WORK /project
-ADD . $WORK/java-project/
-# ADD common/ $WORK/common/
+ADD ./ $WORK/java-project/
+WORKDIR /
 
-# Собираем и устанавливаем пакет
-WORKDIR $WORK/java-project/
-RUN mvn package
 
 # Объявлем порт сервера
-EXPOSE 5000
+#EXPOSE 5000
 
 #
 # Запускаем PostgreSQL и сервер
 #
 USER postgres
 
-ENV DBHOST=postgres
+
+ENV DBHOST=localhost
 ENV DBPORT=5432
-ENV DBNAME=forum_server
-ENV DBUSER=forum_server
-ENV DBPASS=forum_server
-ENV DATABASE=/tmp/database
+ENV DBNAME=forum_user
+ENV DBUSER=forum_user
+ENV DBPASS=forum_user
+ENV DATABASE=$WORK/java-project/database
 
 CMD service postgresql start && \
-    bash $WORK/java-project/database/loader/db_loader.sh $DBHOST $DBPORT $DBNAME $DBUSER $DBPASS $DATABASE && \
-    java -Xmx300M -Xmx300M -jar $WORK/java-project/target/DataBaseProject-0.1.0.jar
+    bash $WORK/java-project/database/loader/create_db.sh $DBHOST $DBPORT $DBNAME $DBUSER $DBPASS $DATABASE
+#    && \
+#    java -jar $WORK/java-project/release/DataBaseProject-0.1.0.jar
