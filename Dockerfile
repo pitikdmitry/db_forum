@@ -1,10 +1,10 @@
 FROM ubuntu:16.04
 
 MAINTAINER Pitik Dmitry
-ENV http_proxy http://10.100.122.141:3128/
-ENV https_proxy http://10.100.122.141:3128/
-ENV ftp_proxy http://10.100.122.141:3128/
-ENV no_proxy registry.gitlab2.rnd.pkcc.ru, *.rnd.pkcc.ru, 10.*, 192.*, 172.16.*
+#ENV http_proxy http://10.100.122.141:3128/
+#ENV https_proxy http://10.100.122.141:3128/
+#ENV ftp_proxy http://10.100.122.141:3128/
+#ENV no_proxy registry.gitlab2.rnd.pkcc.ru, *.rnd.pkcc.ru, 10.*, 192.*, 172.16.*
 
 # Обвновление списка пакетов
 RUN apt-get -y update
