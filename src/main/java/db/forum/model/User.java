@@ -1,11 +1,15 @@
 package db.forum.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
+    @JsonIgnore
     private Integer user_id;
-    private String nickname;
-    private String email;
+
     private String about;
+    private String email;
     private String fullname;
+    private String nickname;
 
     public User() {}
 
@@ -15,6 +19,13 @@ public class User {
         this.email = email;
         this.fullname = fullname;
         this.nickname = nickname;
+    }
+
+    public User(String nickname, String email, String about, String fullname) {
+        this.nickname = nickname;
+        this.email = email;
+        this.about = about;
+        this.fullname = fullname;
     }
 
     public Integer getUser_id() { return user_id; }

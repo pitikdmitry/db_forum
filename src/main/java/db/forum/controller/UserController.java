@@ -28,45 +28,27 @@ public class UserController {
 
     @RequestMapping(value = "/{nickname}/create", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> createUser(@PathVariable(name = "nickname") String nickname,
+    public ResponseEntity<?> createUser(@PathVariable(name = "nickname") String nickname,
                                            @RequestBody User user) {
 
-        final User createdUser = userService.create(user, nickname);
-        if (createdUser == null) {
-            this.logger.error("[createUser] createdUser == null");
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-        return new ResponseEntity<>(createdUser, HttpStatus.OK);
+        return userService.create(user, nickname);
     }
 
 
     @RequestMapping(value = "/{nickname}/profile", method = RequestMethod.GET,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> getUserProfile(@PathVariable(name = "nickname") String nickname) {
+    public ResponseEntity<?> getUserProfile(@PathVariable(name = "nickname") String nickname) {
 
-        final User resultUser = userService.getProfile(nickname);
-        if (resultUser == null) {
-            this.logger.error("[getUserProfile] resultUser == null");
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-        return new ResponseEntity<>(resultUser, HttpStatus.OK);
+        return userService.getProfile(nickname);
     }
 
 
     @RequestMapping(value = "/{nickname}/profile", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> updateUserProfile(@PathVariable(name = "nickname") String nickname,
+    public ResponseEntity<?> updateUserProfile(@PathVariable(name = "nickname") String nickname,
                                                 @RequestBody User user) {
 
-        final User resultUser = userService.updateProfile(user, nickname);
-        if (resultUser == null) {
-            this.logger.error("[updateUserProfile] resultUser == null");
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-        return new ResponseEntity<>(resultUser, HttpStatus.OK);
+        return userService.updateProfile(user, nickname);
     }
 }
 

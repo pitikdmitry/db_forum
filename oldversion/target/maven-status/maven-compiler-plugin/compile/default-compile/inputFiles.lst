@@ -1,0 +1,13 @@
+/home/nyam/db_forum/src/main/java/db/forum/model/User.java
+/home/nyam/db_forum/src/main/java/db/forum/model/Post.java
+/home/nyam/db_forum/src/main/java/db/forum/model/Forum.java
+/home/nyam/db_forum/src/main/java/db/forum/controller/UserController.java
+/home/nyam/db_forum/src/main/java/db/forum/service/ThreadService.java
+/home/nyam/db_forum/src/main/java/db/forum/service/ForumService.java
+/home/nyam/db_forum/src/main/java/db/forum/service/DbConnection.java
+/home/nyam/db_forum/src/main/java/db/forum/service/UserService.java
+/home/nyam/db_forum/src/main/java/db/forum/controller/ForumController.java
+/home/nyam/db_forum/src/main/java/db/forum/Application.java
+/home/nyam/db_forum/src/main/java/db/forum/controller/ThreadController.java
+/home/nyam/db_forum/src/main/java/db/forum/model/Thread.java
+/home/nyam/db_forum/src/main/java/db/forum/sqlQueries/UserQueries.java

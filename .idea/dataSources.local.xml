@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="forum_user@localhost" uuid="55f90f68-0f65-4efb-9b37-e1590954cfcf">
+      <database-info product="PostgreSQL" version="9.5.9" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.1.1">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>forum_user</user-name>
+      <introspection-schemas>forum_user:public</introspection-schemas>
+    </data-source>
+  </component>
+</project>

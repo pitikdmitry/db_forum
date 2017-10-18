@@ -1,8 +1,13 @@
 package db.forum.service;
 
+import db.forum.model.Message;
 import db.forum.model.User;
 import db.forum.sqlQueries.UserQueries;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
@@ -11,6 +16,7 @@ import java.lang.invoke.CallSite;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -22,109 +28,95 @@ public class UserService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public User create(User user, String nickname) {
-        Connection con = null;
-        CallableStatement proc = null;
-        User resUser = null;
-        String sql = "add_user(?::citext, ?::citext, ?, ?, ?, ?, ?, ?, ?)";
+    public ResponseEntity<?> create(User user, String nickname) {
 
-        HashMap<Integer, Object> parameters = new HashMap<>();
-        parameters.put(1, nickname);
-        parameters.put(2, user.getEmail());
-        parameters.put(3, user.getAbout());
-        parameters.put(4, user.getFullname());
-
-        HashMap<Integer, Integer> outParameters = new HashMap<>();
-        outParameters.put(5, Types.INTEGER);
-        outParameters.put(6, Types.OTHER);
-        outParameters.put(7, Types.OTHER);
-        outParameters.put(8, Types.VARCHAR);
-        outParameters.put(9, Types.VARCHAR);
-
+        User resultUser = null;
+        String sql = "INSERT INTO users (nickname, email, about, fullname) VALUES (?, ?, ?, ?) RETURNING *;";
         try {
-            con = DbConnection.getConnection();
-
-            proc = DbConnection.prepareCall(sql, con, parameters, outParameters);
-
-            resUser = new User(proc.getInt(5), proc.getObject(6).toString(), proc.getObject(7).toString(),
-                                        proc.getString(8), proc.getString(9));
-
-            DbConnection.closeConnection(con);
+            Object[] args = new Object[]{nickname, user.getEmail(), user.getAbout(), user.getFullname()};
+//            jdbcTemplate.update(sql, args);
+            resultUser = jdbcTemplate.queryForObject(sql, args, new UserMapper());
+//            resultUser = user;
+//            resultUser.setNickname(nickname);
         }
-        catch(SQLException ex) {
-            System.out.println("exc: " + ex);
-
+        catch (Exception ex) {
+            System.out.println("[Exception in create user]: " + ex);
+            sql = "SELECT * FROM users WHERE nickname = ? or email = ?;";
+            Object[] args = new Object[]{nickname, user.getEmail()};
+//            resultUser = jdbcTemplate.queryForObject(sql, args, new UserMapper());
+            List<User> users = jdbcTemplate.query(sql, args, new UserMapper());
+            return new ResponseEntity<>(users, HttpStatus.CONFLICT);
         }
 
-        return resUser;
+        return new ResponseEntity<>(resultUser, HttpStatus.CREATED);
     }
 
-    public User getProfile(String nickname) {
-        Connection con = null;
-        CallableStatement proc = null;
-        User resUser = null;
-        String sql = "get_user_by_nickname(?::citext, ?, ?, ?, ?, ?)";
-
-        HashMap<Integer, Object> parameters = new HashMap<>();
-        parameters.put(1, nickname);
-
-        HashMap<Integer, Integer> outParameters = new HashMap<>();
-        outParameters.put(2, Types.INTEGER);
-        outParameters.put(3, Types.OTHER);
-        outParameters.put(4, Types.OTHER);
-        outParameters.put(5, Types.VARCHAR);
-        outParameters.put(6, Types.VARCHAR);
-
+    public ResponseEntity<?> getProfile(String nickname) {
+        User resultUser = null;
+        String sql = "SELECT * FROM users WHERE nickname = ?;";
         try {
-            con = DbConnection.getConnection();
+            resultUser = jdbcTemplate.queryForObject(sql, new Object[]{nickname}, new UserMapper());
 
-            proc = DbConnection.prepareCall(sql, con, parameters, outParameters);
-
-            resUser = new User(proc.getInt(2), proc.getObject(3).toString(), proc.getObject(4).toString(),
-                    proc.getString(5), proc.getString(6));
-
-            DbConnection.closeConnection(con);
         }
-        catch(SQLException ex) {
-            System.out.println("exc: " + ex);
+        catch (Exception ex) {
+            System.out.println("[Exception in getProfile user]: " + ex);
+            Message message = new Message("Can't find user with id #42");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
-        return resUser;
+        return new ResponseEntity<>(resultUser, HttpStatus.OK);
     }
 
-    public User updateProfile(User user, String nickname) {
-        Connection con = null;
-        CallableStatement proc = null;
-        User resUser = null;
-        String sql = "update_user(?::citext, ?::citext, ?, ?, ?, ?, ?, ?, ?)";
-
-        HashMap<Integer, Object> parameters = new HashMap<>();
-        parameters.put(1, nickname);
-        parameters.put(2, user.getEmail());
-        parameters.put(3, user.getAbout());
-        parameters.put(4, user.getFullname());
-
-        HashMap<Integer, Integer> outParameters = new HashMap<>();
-        outParameters.put(5, Types.INTEGER);
-        outParameters.put(6, Types.OTHER);
-        outParameters.put(7, Types.OTHER);
-        outParameters.put(8, Types.VARCHAR);
-        outParameters.put(9, Types.VARCHAR);
-
+    public ResponseEntity<?> updateProfile(User user, String nickname) {
+        User resultUser = null;
+        String sql = "UPDATE users SET nickname = ?, email = ?, about = ?, fullname = ?" +
+                " WHERE users.nickname = ? RETURNING *;";
         try {
-            con = DbConnection.getConnection();
-
-            proc = DbConnection.prepareCall(sql, con, parameters, outParameters);
-
-            resUser = new User(proc.getInt(5), proc.getObject(6).toString(), proc.getObject(7).toString(),
-                    proc.getString(8), proc.getString(9));
-
-            DbConnection.closeConnection(con);
+            Object[] args = new Object[]{nickname, user.getEmail(), user.getAbout(), user.getFullname(), nickname};
+            resultUser = jdbcTemplate.queryForObject(sql, args, new UserMapper());
         }
-        catch(SQLException ex) {
-            System.out.println("exc: " + ex);
+        catch (EmptyResultDataAccessException ex) {
+            System.out.println("[Exception in updateProfile user]: " + ex);
+            Message message = new Message("Can't find user with id #42");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex) {
+            System.out.println("[Exception in updateProfile user]: " + ex);
+            Message message = new Message("Can't find user with id #42");
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
 
-        return resUser;
+        return new ResponseEntity<>(resultUser, HttpStatus.OK);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
