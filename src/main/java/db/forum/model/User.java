@@ -2,14 +2,14 @@ package db.forum.model;
 
 public class User {
     private Integer user_id;
-    private String about;
-    private String email;
-    private String fullname;
     private String nickname;
+    private String email;
+    private String about;
+    private String fullname;
 
     public User() {}
 
-    public User(Integer user_id, String about, String email, String fullname, String nickname) {
+    public User(Integer user_id, String nickname, String email, String about, String fullname) {
         this.user_id = user_id;
         this.about = about;
         this.email = email;

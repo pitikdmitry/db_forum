@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/forum/")
+@RequestMapping("/api/forum/")
 public class ForumController {
 
     private final ForumService forumService;
