@@ -1,12 +1,16 @@
 package db.forum.service;
 
 import db.forum.Converter.ForumConverter;
+import db.forum.Converter.ThreadConverter;
 import db.forum.DTO.ForumDTO;
+import db.forum.DTO.ThreadDTO;
 import db.forum.Mappers.ForumDTOMapper;
+import db.forum.Mappers.ThreadDTOMapper;
 import db.forum.model.Forum;
 import db.forum.model.Message;
 import db.forum.model.Thread;
 import db.forum.model.User;
+import db.forum.repository.ForumRepository;
 import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -20,14 +24,18 @@ public class ForumService {
 
     private final JdbcTemplate jdbcTemplate;
     private final UserRepository userRepository;
+    private final ForumRepository forumRepository;
     private final ForumConverter forumConverter;
+    private final ThreadConverter threadConverter;
 
 
     @Autowired
     public ForumService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         userRepository = new UserRepository(jdbcTemplate);
+        forumRepository = new ForumRepository(jdbcTemplate);
         forumConverter = new ForumConverter(jdbcTemplate);
+        threadConverter = new ThreadConverter(jdbcTemplate);
     }
 
     public ResponseEntity<?> create(Forum forum) {
@@ -73,7 +81,64 @@ public class ForumService {
         }
     }
 
-    public Thread createThread(Thread thread, String slug) {
+    public ResponseEntity<?> createThread(Thread thread, String slug) {
+        ThreadDTO resultThreadDTO = null;
+        Thread resultThread = null;
+        Boolean has_slug = null;
+        if(thread.getSlug() != null) {
+            has_slug = true;
+            slug = thread.getSlug();
+        }
+
+        String sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
+                " VALUES (?::citext, ?, ?, ?, ?, ?) RETURNING *;";
+
+        Integer user_id = null;
+        User user = null;
+        Forum forum = null;
+        Integer forum_id = null;
+        try {
+            user = userRepository.get_by_nickname(thread.getAuthor());
+            user_id = user.getUser_id();
+
+            forum = forumRepository.get_by_slug(slug);
+            forum_id = forum.getForum_id();
+        }
+        catch(Exception ex) {
+            System.out.println("[ForumService] createThread User not found!");
+            Message message = new Message("Can't find user with nickname: " + thread.getAuthor());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            Object[] args = new Object[]{slug, forum_id, user_id, thread.getCreated(),
+                    thread.getMessage(), thread.getTitle()};
+
+            resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+            resultThread = threadConverter.getModel(resultThreadDTO);
+            if(has_slug == null) {
+                resultThread.setSlug(null);
+            }
+
+            return new ResponseEntity<>(resultThread, HttpStatus.CREATED);
+        }
+        catch (DuplicateKeyException ex) {
+//            System.out.println("[ForumService.DuplicateKeyException] " + ex);
+//            sql = "SELECT * FROM forums WHERE user_id = ?;";
+//            Object[] args = new Object[]{user_id};
+//
+//            ForumDTO existsForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
+//            resultForum = forumConverter.getModel(existsForumDTO);
+//            return new ResponseEntity<>(resultForum, HttpStatus.CONFLICT);
+        }
+        catch (Exception ex) {
+            System.out.println("[OTHER EXCEPTION]: " + ex);
+            Message message = new Message("Can't 42");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+
+
         return null;
     }
 

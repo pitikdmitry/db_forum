@@ -158,7 +158,7 @@ public class UserService {
         }
         catch (Exception ex) {
             System.out.println("[Exception in updateByEmailAndAbout user]: " + ex);
-            Message message = new Message("Error updateByEmailAndAbout: ");
+            Message message = new Message("Error updateByAboutAndFullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }

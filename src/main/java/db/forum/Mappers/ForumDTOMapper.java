@@ -12,8 +12,8 @@ public class ForumDTOMapper implements RowMapper<ForumDTO> {
         final ForumDTO forumDTO = new ForumDTO();
         forumDTO.setForum_id(rs.getInt("forum_id"));
         forumDTO.setSlug(rs.getString("slug"));
-        forumDTO.setUser_id(rs.getInt("user_id"));
         forumDTO.setTitle(rs.getString("title"));
+        forumDTO.setUser_id(rs.getInt("user_id"));
         return forumDTO;
     }
 }

@@ -1,46 +1,63 @@
 package db.forum.model;
 
-
 public class Thread {
-
-
-    private Integer thread_id;
-    private Integer author_id;
-    private Integer forum_id;
+    private String author;//nickname
     private String created;
+    private String forum;
+    private Integer id;
     private String message;
     private String slug;
     private String title;
     private Integer votes;
+    private Boolean is_loaded;
 
-    public Thread() {}
+    public Thread() {
+        is_loaded = false;
+    }
 
-    public Thread(Integer thread_id, Integer author_id,
-                  Integer forum_id, String created, String message,
-                  String slug, String title, Integer votes) {
-        this.thread_id = thread_id;
-        this.author_id = author_id;
-        this.forum_id = forum_id;
+    public Thread(Integer id, String author, String created,
+                  String forum, String message, String slug,
+                  String title, Integer votes) {
+        this.id = id;
+        this.author = author;
         this.created = created;
+        this.forum = forum;
         this.message = message;
         this.slug = slug;
         this.title = title;
         this.votes = votes;
+        this.is_loaded = true;
     }
 
-    public Integer getThread_id() { return thread_id; }
-    public Integer getAuthor_id() { return author_id; }
-    public Integer getForum_id() { return forum_id; }
+    public void fill(Integer id, String author, String created,
+                     String forum, String message, String slug,
+                     String title, Integer votes) {
+        this.id = id;
+        this.author = author;
+        this.created = created;
+        this.forum = forum;
+        this.message = message;
+        this.slug = slug;
+        this.title = title;
+        this.votes = votes;
+        this.is_loaded = true;
+    }
+
+    public Integer getId() { return id; }
+
+    public String getAuthor() { return author; }
+
     public String getCreated() { return created; }
+    public String getForum() { return forum; }
     public String getMessage() { return message; }
     public String getSlug() { return slug; }
     public String getTitle() { return title; }
     public Integer getVotes() { return votes; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setThread_id(Integer thread_id) { this.thread_id = thread_id; }
-    public void setAuthor_id(Integer author_id) { this.author_id = author_id; }
-    public void setForum_id(Integer forum_id) { this.forum_id = forum_id; }
-    public void setCreated(String created) { this.created = created; }
+    public void setAuthor(String author) { this.author = author; }
+    public void setCreated(String created) { this.created = created;}
+    public void setForum(String forum) { this.forum = forum; }
     public void setMessage(String message) { this.message = message; }
     public void setSlug(String slug) { this.slug = slug; }
     public void setTitle(String title) { this.title = title; }

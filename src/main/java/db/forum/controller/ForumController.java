@@ -30,11 +30,10 @@ public class ForumController {
 
     @RequestMapping(value = "/{slug}/create", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Thread> createThread(@PathVariable(name = "slug") String slug,
-                                               @RequestBody Thread thread, HttpSession session) {
-        final Thread resultThread = forumService.createThread(thread, slug);
+    public ResponseEntity<?> createThread(@PathVariable(name = "slug") String slug,
+                                               @RequestBody Thread thread) {
 
-        return new ResponseEntity<>(resultThread, HttpStatus.OK);
+        return forumService.createThread(thread, slug);
     }
 
     @RequestMapping(value = "/{slug}/details", method = RequestMethod.GET,

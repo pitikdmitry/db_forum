@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api//thread/")
+@RequestMapping("/api/thread/")
 public class ThreadController {
 
     private final ThreadService threadService;
