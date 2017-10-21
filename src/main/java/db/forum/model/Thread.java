@@ -1,5 +1,9 @@
 package db.forum.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONObject;
+
 public class Thread {
     private String author;//nickname
     private String created;
@@ -15,9 +19,15 @@ public class Thread {
         is_loaded = false;
     }
 
-    public Thread(Integer id, String author, String created,
-                  String forum, String message, String slug,
-                  String title, Integer votes) {
+    @JsonCreator
+    public Thread(@JsonProperty("id") int id,
+                  @JsonProperty("title") String title,
+                  @JsonProperty("author") String author,
+                  @JsonProperty("slug") String slug,
+                  @JsonProperty("message") String message,
+                  @JsonProperty("forum") String forum,
+                  @JsonProperty("votes") int votes,
+                  @JsonProperty("created") String created) {
         this.id = id;
         this.author = author;
         this.created = created;
@@ -62,4 +72,21 @@ public class Thread {
     public void setSlug(String slug) { this.slug = slug; }
     public void setTitle(String title) { this.title = title; }
     public void setVotes(Integer votes) { this.votes = votes; }
+
+    public JSONObject getJson(Boolean has_slug) {
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("author", author);
+        jsonObject.put("created", created);
+        jsonObject.put("forum", forum);
+        jsonObject.put("id", id);
+        jsonObject.put("message", message);
+        if(has_slug == true) {
+            jsonObject.put("slug", slug);
+        }
+        jsonObject.put("title", title);
+        if (votes != 0) {
+            jsonObject.put("votes", votes);
+        }
+        return jsonObject;
+    }
 }

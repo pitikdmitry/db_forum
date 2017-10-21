@@ -84,14 +84,11 @@ public class ForumService {
     public ResponseEntity<?> createThread(Thread thread, String slug) {
         ThreadDTO resultThreadDTO = null;
         Thread resultThread = null;
-        Boolean has_slug = null;
+        Boolean has_slug = false;
         if(thread.getSlug() != null) {
             has_slug = true;
             slug = thread.getSlug();
         }
-
-        String sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
-                " VALUES (?::citext, ?, ?, ?, ?, ?) RETURNING *;";
 
         Integer user_id = null;
         User user = null;
@@ -101,7 +98,7 @@ public class ForumService {
             user = userRepository.get_by_nickname(thread.getAuthor());
             user_id = user.getUser_id();
 
-            forum = forumRepository.get_by_slug(slug);
+            forum = forumRepository.get_by_slug(thread.getForum());
             forum_id = forum.getForum_id();
         }
         catch(Exception ex) {
@@ -111,35 +108,30 @@ public class ForumService {
         }
 
         try {
-            Object[] args = new Object[]{slug, forum_id, user_id, thread.getCreated(),
-                    thread.getMessage(), thread.getTitle()};
-
-            resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            resultThread = threadConverter.getModel(resultThreadDTO);
-            if(has_slug == null) {
-                resultThread.setSlug(null);
+            Object[] args = null;
+            if(thread.getCreated() != null) {
+                String sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
+                        " VALUES (?::citext, ?, ?, ?, ?, ?) RETURNING *;";
+                args = new Object[]{slug, forum_id, user_id, thread.getCreated(),
+                        thread.getMessage(), thread.getTitle()};
+                resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+            }
+            else {
+                String sql = "INSERT INTO threads (slug, forum_id, user_id, message, title)" +
+                        " VALUES (?::citext, ?, ?, ?, ?) RETURNING *;";
+                args = new Object[]{slug, forum_id, user_id,
+                        thread.getMessage(), thread.getTitle()};
+                resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
             }
 
-            return new ResponseEntity<>(resultThread, HttpStatus.CREATED);
-        }
-        catch (DuplicateKeyException ex) {
-//            System.out.println("[ForumService.DuplicateKeyException] " + ex);
-//            sql = "SELECT * FROM forums WHERE user_id = ?;";
-//            Object[] args = new Object[]{user_id};
-//
-//            ForumDTO existsForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
-//            resultForum = forumConverter.getModel(existsForumDTO);
-//            return new ResponseEntity<>(resultForum, HttpStatus.CONFLICT);
+            resultThread = threadConverter.getModel(resultThreadDTO);
+            return new ResponseEntity<>(resultThread.getJson(has_slug).toString(), HttpStatus.CREATED);
         }
         catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
             Message message = new Message("Can't 42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-
-
-
-        return null;
     }
 
     public ResponseEntity<?> getDetails(String slug) {
