@@ -1,37 +1,28 @@
-package db.forum.model;
+package db.forum.DTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-public class User {
-    @JsonIgnore
+public class UserDTO {
     private Integer user_id;
 
     private String about;
     private String email;
     private String fullname;
     private String nickname;
-    boolean is_loaded;
 
-    public User() {
-        is_loaded = false;
-    }
+    public UserDTO() {}
 
-    public User(Integer user_id, String about, String email, String fullname, String nickname) {
+    public UserDTO(Integer user_id, String nickname, String email, String about, String fullname) {
         this.user_id = user_id;
         this.about = about;
         this.email = email;
         this.fullname = fullname;
         this.nickname = nickname;
-        is_loaded = true;
     }
 
-    public void fill(Integer user_id, String about, String email, String fullname, String nickname) {
-        this.user_id = user_id;
-        this.about = about;
-        this.email = email;
-        this.fullname = fullname;
+    public UserDTO(String nickname, String email, String about, String fullname) {
         this.nickname = nickname;
-        is_loaded = true;
+        this.email = email;
+        this.about = about;
+        this.fullname = fullname;
     }
 
     public Integer getUser_id() { return user_id; }
