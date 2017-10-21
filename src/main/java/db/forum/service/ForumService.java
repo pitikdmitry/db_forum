@@ -36,15 +36,16 @@ public class ForumService {
         String sql = "INSERT INTO forums (slug, user_id, title) VALUES (?, ?, ?)" +
                 " RETURNING *;";
 
-        User user = userRepository.get_by_nickname(forum.getUser());
 
         Integer user_id = null;
+        User user = null;
         try {
+            user = userRepository.get_by_nickname(forum.getUser());
             user_id = user.getUser_id();
         }
         catch(Exception ex) {
             System.out.println("[ForumService] User not found!");
-            Message message = new Message("Can't find user with id #42");
+            Message message = new Message("Can't find user with nickname: " + forum.getUser());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
@@ -67,16 +68,33 @@ public class ForumService {
         }
         catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
+            Message message = new Message("Can't find user with nickname: " + forum.getUser());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
     public Thread createThread(Thread thread, String slug) {
         return null;
     }
 
-    public Forum getDetails(String slug) {
-        return null;
+    public ResponseEntity<?> getDetails(String slug) {
+        ForumDTO resultForumDTO = null;
+        Forum resultForum = null;
+        String sql = "SELECT * FROM forums WHERE slug = ?::citext;";
+
+        try {
+            Object[] args = new Object[]{slug};
+
+            resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
+            resultForum = forumConverter.getModel(resultForumDTO);
+
+            return new ResponseEntity<>(resultForum, HttpStatus.OK);
+        }
+        catch (Exception ex) {
+            System.out.println("[ForumService] get details exc: " + ex);
+            Message message = new Message("Error updateByAboutAndFullname: ");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 
     public String getThreads(String slug, Integer limit, String since, Boolean desc) {

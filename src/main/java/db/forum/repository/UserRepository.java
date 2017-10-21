@@ -36,7 +36,7 @@ public class UserRepository {
     public User get_by_nickname(String nickname) {
         UserDTO resultUserDTO = null;
         User resultUser = null;
-        String sql = "SELECT * FROM users WHERE nickname = ?;";
+        String sql = "SELECT * FROM users WHERE nickname = ?::citext;";
         try {
             Object[] args = new Object[]{nickname};
             resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());

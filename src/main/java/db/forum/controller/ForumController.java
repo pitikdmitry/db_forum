@@ -23,7 +23,7 @@ public class ForumController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> createForum(@RequestBody Forum forum) {
+    public ResponseEntity<?> create(@RequestBody Forum forum) {
 
         return forumService.create(forum);
     }
@@ -38,11 +38,10 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/{slug}/details", method = RequestMethod.GET,
-            consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Forum> getDetails(@PathVariable(name = "slug") String slug) {
-        final Forum resultForum = forumService.getDetails(slug);
+                    produces = "application/json")
+    public ResponseEntity<?> getDetails(@PathVariable(name = "slug") String slug) {
 
-        return new ResponseEntity<>(resultForum, HttpStatus.OK);
+        return forumService.getDetails(slug);
     }
 
     @RequestMapping(value = "/{slug}/threads", method = RequestMethod.GET,
