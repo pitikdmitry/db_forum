@@ -4,10 +4,8 @@ import db.forum.Converter.ForumConverter;
 import db.forum.Converter.ThreadConverter;
 import db.forum.DTO.ForumDTO;
 import db.forum.DTO.ThreadDTO;
-import db.forum.DTO.UserDTO;
 import db.forum.Mappers.ForumDTOMapper;
 import db.forum.Mappers.ThreadDTOMapper;
-import db.forum.Mappers.UserDTOMapper;
 import db.forum.model.Forum;
 import db.forum.model.Message;
 import db.forum.model.Thread;
@@ -20,11 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import java.time.OffsetDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -102,7 +95,6 @@ public class ForumService {
         User user = null;
         Forum forum = null;
         Integer forum_id = null;
-//        Date date = new Date(thread.getCreated());
         try {
             user = userRepository.get_by_nickname(thread.getAuthor());
             user_id = user.getUser_id();
