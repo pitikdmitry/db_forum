@@ -4,8 +4,10 @@ import db.forum.Converter.ForumConverter;
 import db.forum.Converter.ThreadConverter;
 import db.forum.DTO.ForumDTO;
 import db.forum.DTO.ThreadDTO;
+import db.forum.DTO.UserDTO;
 import db.forum.Mappers.ForumDTOMapper;
 import db.forum.Mappers.ThreadDTOMapper;
+import db.forum.Mappers.UserDTOMapper;
 import db.forum.model.Forum;
 import db.forum.model.Message;
 import db.forum.model.Thread;
@@ -18,6 +20,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 @Service
 public class ForumService {
@@ -154,8 +162,48 @@ public class ForumService {
         }
     }
 
-    public String getThreads(String slug, Integer limit, String since, Boolean desc) {
-        return null;
+    public ResponseEntity<?> getThreads(String slug, Integer limit, String since, Boolean desc) {
+        Forum forum = null;
+        Integer forum_id = null;
+        try {
+            forum = forumRepository.get_by_slug(slug);
+            forum_id = forum.getForum_id();
+        }
+        catch(Exception ex) {
+            System.out.println("[ForumService] getThreads exc: " + ex);
+            Message message = new Message("Can't find forum by slug: " + slug);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+        String sql = null;
+        Object[] args = null;
+        if((limit == null) && (since == null) && (desc == null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC;";
+            args = new Object[]{forum_id};
+        }
+        else if((since == null) && (desc == null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC  LIMIT ?;";
+            args = new Object[]{forum_id, limit};
+        }else if((limit == null) && (desc == null)) {
+//            sql = "SELECT * FROM threads WHERE forum_id = ?;";
+//            args = new Object[]{forum_id, limit};
+        }
+        else if((limit == null) && (since == null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC;";
+            args = new Object[]{forum_id};
+        }
+        else if(since == null) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC LIMIT ?;";
+            args = new Object[]{forum_id, limit};
+        }
+        else if(limit == null) {
+
+        }
+        else if(desc == null) {
+
+        }
+        List<ThreadDTO> threadsDTO = jdbcTemplate.query(sql, args, new ThreadDTOMapper());
+        List<Thread> threads = threadConverter.getModelList(threadsDTO);
+        return new ResponseEntity<>(threads, HttpStatus.OK);
     }
 
     public String getUsers(String slug, Integer limit, String since, Boolean desc) {

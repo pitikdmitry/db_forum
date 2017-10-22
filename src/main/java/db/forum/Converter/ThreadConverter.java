@@ -2,6 +2,7 @@ package db.forum.Converter;
 
 import db.forum.DTO.ForumDTO;
 import db.forum.DTO.ThreadDTO;
+import db.forum.DTO.UserDTO;
 import db.forum.model.Forum;
 import db.forum.model.User;
 import db.forum.model.Thread;
@@ -10,7 +11,9 @@ import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ThreadConverter {
     JdbcTemplate jdbcTemplate;
@@ -44,6 +47,16 @@ public class ThreadConverter {
 
         thread.fill(thread_id, nickname, created, forumSlug, message, slug, title, 0);
         return thread;
+    }
+
+    public List<Thread> getModelList(List<ThreadDTO> threadDTOs) {
+        List<Thread> threads = new ArrayList<>();
+
+        for(ThreadDTO dto : threadDTOs) {
+            Thread thread = getModel(dto);
+            threads.add(thread);
+        }
+        return threads;
     }
 
 }

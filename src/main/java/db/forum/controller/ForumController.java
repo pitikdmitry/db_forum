@@ -44,14 +44,12 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/{slug}/threads", method = RequestMethod.GET,
-            consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> getThreads(@PathVariable(name = "slug") String slug,
+            produces = "application/json")
+    public ResponseEntity<?> getThreads(@PathVariable(name = "slug") String slug,
                                             @RequestParam(value = "limit", required = false) Integer limit,
                                             @RequestParam(value = "since", required = false) String since,
                                             @RequestParam(value = "desc", required = false) Boolean desc) {
-        final String forumThreads = forumService.getThreads(slug, limit, since, desc);
-
-        return new ResponseEntity<>(forumThreads, HttpStatus.OK);
+        return forumService.getThreads(slug, limit, since, desc);
     }
 
     @RequestMapping(value = "/{slug}/users", method = RequestMethod.GET,
