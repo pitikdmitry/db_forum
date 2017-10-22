@@ -29,16 +29,9 @@ public class ThreadController {
 
     @RequestMapping(value = "/{slug_or_id}/create", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> createPost(@PathVariable(name = "slug_or_id") String slug_or_id,
-                                            @RequestBody ArrayList<Post> posts,
-                                            HttpSession session) {
-        final String createdPosts = threadService.createPosts(slug_or_id, posts);
-        if (createdPosts == null) {
-            this.logger.error("[createPost] createdPosts == null");
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-        return new ResponseEntity<>(createdPosts, HttpStatus.OK);
+    public ResponseEntity<?> createPost(@PathVariable(name = "slug_or_id") String slug_or_id,
+                                            @RequestBody ArrayList<Post> posts) {
+        return threadService.createPosts(slug_or_id, posts);
     }
 
 }

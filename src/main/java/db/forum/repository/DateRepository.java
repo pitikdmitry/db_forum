@@ -1,10 +1,18 @@
 package db.forum.repository;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateRepository {
+
+    public String getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = new Date();
+        String resDate = dateFormat.format(date);
+        return resDate;
+    }
 
     public String changeDateFormat(String str) {
 //        System.out.println("LENGTHHHH: " + str.length());

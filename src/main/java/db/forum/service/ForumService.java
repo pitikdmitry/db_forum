@@ -11,6 +11,7 @@ import db.forum.model.Message;
 import db.forum.model.Thread;
 import db.forum.model.User;
 import db.forum.repository.ForumRepository;
+import db.forum.repository.ThreadRepository;
 import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -26,6 +27,7 @@ public class ForumService {
     private final JdbcTemplate jdbcTemplate;
     private final UserRepository userRepository;
     private final ForumRepository forumRepository;
+    private final ThreadRepository threadRepository;
     private final ForumConverter forumConverter;
     private final ThreadConverter threadConverter;
 
@@ -33,10 +35,11 @@ public class ForumService {
     @Autowired
     public ForumService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        userRepository = new UserRepository(jdbcTemplate);
-        forumRepository = new ForumRepository(jdbcTemplate);
-        forumConverter = new ForumConverter(jdbcTemplate);
-        threadConverter = new ThreadConverter(jdbcTemplate);
+        this.userRepository = new UserRepository(jdbcTemplate);
+        this.forumRepository = new ForumRepository(jdbcTemplate);
+        this.forumConverter = new ForumConverter(jdbcTemplate);
+        this.threadConverter = new ThreadConverter(jdbcTemplate);
+        this.threadRepository = new ThreadRepository(jdbcTemplate);
     }
 
     public ResponseEntity<?> create(Forum forum) {
@@ -95,6 +98,7 @@ public class ForumService {
         User user = null;
         Forum forum = null;
         Integer forum_id = null;
+        Integer thread_id = null;
         try {
             user = userRepository.get_by_nickname(thread.getAuthor());
             user_id = user.getUser_id();
@@ -103,9 +107,23 @@ public class ForumService {
             forum_id = forum.getForum_id();
         }
         catch(Exception ex) {
-            System.out.println("[ForumService] createThread User not found!");
-            Message message = new Message("Can't find user with nickname: " + thread.getAuthor());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            if(user == null) {
+                Message message = new Message("Can't find user with nickname: " + thread.getAuthor());
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            }
+            if(forum == null) {
+                System.out.println("[ForumService] createThread forum is null, trying to find forum!");
+                try {
+                    Thread threadTemp = threadRepository.get_by_slug(slug);
+                    thread_id = threadTemp.getId();
+                    forum_id = threadRepository.get_forum_id_by_thread_id(thread_id);
+                    forum = forumRepository.get_by_id(forum_id);
+                }
+                catch(Exception e) {
+                    Message message = new Message("Can't find forum with forum_id: " + forum_id);
+                    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+                }
+            }
         }
 
         try {
@@ -127,6 +145,19 @@ public class ForumService {
 
             resultThread = threadConverter.getModel(resultThreadDTO);
             return new ResponseEntity<>(resultThread.getJson(has_slug).toString(), HttpStatus.CREATED);
+        }
+        catch (DuplicateKeyException dub) {
+            System.out.println("[Dublicate thread exception]: " + dub);
+            String sql = "SELECT * FROM threads WHERE thread_id = ?;";
+            if(thread_id == null) {
+                Thread threadTemp = threadRepository.get_by_slug(slug);
+                thread_id = threadTemp.getId();
+            }
+            Object[] args = new Object[]{thread_id};
+            resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+            resultThread = threadConverter.getModel(resultThreadDTO);
+            return new ResponseEntity<>(resultThread.getJson(has_slug).toString(), HttpStatus.CONFLICT);
+
         }
         catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);

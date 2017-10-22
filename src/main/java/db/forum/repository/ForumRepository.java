@@ -16,22 +16,6 @@ public class ForumRepository {
         this.jdbcTemplate = jdbcTemplate;
         this.forumConverter = new ForumConverter(jdbcTemplate);
     }
-//
-//    public Forum get_by_user_id(int user_id) {
-//        ForumDTO resultForumDTO = null;
-//        Forum resultForum = null;
-//        String sql = "SELECT * FROM forums WHERE user_id = ?;";
-//        try {
-//            Object[] args = new Object[]{user_id};
-//            resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
-//            resultForum = forumConverter.getModel(resultForumDTO);
-//            return resultForum;
-//        }
-//        catch (Exception ex) {
-//            System.out.println("[ForumRepository.get_by_user_id] exc: " + ex);
-//            return null;
-//        }
-//    }
 
     public Forum get_by_id(int forum_id) {
         ForumDTO resultForumDTO = null;
