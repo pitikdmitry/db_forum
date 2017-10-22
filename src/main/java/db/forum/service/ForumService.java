@@ -102,6 +102,7 @@ public class ForumService {
         User user = null;
         Forum forum = null;
         Integer forum_id = null;
+//        Date date = new Date(thread.getCreated());
         try {
             user = userRepository.get_by_nickname(thread.getAuthor());
             user_id = user.getUser_id();
@@ -119,7 +120,7 @@ public class ForumService {
             Object[] args = null;
             if(thread.getCreated() != null) {
                 String sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
-                        " VALUES (?::citext, ?, ?, ?, ?, ?) RETURNING *;";
+                        " VALUES (?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
                 args = new Object[]{slug, forum_id, user_id, thread.getCreated(),
                         thread.getMessage(), thread.getTitle()};
                 resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
@@ -181,25 +182,51 @@ public class ForumService {
             args = new Object[]{forum_id};
         }
         else if((since == null) && (desc == null)) {
-            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC  LIMIT ?;";
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC LIMIT ?;";
             args = new Object[]{forum_id, limit};
         }else if((limit == null) && (desc == null)) {
-//            sql = "SELECT * FROM threads WHERE forum_id = ?;";
-//            args = new Object[]{forum_id, limit};
+            sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC;";
+            args = new Object[]{forum_id, since};
         }
         else if((limit == null) && (since == null)) {
-            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC;";
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC;";
+            }
+            else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC;";
+            }
             args = new Object[]{forum_id};
         }
         else if(since == null) {
-            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC LIMIT ?;";
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC LIMIT ?;";
+            }
+            else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC LIMIT ?;";
+            }
             args = new Object[]{forum_id, limit};
         }
         else if(limit == null) {
-
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created <= ?::timestamptz ORDER BY created DESC;";
+            }
+            else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC;";
+            }
+            args = new Object[]{forum_id, since};
         }
         else if(desc == null) {
-
+            sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
+            args = new Object[]{forum_id, since, limit};
+        }
+        else {
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created <= ?::timestamptz ORDER BY created DESC LIMIT ?;";
+            }
+            else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
+            }
+            args = new Object[]{forum_id, since, limit};
         }
         List<ThreadDTO> threadsDTO = jdbcTemplate.query(sql, args, new ThreadDTOMapper());
         List<Thread> threads = threadConverter.getModelList(threadsDTO);
