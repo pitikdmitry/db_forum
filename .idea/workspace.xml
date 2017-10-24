@@ -2,30 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6a08b1f-fd72-460b-985a-36cd5facf69c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/VoteRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.keystream" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.keystream" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.keystream.len" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.keystream.len" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.len" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.len" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.values.at" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata.values.at" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata_i" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_metadata_/metadata_i" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_src_/database/forum_user/schema/public.zip" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf/_src_/database/forum_user/schema/public.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/Converter/ThreadConverter.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/Converter/ThreadConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/DTO/ThreadDTO.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/DTO/ThreadDTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/Mappers/ThreadDTOMapper.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/Mappers/ThreadDTOMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/controller/ThreadController.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/controller/ThreadController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/repository/ThreadRepository.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/repository/ThreadRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/repository/UserRepository.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/repository/UserRepository.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/service/ThreadService.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/service/ThreadService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/55f90f68-0f65-4efb-9b37-e1590954cfcf.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/postgres/tables/threads.psql" afterPath="$PROJECT_DIR$/database/postgres/tables/threads.psql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/Converter/ThreadConverter.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/Converter/ThreadConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/DTO/ThreadDTO.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/DTO/ThreadDTO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/Mappers/ThreadDTOMapper.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/Mappers/ThreadDTOMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/postgres/constraints/vote.psql" afterPath="$PROJECT_DIR$/database/postgres/constraints/vote.psql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -79,34 +60,26 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="ThreadService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="143" column="17" lean-forward="true" selection-start-line="143" selection-start-column="17" selection-end-line="143" selection-end-column="17" />
+            <state relative-caret-position="201">
+              <caret line="195" column="16" lean-forward="true" selection-start-line="195" selection-start-column="16" selection-end-line="195" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1508829780160" expanded="true" signature="2475:2638" ph="INSERT INTO posts... " />
-                <marker date="1508829780160" expanded="true" signature="5584:5644" ph="UPDATE vote " />
-                <marker date="1508829780160" expanded="true" signature="6028:6106" ph="INSERT INTO vote... " />
+                <marker date="1508864621649" expanded="true" signature="2475:2638" ph="INSERT INTO posts... " />
+                <marker date="1508864621649" expanded="true" signature="5674:5734" ph="UPDATE vote " />
+                <marker date="1508864621649" expanded="true" signature="6108:6186" ph="INSERT INTO vote... " />
+                <marker date="1508864621649" expanded="true" signature="7469:7547" ph="INSERT INTO vote... " />
+                <marker date="1508864621649" expanded="true" signature="8435:8495" ph="UPDATE vote " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThreadController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="threads" pinned="false" current-in-tab="false">
-        <entry file="das://table:/cf5edb37/55f90f68-0f65-4efb-9b37-e1590954cfcf/forum_user.public.threads">
+      <file leaf-file-name="vote" pinned="false" current-in-tab="false">
+        <entry file="das://table:/cf5edb37/55f90f68-0f65-4efb-9b37-e1590954cfcf/forum_user.public.vote">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -114,11 +87,71 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ThreadController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="posts.psql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/postgres/tables/posts.psql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreadRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="559">
+              <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+              <folding>
+                <marker date="1508862812248" expanded="true" signature="1424:1465" ph="SELECT * FRO... threads" />
+                <marker date="1508862812248" expanded="true" signature="2035:2079" ph="SELECT * FRO... threads" />
+                <marker date="1508862812248" expanded="true" signature="2782:2823" ph="SELECT * FRO... threads" />
+                <marker date="1508862812248" expanded="true" signature="2923:2967" ph="SELECT * FRO... threads" />
+                <marker date="1508862812248" expanded="true" signature="3519:3553" ph="SELECT forum... threads" />
+                <marker date="1508862812248" expanded="true" signature="3519:3554" ph="SELECT * FRO... threads" />
+                <marker date="1508862812248" expanded="true" signature="3519:3567" ph="SELECT forum... threads" />
+                <marker date="1508862812248" expanded="true" signature="4230:4290" ph="UPDATE threa... " />
+                <marker date="1508862812248" expanded="true" signature="5173:5227" ph="SELECT * FRO... vote" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="threads.psql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/postgres/tables/threads.psql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="2" lean-forward="true" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreadConverter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Converter/ThreadConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="427">
+              <caret line="50" column="56" lean-forward="true" selection-start-line="50" selection-start-column="56" selection-end-line="50" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="vote.psql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/postgres/tables/vote.psql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="11" />
+            <state relative-caret-position="57">
+              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -151,6 +184,7 @@
       <find>516</find>
       <find>fw85</find>
       <find>751</find>
+      <find>quicquam</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -164,7 +198,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/database/postgres/tables/forums.psql" />
         <option value="$PROJECT_DIR$/Dockerfile2" />
         <option value="$PROJECT_DIR$/runner/.env" />
         <option value="$PROJECT_DIR$/database/loader/Dockerfile" />
@@ -213,6 +246,7 @@
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/database/postgres/tables/posts.psql" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/VoteRepository.java" />
+        <option value="$PROJECT_DIR$/database/postgres/constraints/vote.psql" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
       </list>
@@ -258,7 +292,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="width" value="1590" />
     <option name="height" value="867" />
   </component>
@@ -278,22 +312,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
+      <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
-              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
-              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
-              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
-              <item name="db.forum" type="1f31426a:PackageElementNode" />
+              <item name="DataBaseProject" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DataBaseProject" type="1039202d:NonAndroidModuleNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches">
         <subPane>
           <expand>
@@ -310,7 +340,22 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
+              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
+              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
+              <item name="db.forum" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -328,6 +373,13 @@
               <item name="db_forum" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
               <item name="postgres" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="postgres" type="462c0819:PsiDirectoryNode" />
+              <item name="constraints" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
@@ -447,17 +499,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="DataBaseProject" type="1abcf292:AndroidViewProjectNode" />
-              <item name="DataBaseProject" type="1039202d:NonAndroidModuleNode" />
             </path>
           </expand>
           <select />
@@ -620,11 +661,15 @@
       <workItem from="1508670618184" duration="20231000" />
       <workItem from="1508743283132" duration="1267000" />
       <workItem from="1508776355503" duration="11212000" />
+      <workItem from="1508854856857" duration="4329000" />
+      <workItem from="1508861328718" duration="41000" />
+      <workItem from="1508861441084" duration="23000" />
+      <workItem from="1508861716390" duration="2908000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122299000" />
+    <option name="totallyTimeSpent" value="129600000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -636,7 +681,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1590" height="867" extended-state="1" />
+    <frame x="0" y="-1" width="1600" height="870" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36852333" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -646,22 +691,22 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1904145" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1891892" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28830084" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5284327" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3259053" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4178273" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41747573" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1553398" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21437824" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21750322" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32966322" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -692,12 +737,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java</url>
-          <line>133</line>
+          <line>178</line>
           <properties />
-          <option name="timeStamp" value="66" />
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="67" />
+      <option name="time" value="74" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
@@ -706,22 +751,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-108">
-          <caret line="65" column="21" lean-forward="false" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort.psql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -733,7 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,9 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="75" column="22" lean-forward="false" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -814,7 +839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -822,9 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="19" column="57" lean-forward="false" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -840,7 +861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -848,7 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="43" column="78" lean-forward="false" selection-start-line="43" selection-start-column="78" selection-end-line="43" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +885,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -892,9 +910,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -902,13 +917,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.10.RELEASE/spring-web-4.3.10.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -944,7 +952,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1045">
           <caret line="55" column="29" lean-forward="false" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -952,7 +959,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -968,7 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="29" column="27" lean-forward="false" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -976,7 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="141">
           <caret line="36" column="18" lean-forward="false" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -984,7 +988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="35" column="34" lean-forward="false" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -992,7 +995,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="25" column="82" lean-forward="false" selection-start-line="25" selection-start-column="82" selection-end-line="25" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1000,7 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1008,17 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="798">
           <caret line="42" column="63" lean-forward="false" selection-start-line="42" selection-start-column="63" selection-end-line="42" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Converter/ThreadConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="50" column="56" lean-forward="true" selection-start-line="50" selection-start-column="56" selection-end-line="50" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1062,9 +1052,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Mappers/ThreadDTOMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/cf5edb37/55f90f68-0f65-4efb-9b37-e1590954cfcf/forum_user.public.users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/postgres/constraints/vote.psql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Converter/ThreadConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="50" column="56" lean-forward="true" selection-start-line="50" selection-start-column="56" selection-end-line="50" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/postgres/constraints/threads.psql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1076,10 +1100,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://table:/cf5edb37/55f90f68-0f65-4efb-9b37-e1590954cfcf/forum_user.public.vote">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/VoteRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="59" column="5" lean-forward="false" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+          <folding>
+            <marker date="1508826063556" expanded="true" signature="1009:1045" ph="SELECT * FRO... vote" />
+            <marker date="1508826063556" expanded="true" signature="1720:1756" ph="SELECT vote_... vote" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/postgres/tables/vote.psql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.10.RELEASE/spring-web-4.3.10.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1091,23 +1135,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/VoteRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="59" column="5" lean-forward="false" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+        <state relative-caret-position="559">
+          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1508826063556" expanded="true" signature="1009:1045" ph="SELECT * FRO... vote" />
-            <marker date="1508826063556" expanded="true" signature="1720:1756" ph="SELECT vote_... vote" />
+            <marker date="1508862812248" expanded="true" signature="1424:1465" ph="SELECT * FRO... threads" />
+            <marker date="1508862812248" expanded="true" signature="2035:2079" ph="SELECT * FRO... threads" />
+            <marker date="1508862812248" expanded="true" signature="2782:2823" ph="SELECT * FRO... threads" />
+            <marker date="1508862812248" expanded="true" signature="2923:2967" ph="SELECT * FRO... threads" />
+            <marker date="1508862812248" expanded="true" signature="3519:3553" ph="SELECT forum... threads" />
+            <marker date="1508862812248" expanded="true" signature="3519:3554" ph="SELECT * FRO... threads" />
+            <marker date="1508862812248" expanded="true" signature="3519:3567" ph="SELECT forum... threads" />
+            <marker date="1508862812248" expanded="true" signature="4230:4290" ph="UPDATE threa... " />
+            <marker date="1508862812248" expanded="true" signature="5173:5227" ph="SELECT * FRO... vote" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Mappers/ThreadDTOMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1118,56 +1160,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://table:/cf5edb37/55f90f68-0f65-4efb-9b37-e1590954cfcf/forum_user.public.users">
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/cf5edb37/55f90f68-0f65-4efb-9b37-e1590954cfcf/forum_user.public.vote">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/postgres/tables/vote.psql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="131" column="16" lean-forward="false" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="16" />
-          <folding>
-            <marker date="1508829244250" expanded="true" signature="1424:1465" ph="SELECT * FRO... threads" />
-            <marker date="1508829244250" expanded="true" signature="2035:2079" ph="SELECT * FRO... threads" />
-            <marker date="1508829244250" expanded="true" signature="2782:2823" ph="SELECT * FRO... threads" />
-            <marker date="1508829244250" expanded="true" signature="2923:2967" ph="SELECT * FRO... threads" />
-            <marker date="1508829244250" expanded="true" signature="3519:3553" ph="SELECT forum... threads" />
-            <marker date="1508829244250" expanded="true" signature="3519:3554" ph="SELECT * FRO... threads" />
-            <marker date="1508829244250" expanded="true" signature="3519:3567" ph="SELECT forum... threads" />
-            <marker date="1508829244250" expanded="true" signature="4312:4372" ph="UPDATE threa... " />
-            <marker date="1508829244250" expanded="true" signature="5184:5238" ph="SELECT * FRO... vote" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="143" column="17" lean-forward="true" selection-start-line="143" selection-start-column="17" selection-end-line="143" selection-end-column="17" />
+        <state relative-caret-position="201">
+          <caret line="195" column="16" lean-forward="true" selection-start-line="195" selection-start-column="16" selection-end-line="195" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1508829780160" expanded="true" signature="2475:2638" ph="INSERT INTO posts... " />
-            <marker date="1508829780160" expanded="true" signature="5584:5644" ph="UPDATE vote " />
-            <marker date="1508829780160" expanded="true" signature="6028:6106" ph="INSERT INTO vote... " />
+            <marker date="1508864621649" expanded="true" signature="2475:2638" ph="INSERT INTO posts... " />
+            <marker date="1508864621649" expanded="true" signature="5674:5734" ph="UPDATE vote " />
+            <marker date="1508864621649" expanded="true" signature="6108:6186" ph="INSERT INTO vote... " />
+            <marker date="1508864621649" expanded="true" signature="7469:7547" ph="INSERT INTO vote... " />
+            <marker date="1508864621649" expanded="true" signature="8435:8495" ph="UPDATE vote " />
           </folding>
         </state>
       </provider>

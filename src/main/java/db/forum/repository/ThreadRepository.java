@@ -103,11 +103,9 @@ public class ThreadRepository {
         }
     }
 
-    public Thread increment_vote_rating(Thread old_thread, Integer vote_value, Integer thread_id) {
-        Thread oldThread = null;
+    public Thread increment_vote_rating(Thread old_thread, Integer vote_value) {
         String sql = null;
         Object[] args = null;
-        Integer voice = null;
         ThreadDTO resultThreadDTO = null;
         Thread resultThread = null;
 
@@ -115,16 +113,17 @@ public class ThreadRepository {
         try{
             sql = "UPDATE threads SET votes = ? WHERE thread_id = ? RETURNING *;";
             try{
-                args = new Object[]{oldThread.getVotes() + vote_value, thread_id};
+                args = new Object[]{(old_thread.getVotes() + vote_value), old_thread.getId()};
             }
             catch(Exception ex) {
-                args = new Object[]{vote_value, thread_id};
+                args = new Object[]{vote_value, old_thread.getId()};
             }
             resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
             resultThread = threadConverter.getModel(resultThreadDTO);
             return resultThread;
         }
         catch(Exception ex) {
+            System.out.println(("BAF IF HEREE"));
             return null;
         }
     }
