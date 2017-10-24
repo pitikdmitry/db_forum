@@ -204,14 +204,14 @@ public class ForumService {
             sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC;";
             args = new Object[]{forum_id};
         }
-        else if((since == null) && (desc == null)) {
+        else if((since == null) && (desc == null) && (limit != null)) {
             sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC LIMIT ?;";
             args = new Object[]{forum_id, limit};
-        }else if((limit == null) && (desc == null)) {
+        }else if((limit == null) && (desc == null) && (since != null)) {
             sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC;";
             args = new Object[]{forum_id, since};
         }
-        else if((limit == null) && (since == null)) {
+        else if((limit == null) && (since == null) && (desc != null)) {
             if(desc == true) {
                 sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC;";
             }
@@ -220,7 +220,7 @@ public class ForumService {
             }
             args = new Object[]{forum_id};
         }
-        else if(since == null) {
+        else if((since == null) && (desc != null) && (limit != null)) {
             if(desc == true) {
                 sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC LIMIT ?;";
             }
@@ -229,7 +229,7 @@ public class ForumService {
             }
             args = new Object[]{forum_id, limit};
         }
-        else if(limit == null) {
+        else if((limit == null) && (since != null) && (desc != null)) {
             if(desc == true) {
                 sql = "SELECT * FROM threads WHERE forum_id = ? and created <= ?::timestamptz ORDER BY created DESC;";
             }
@@ -238,7 +238,7 @@ public class ForumService {
             }
             args = new Object[]{forum_id, since};
         }
-        else if(desc == null) {
+        else if((desc == null) && (since != null) && (limit != null)) {
             sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
             args = new Object[]{forum_id, since, limit};
         }

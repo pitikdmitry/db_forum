@@ -103,7 +103,7 @@ public class ThreadRepository {
         }
     }
 
-    public Thread increment_vote_rating(Thread old_thread, Integer vote_value) {
+    public Thread increment_vote_rating(Thread old_thread, Integer vote_value, Boolean double_increment) {
         String sql = null;
         Object[] args = null;
         ThreadDTO resultThreadDTO = null;
@@ -113,7 +113,12 @@ public class ThreadRepository {
         try{
             sql = "UPDATE threads SET votes = ? WHERE thread_id = ? RETURNING *;";
             try{
-                args = new Object[]{(old_thread.getVotes() + vote_value), old_thread.getId()};
+                if(double_increment) {
+                    args = new Object[]{(old_thread.getVotes() + 2* vote_value), old_thread.getId()};
+                }
+                else {
+                    args = new Object[]{(old_thread.getVotes() + vote_value), old_thread.getId()};
+                }
             }
             catch(Exception ex) {
                 args = new Object[]{vote_value, old_thread.getId()};

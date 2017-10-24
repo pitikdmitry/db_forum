@@ -184,6 +184,10 @@ public class ThreadService {
              String sql = "INSERT INTO vote (thread_id, user_id, vote_value) VALUES (?, ?, ?) RETURNING *;";
              args = new Object[]{currentThread.getId(), user.getUser_id(), vote.getVoice()};
              resultVoteDTO = jdbcTemplate.queryForObject(sql, args, new VoteDTOMapper());
+
+             resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), false);
+             //в resultThread уже лежит с обновленным рейтингом
+             return new ResponseEntity<>(resultThread, HttpStatus.OK);
          }
          catch(Exception ex) {
              Vote exists_vote = threadRepository.get_exists_vote(vote.getNickname(), slug_or_id);
@@ -200,14 +204,13 @@ public class ThreadService {
                  String sql = "UPDATE vote SET vote_value = ? WHERE vote_id = ? RETURNING *;";
                  args = new Object[]{vote.getVoice(), exists_vote.getVote_id()};
                  resultVoteDTO = jdbcTemplate.queryForObject(sql, args, new VoteDTOMapper());
+
+                 resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), true);
+                 //в resultThread уже лежит с обновленным рейтингом
+                 return new ResponseEntity<>(resultThread, HttpStatus.OK);
              }
-
+             return null;
          }
-
-        resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice());
-        user = userRepository.get_by_nickname(vote.getNickname());
-        //в resultThread уже лежит с обновленным рейтингом
-        return new ResponseEntity<>(resultThread, HttpStatus.OK);
     }
 
 }

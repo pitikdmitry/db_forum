@@ -39,8 +39,13 @@ public class ThreadConverter {
         String nickname = author.getNickname();
 
         String created = threadDTO.getCreated();
-        if(created != null) {
-            created = dateRepository.changeDateFormat(created);
+        try {
+            if (created != null) {
+                created = dateRepository.changeDateFormat(created);
+            }
+        }
+        catch(Exception eee) {
+            System.out.println("BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD");
         }
         Forum forum = forumRepository.get_by_id(threadDTO.getForum_id());
         String forumSlug = forum.getSlug();
@@ -48,18 +53,27 @@ public class ThreadConverter {
         String message = threadDTO.getMessage();
         String slug = threadDTO.getSlug();
         String title = threadDTO.getTitle();
-        Integer votes = threadDTO.getVotes();//ПОКА НЕТУ
-
+        Integer votes = null;
+        try {
+             votes = threadDTO.getVotes();//ПОКА НЕТУ
+        }
+        catch(Exception e) {
+            System.out.println("VOOOOOOOOOOOOOOOOOOTE FUCK");
+        }
         thread.fill(thread_id, nickname, created, forumSlug, message, slug, title, votes);
         return thread;
     }
 
     public List<Thread> getModelList(List<ThreadDTO> threadDTOs) {
         List<Thread> threads = new ArrayList<>();
-
-        for(ThreadDTO dto : threadDTOs) {
-            Thread thread = getModel(dto);
-            threads.add(thread);
+        try{
+            for(ThreadDTO dto : threadDTOs) {
+                Thread thread = getModel(dto);
+                threads.add(thread);
+            }
+        }
+        catch(Exception ex) {
+            System.out.println("JFILSUHDJKNSDKLF");
         }
         return threads;
     }
