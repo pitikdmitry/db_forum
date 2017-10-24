@@ -42,4 +42,11 @@ public class ThreadController {
         return threadService.vote(slug_or_id, vote);
     }
 
+    @RequestMapping(value = "/{slug_or_id}/details", method = RequestMethod.GET,
+            produces = "application/json")
+    public ResponseEntity<?> getDetails(@PathVariable(name = "slug_or_id") String slug_or_id) {
+        return threadService.getDetails(slug_or_id);
+    }
+
+    
 }
