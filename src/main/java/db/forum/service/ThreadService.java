@@ -5,12 +5,11 @@ import db.forum.Converter.PostConverter;
 import db.forum.Converter.ThreadConverter;
 import db.forum.DTO.ForumDTO;
 import db.forum.DTO.PostDTO;
+import db.forum.DTO.VoteDTO;
 import db.forum.Mappers.ForumDTOMapper;
 import db.forum.Mappers.PostDTOMapper;
-import db.forum.model.Forum;
-import db.forum.model.Message;
-import db.forum.model.Post;
-import db.forum.model.User;
+import db.forum.Mappers.VoteDTOMapper;
+import db.forum.model.*;
 import db.forum.model.Thread;
 import db.forum.repository.DateRepository;
 import db.forum.repository.ForumRepository;
@@ -50,7 +49,7 @@ public class ThreadService {
         this.postConverter = new PostConverter(jdbcTemplate);
     }
 
-    public ResponseEntity<?>  createPosts(String slug_or_id, ArrayList<Post> posts) {
+    public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
         ArrayList<Post> resultArr = new ArrayList<>();
         for(Post p : posts) {
             try {
@@ -121,6 +120,52 @@ public class ThreadService {
 //            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         return null;
+    }
+
+
+    public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
+        User user = null;
+        Thread resultThread = null;
+        VoteDTO resultVoteDTO = null;
+        Vote resultVote = null;
+        Object[] args = null;
+        ////////
+        try {
+            resultThread = threadRepository.get_by_slug_or_id(slug_or_id);
+
+            ///ищем vote с таким user_id и thread_id  в таблице vote
+            Vote exists_vote = threadRepository.get_exists_vote(vote.getNickname(), slug_or_id);
+
+            //Если голос есть то меняем значение голоса, проверка на такое же значение была выше
+            if(exists_vote != null){
+                //Если голос такой же как новый то голосование не делаем
+                if((int)exists_vote.getVoice() == (int)vote.getVoice()) {
+//                    return new ResponseEntity<>(resultThread, HttpStatus.OK);
+                }
+
+                String sql = "UPDATE vote SET vote_value = ? WHERE vote_id = ? RETURNING *;";
+                args = new Object[]{vote.getVoice(), exists_vote.getVote_id()};
+                resultVoteDTO = jdbcTemplate.queryForObject(sql, args, new VoteDTOMapper());
+            }
+            else if(exists_vote == null){
+                //Если голоса нет то голосуем
+                user = userRepository.get_by_nickname(vote.getNickname());
+                String sql = "INSERT INTO vote (thread_id, user_id, vote_value) VALUES (?, ?, ?) RETURNING *;";
+                args = new Object[]{resultThread.getId(), user.getUser_id(), vote.getVoice()};
+                resultVoteDTO = jdbcTemplate.queryForObject(sql, args, new VoteDTOMapper());
+            }
+
+//            resultPost = postConverter.getModel(resultPostDTO);
+            //Изменяем общий рейтинг thread
+            resultThread = threadRepository.increment_vote_rating(resultThread, vote.getVoice(), resultThread.getId());
+            user = userRepository.get_by_nickname(vote.getNickname());
+            //в resultThread уже лежит с обновленным рейтингом
+            return new ResponseEntity<>(resultThread, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            System.out.println("[ThreadService.vote: cant get user or result thread" + ex);
+            return null;
+        }
     }
 
 }

@@ -33,6 +33,31 @@ public class UserRepository {
         }
     }
 
+    public User get_by_slug_or_id(String slug_or_id) {
+        UserDTO resultUserDTO = null;
+        User resultUser = null;
+        String sql = null;
+        Object[] args = null;
+        try {
+            Integer user_id = Integer.parseInt(slug_or_id);
+            sql = "SELECT * FROM users WHERE user_id = ?;";
+            args = new Object[]{user_id};
+        }
+        catch(Exception ex) {
+            sql = "SELECT * FROM users WHERE nickname = ?::citext;";
+            args = new Object[]{slug_or_id};
+        }
+        try {
+            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+            resultUser = userConverter.getModel(resultUserDTO);
+            return resultUser;
+        }
+        catch (Exception ex) {
+            System.out.println("[UserConverter.get_by_nickname] exc: " + ex);
+            throw ex;
+        }
+    }
+
     public User get_by_nickname(String nickname) {
         UserDTO resultUserDTO = null;
         User resultUser = null;

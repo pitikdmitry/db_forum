@@ -48,9 +48,9 @@ public class ThreadConverter {
         String message = threadDTO.getMessage();
         String slug = threadDTO.getSlug();
         String title = threadDTO.getTitle();
-        Integer votes = null;//ПОКА НЕТУ
+        Integer votes = threadDTO.getVotes();//ПОКА НЕТУ
 
-        thread.fill(thread_id, nickname, created, forumSlug, message, slug, title, 0);
+        thread.fill(thread_id, nickname, created, forumSlug, message, slug, title, votes);
         return thread;
     }
 

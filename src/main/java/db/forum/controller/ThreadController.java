@@ -2,6 +2,7 @@ package db.forum.controller;
 
 import db.forum.model.Forum;
 import db.forum.model.Post;
+import db.forum.model.Vote;
 import db.forum.service.ForumService;
 import db.forum.service.ThreadService;
 import org.slf4j.Logger;
@@ -32,6 +33,13 @@ public class ThreadController {
     public ResponseEntity<?> createPost(@PathVariable(name = "slug_or_id") String slug_or_id,
                                             @RequestBody ArrayList<Post> posts) {
         return threadService.createPosts(slug_or_id, posts);
+    }
+
+    @RequestMapping(value = "/{slug_or_id}/vote", method = RequestMethod.POST,
+            consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> vote(@PathVariable(name = "slug_or_id") String slug_or_id,
+                                        @RequestBody Vote vote) {
+        return threadService.vote(slug_or_id, vote);
     }
 
 }

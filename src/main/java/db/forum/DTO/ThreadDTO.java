@@ -8,6 +8,7 @@ public class ThreadDTO {
     private String created;
     private String message;
     private String title;
+    private Integer votes;
 
     public ThreadDTO() {}
 
@@ -30,6 +31,7 @@ public class ThreadDTO {
     public String getCreated() { return created; }
     public String getMessage() { return message; }
     public String getTitle() { return title; }
+    public Integer getVotes() { return votes; }
 
     public void setThread_id(Integer thread_id) { this.thread_id = thread_id; }
     public void setSlug(String slug) { this.slug = slug; }
@@ -38,4 +40,5 @@ public class ThreadDTO {
     public void setCreated(String created) { this.created = created; }
     public void setMessage(String message) { this.message = message; }
     public void setTitle(String title) { this.title = title; }
+    public void setVotes(Integer votes) { this.votes = votes; }
 }
