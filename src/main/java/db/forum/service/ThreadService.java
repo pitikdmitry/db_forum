@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,6 +54,7 @@ public class ThreadService {
         this.postRepository = new PostRepository(jdbcTemplate);
     }
 
+    @Transactional
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
         ArrayList<Post> resultArr = new ArrayList<>();
         String created = null;
@@ -70,27 +73,22 @@ public class ThreadService {
 
     }
 
+    @Transactional
     public Post createOnePost(String slug_or_id, Post post, String created) {
         PostDTO resultPostDTO = null;
         Post resultPost = null;
         String sql = "INSERT INTO posts (thread_id, forum_id, user_id, parent_id, " +
-                "message, created, is_edited, m_path) VALUES (?, ?, ?, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
+                "message, created, is_edited) VALUES (?, ?, ?, ?, ?, ?::timestamptz, ?) RETURNING *;";
 
         User user = null;
         Thread thread = null;
         Integer forum_id = null;
         Integer parent_id = null;
-        List<Integer> m_path = null;
         if (post.getParent() == null) {
             parent_id = 0;
         }
         else {
             parent_id = post.getParent();
-            m_path = postRepository.get_m_path(parent_id);
-            if(m_path == null) {
-                m_path = new ArrayList<>();
-            }
-            m_path.add(parent_id);
         }
         if(created == null) {
             created = dateRepository.getCurrentDate();
@@ -111,15 +109,12 @@ public class ThreadService {
             System.out.println("[ThreadService] forum_id not found!");
         }
         try {
-            java.sql.Array arr = null;
-            if(m_path != null) {
-                arr = createSqlArray(m_path);
-            }
             Object[] args = new Object[]{thread.getId(), forum_id, user.getUser_id(), parent_id,
-                    post.getMessage(), created, false, arr};
+                    post.getMessage(), created, false};
 
             resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
-            resultPost = postConverter.getModel(resultPostDTO);
+//            resultPost = postConverter.getModel(resultPostDTO);
+            resultPost = update_m_path(post.getParent(), resultPostDTO.getPost_id());
             return resultPost;
         } catch (Exception ex) {
             System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
@@ -127,15 +122,42 @@ public class ThreadService {
         return null;
     }
 
+    @Transactional
+    private Post update_m_path(Integer parent_id, Integer post_id) {
+        java.sql.Array arr = null;
+        PostDTO resultPostDTO = null;
+        Post resultPost = null;
+        List<Integer> m_path = postRepository.get_m_path(parent_id);
+        if(m_path == null) {
+            m_path = new ArrayList<>();
+        }
+
+        m_path.add(post_id);
+
+        String sql = "UPDATE posts SET m_path = ? WHERE post_id = ? RETURNING *;";
+        if(m_path != null) {
+            arr = createSqlArray(m_path);
+        }
+        Object[] args = new Object[]{arr, post_id};
+        try {
+            resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
+            resultPost = postConverter.getModel(resultPostDTO);
+        } catch(Exception ex) {
+            System.out.println("update_m_path!exc: " + ex);
+        }
+        return resultPost;
+    }
+
     private java.sql.Array createSqlArray(List<Integer> list){
         java.sql.Array intArray = null;
         try {
-            intArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("int", list.toArray());
+            intArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("INT", list.toArray());
         } catch (SQLException ignore) {
         }
         return intArray;
     }
 
+    @Transactional
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
         User user = null;
         Thread resultThread = null;
@@ -190,6 +212,7 @@ public class ThreadService {
         return new ResponseEntity<>(resultThread, HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, String since, String sort, Boolean desc) {
         String sql = null;
         Object[] args = null;
@@ -227,7 +250,12 @@ public class ThreadService {
         }
         else if(limit != null && since == null && sort != null && desc == null) {
             //Тут
-            sql = "SELECT * FROM posts WHERE thread_id = ? ORDER BY created, post_id LIMIT ?;";
+            if(sort.equals("flat")) {
+                sql = "SELECT * FROM posts WHERE thread_id = ? ORDER BY created, post_id LIMIT ?;";
+            }
+            else if(sort.equals("tree")) {
+                sql = "SELECT * FROM posts WHERE thread_id = ? ORDER BY m_path, post_id LIMIT ?;";
+            }
             Integer id = threadRepository.get_id_from_slug_or_id(slug_or_id);
             if(id == null) {
                 args = new Object[]{slug_or_id, limit};
