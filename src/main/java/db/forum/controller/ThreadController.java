@@ -48,5 +48,15 @@ public class ThreadController {
         return threadService.getDetails(slug_or_id);
     }
 
-    
+    @RequestMapping(value = "/{slug_or_id}/posts", method = RequestMethod.GET,
+            produces = "application/json")
+    public ResponseEntity<?> getPosts(@PathVariable(name = "slug_or_id") String slug_or_id,
+                                      @RequestParam(value = "limit", required = false) Integer limit,
+                                      @RequestParam(value = "since", required = false) String since,
+                                      @RequestParam(value = "sort", required = false) String sort,
+                                      @RequestParam(value = "desc", required = false) Boolean desc) {
+        return threadService.getPosts(slug_or_id, limit, since, sort, desc);
+    }
+
+
 }

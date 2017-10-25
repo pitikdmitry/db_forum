@@ -154,5 +154,18 @@ public class ThreadRepository {
         }
 
     }
+
+    public Integer get_id_from_slug_or_id(String slug_or_id) {
+        Integer id = null;
+        try {
+            id = Integer.parseInt(slug_or_id);
+        }
+        catch(Exception ex) {
+            String sql = "SELECT thread_id FROM threads WHERE slug = ?::citext;";
+            Object[] args = new Object[]{slug_or_id};
+            id = jdbcTemplate.queryForObject(sql, args, Integer.class);
+        }
+        return id;
+    }
 }
 

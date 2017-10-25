@@ -1,6 +1,7 @@
 package db.forum.Converter;
 
 import db.forum.DTO.PostDTO;
+import db.forum.DTO.ThreadDTO;
 import db.forum.model.Forum;
 import db.forum.model.Post;
 import db.forum.model.User;
@@ -11,6 +12,9 @@ import db.forum.repository.ThreadRepository;
 import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostConverter {
     JdbcTemplate jdbcTemplate;
@@ -57,5 +61,19 @@ public class PostConverter {
                 message, parent_id, thread_id);
 
         return post;
+    }
+
+    public List<Post> getModelList(List<PostDTO> postDTOs) {
+        List<Post> posts = new ArrayList<>();
+        try{
+            for(PostDTO dto : postDTOs) {
+                Post post = getModel(dto);
+                posts.add(post);
+            }
+        }
+        catch(Exception ex) {
+            System.out.println("JFILSUHDJKNSDKLF");
+        }
+        return posts;
     }
 }

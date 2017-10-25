@@ -5,16 +5,15 @@ import db.forum.Converter.PostConverter;
 import db.forum.Converter.ThreadConverter;
 import db.forum.DTO.ForumDTO;
 import db.forum.DTO.PostDTO;
+import db.forum.DTO.ThreadDTO;
 import db.forum.DTO.VoteDTO;
 import db.forum.Mappers.ForumDTOMapper;
 import db.forum.Mappers.PostDTOMapper;
+import db.forum.Mappers.ThreadDTOMapper;
 import db.forum.Mappers.VoteDTOMapper;
 import db.forum.model.*;
 import db.forum.model.Thread;
-import db.forum.repository.DateRepository;
-import db.forum.repository.ForumRepository;
-import db.forum.repository.ThreadRepository;
-import db.forum.repository.UserRepository;
+import db.forum.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -22,10 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ThreadService {
@@ -37,6 +38,7 @@ public class ThreadService {
     private final ForumConverter forumConverter;
     private final PostConverter postConverter;
     private final DateRepository dateRepository;
+    private final PostRepository postRepository;
 
     @Autowired
     public ThreadService(JdbcTemplate jdbcTemplate) {
@@ -47,6 +49,7 @@ public class ThreadService {
         this.forumConverter = new ForumConverter(jdbcTemplate);
         this.dateRepository = new DateRepository();
         this.postConverter = new PostConverter(jdbcTemplate);
+        this.postRepository = new PostRepository(jdbcTemplate);
     }
 
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
@@ -71,49 +74,66 @@ public class ThreadService {
         PostDTO resultPostDTO = null;
         Post resultPost = null;
         String sql = "INSERT INTO posts (thread_id, forum_id, user_id, parent_id, " +
-                "message, created, is_edited) VALUES (?, ?, ?, ?, ?, ?::timestamptz, ?) RETURNING *;";
+                "message, created, is_edited, m_path) VALUES (?, ?, ?, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
 
         User user = null;
         Thread thread = null;
         Integer forum_id = null;
         Integer parent_id = null;
+        List<Integer> m_path = null;
         if (post.getParent() == null) {
             parent_id = 0;
         }
         else {
             parent_id = post.getParent();
+            m_path = postRepository.get_m_path(parent_id);
+            if(m_path == null) {
+                m_path = new ArrayList<>();
+            }
+            m_path.add(parent_id);
         }
-//        if (post.getCreated() == null) {
-//            created = dateRepository.getCurrentDate();
-//        }
         if(created == null) {
             created = dateRepository.getCurrentDate();
         }
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
-            thread = threadRepository.get_by_slug_or_id(slug_or_id);
-            forum_id = threadRepository.get_forum_id_by_thread_id(thread.getId());
-//            forum =  forumRepository.get_by_thread(thread.getId());
         } catch (Exception ex) {
-            System.out.println("[ThreadService] User or thread not found!");
-            Message message = new Message("createOnePost answer ");
-//            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            System.out.println("[ThreadService] User not found!");
         }
         try {
+            thread = threadRepository.get_by_slug_or_id(slug_or_id);
+        } catch (Exception ex) {
+            System.out.println("[ThreadService] thread not found!");
+        }
+        try {
+            forum_id = threadRepository.get_forum_id_by_thread_id(thread.getId());
+        } catch (Exception ex) {
+            System.out.println("[ThreadService] forum_id not found!");
+        }
+        try {
+            java.sql.Array arr = null;
+            if(m_path != null) {
+                arr = createSqlArray(m_path);
+            }
             Object[] args = new Object[]{thread.getId(), forum_id, user.getUser_id(), parent_id,
-                    post.getMessage(), created, false};
+                    post.getMessage(), created, false, arr};
 
             resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
             resultPost = postConverter.getModel(resultPostDTO);
             return resultPost;
-//            return new ResponseEntity<>(resultPost, HttpStatus.CREATED);
         } catch (Exception ex) {
-            System.out.println("POST NOT CREATED " + ex);
-            Message message = new Message("createOnePost: answer2 ");
-//            return message;
-//            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
         }
         return null;
+    }
+
+    private java.sql.Array createSqlArray(List<Integer> list){
+        java.sql.Array intArray = null;
+        try {
+            intArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("int", list.toArray());
+        } catch (SQLException ignore) {
+        }
+        return intArray;
     }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
@@ -168,5 +188,78 @@ public class ThreadService {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(resultThread, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, String since, String sort, Boolean desc) {
+        String sql = null;
+        Object[] args = null;
+        if(limit == null && since == null && sort == null && desc == null) {
+            sql = "SELECT * FROM posts WHERE thread_id = ?;";
+            Integer id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+            args = new Object[]{id};
+        }////
+        else if(limit == null && since == null && sort == null && desc != null) {
+
+        }
+        else if(limit == null && since == null && desc == null && sort != null) {
+
+        }
+        else if(limit == null && desc == null && sort == null && since != null) {
+
+        }
+        else if(since == null && sort == null && desc == null && limit != null) {
+
+        }/////по две
+        else if(limit == null && since == null && sort != null && desc != null) {
+
+        }
+        else if(limit == null && since != null && sort != null && desc == null) {
+
+        }
+        else if(limit != null && since != null && sort == null && desc == null) {
+
+        }
+        else if(limit != null && since == null && sort == null && desc != null) {
+
+        }
+        else if(limit == null && since != null && sort == null && desc != null) {
+
+        }
+        else if(limit != null && since == null && sort != null && desc == null) {
+            //Тут
+            sql = "SELECT * FROM posts WHERE thread_id = ? ORDER BY created, post_id LIMIT ?;";
+            Integer id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+            if(id == null) {
+                args = new Object[]{slug_or_id, limit};
+            }
+            else {
+                args = new Object[]{id, limit};
+            }
+        }//////4  по одной
+        else if(limit == null && since != null && sort != null && desc != null) {
+
+        }
+        else if(limit != null && since == null && sort != null && desc != null) {
+
+        }
+        else if(limit != null && since != null && sort == null && desc != null) {
+
+        }
+        else if(limit != null && since != null && sort != null && desc == null) {
+
+        }/////////// все not null
+        else if(limit != null && since != null && sort != null && desc != null) {
+
+        }
+        try {
+            List<PostDTO> postDTOs = jdbcTemplate.query(sql, args, new PostDTOMapper());
+            List<Post> posts = postConverter.getModelList(postDTOs);
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            System.out.println("[getPosts]: " + ex);
+
+            return null;
+        }
     }
 }
