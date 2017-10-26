@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserConverter {
-    JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserConverter(JdbcTemplate jdbcTemplate) {
-    }
+    public UserConverter() {}
 
     public User getModel(UserDTO userDTO) {
         User user = new User();

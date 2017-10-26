@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -150,9 +151,19 @@ public class ThreadService {
 
     private java.sql.Array createSqlArray(List<Integer> list){
         java.sql.Array intArray = null;
+        Connection connection = null;
         try {
-            intArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("INT", list.toArray());
+            connection = jdbcTemplate.getDataSource().getConnection();
+            intArray = connection.createArrayOf("INT", list.toArray());
         } catch (SQLException ignore) {
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return intArray;
     }

@@ -1,8 +1,5 @@
 package db.forum.service;
 
-import db.forum.Converter.UserConverter;
-import db.forum.DTO.UserDTO;
-import db.forum.Mappers.UserDTOMapper;
 import db.forum.model.Message;
 import db.forum.model.User;
 import db.forum.repository.UserRepository;
@@ -13,60 +10,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final UserConverter userConverter;
     private final UserRepository userRepository;
-
 
     @Autowired
     public UserService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.userConverter = new UserConverter(jdbcTemplate);
         this.userRepository = new UserRepository(jdbcTemplate);
     }
 
     public ResponseEntity<?> create(User user, String nickname) {
-
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "INSERT INTO users (nickname, email, about, fullname) VALUES (?, ?, ?, ?) RETURNING *;";
-
         try {
-            Object[] args = new Object[]{nickname, user.getEmail(), user.getAbout(), user.getFullname()};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-
-            resultUser = userConverter.getModel(resultUserDTO);
-
-            return new ResponseEntity<>(resultUser, HttpStatus.CREATED);
+            User responseUser = userRepository.create(user, nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.CREATED);
+        } catch (DuplicateKeyException ex) {
+            System.out.println("[UserService.create insert DuplicateKeyException] " + ex);
         }
-        catch (DuplicateKeyException ex) {
-            System.out.println("[UserService.DuplicateKeyException] " + ex);
 
-            sql = "SELECT * FROM users WHERE nickname = ?::citext or email = ?::citext;";
-            Object[] args = new Object[]{nickname, user.getEmail()};
-            List<UserDTO> existsUsersDTO = jdbcTemplate.query(sql, args, new UserDTOMapper());
-
-            List<User> existsUsers = userConverter.getModelList(existsUsersDTO);
-
-            return new ResponseEntity<>(existsUsers, HttpStatus.CONFLICT);
+        try{
+            List<User> responseUsers = userRepository.getByNicknameAndEmail(nickname, user.getEmail());
+            return new ResponseEntity<>(responseUsers, HttpStatus.CONFLICT);
+        } catch(Exception ex) {
+            System.out.println("[UserService.create select exc + ] " + ex);
+            //ignored
         }
+        return null;
     }
 
     public ResponseEntity<?> getProfile(String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-        String sql = "SELECT * FROM users WHERE nickname = ?::citext;";
         try {
-            resultUserDTO = jdbcTemplate.queryForObject(sql, new Object[]{nickname}, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.get_by_nickname(nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
             System.out.println("[Exception in getProfile user]: " + ex);
@@ -83,60 +60,47 @@ public class UserService {
 
     private ResponseEntity<?> checkUpdateParameters(User user, String nickname) {
         if((user.getEmail() == null) && (user.getFullname() == null) && (user.getAbout() == null)) {
-            return updateByEmpty(user, nickname);
+            return updateByEmpty(nickname);
         }
         else if((user.getEmail() == null) && (user.getFullname() == null)) {
-            return updateByAbout(user, nickname);
+            return updateAboutByNickname(user, nickname);
         }
         else if((user.getAbout() == null) && (user.getFullname() == null)) {
-            return updateByEmail(user, nickname);
+            return updateEmailByNickname(user, nickname);
         }
         else if((user.getAbout() == null) && (user.getEmail() == null)) {
-            return updateByFullname(user, nickname);
+            return updateFullnameByNickname(user, nickname);
         }
         else if(user.getAbout() == null) {
-            return updateByEmailAndFullname(user, nickname);
+            return updateEmailAndFullnameByNickname(user, nickname);
         }
         else if(user.getEmail() == null) {
-            return updateByAboutAndFullname(user, nickname);
-
+            return updateAboutAndFullnameByNickname(user, nickname);
         }
         else if(user.getFullname() == null) {
-            return updateByEmailAndAbout(user, nickname);
+            return updateEmailAndAboutByNickname(user, nickname);
         }
         else {
-            return updateByAll(user, nickname);
+            return updateAllByNickname(user, nickname);
         }
     }
 
-    public ResponseEntity<?> updateByEmailAndFullname(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET email = ?::citext, fullname = ? WHERE nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateEmailAndFullnameByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{user.getEmail(), user.getFullname(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateEmailAndFullnameByNickname(user.getEmail(), user.getFullname(), nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in updateByEmail user]: " + ex);
+            System.out.println("[updateEmailAndFullnameByNickname user]: " + ex);
             Message message = new Message("Error update by email and fullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
-    public ResponseEntity<?> updateByAboutAndFullname(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET about = ?, fullname = ? WHERE nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateAboutAndFullnameByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{user.getAbout(), user.getFullname(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateAboutAndFullnameByNickname(user.getAbout(), user.getFullname(), nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
             System.out.println("[Exception in updateByAboutAndFullname user]: " + ex);
@@ -145,68 +109,46 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<?> updateByEmailAndAbout(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET email = ?::citext, about = ? WHERE nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateEmailAndAboutByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{user.getEmail(), user.getAbout(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateEmailAndAboutByNickname(user.getEmail(), user.getAbout(), nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in updateByEmailAndAbout user]: " + ex);
+            System.out.println("[updateByEmailAndAbout user]: " + ex);
             Message message = new Message("Error updateByAboutAndFullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
-    public ResponseEntity<?> updateByEmpty(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
+    private ResponseEntity<?> updateByEmpty(String nickname) {
         try {
-            resultUser = userRepository.get_by_nickname(nickname);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.get_by_nickname(nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in updateEMPTY user]: " + ex);
-            User existsEmailUser = userRepository.get_by_email(user.getEmail());
+            System.out.println("[updateByEmpty user]: " + ex);
             Message message = new Message("Can't find user by nickname: " + nickname);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
-    public ResponseEntity<?> updateByFullname(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET fullname = ? WHERE nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateFullnameByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{user.getFullname(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateFullnameByNickname(user.getFullname(), nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in updateByFullname user]: " + ex);
+            System.out.println("[updateByFullname user]: " + ex);
             Message message = new Message("Error update by fullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
-    public ResponseEntity<?> updateByEmail(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET email = ? WHERE nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateEmailByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{user.getEmail(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateEmailByNickname(user.getEmail(), nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
             System.out.println("[Exception in updateByEmail user]: " + ex);
@@ -216,43 +158,30 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<?> updateByAbout(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET about = ? WHERE nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateAboutByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{user.getAbout(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateAboutByNickname(user.getAbout(), nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in updateAbout user]: " + ex);
+            System.out.println("[updateAboutByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
     }
 
-    public ResponseEntity<?> updateByAll(User user, String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
-
-        String sql = "UPDATE users SET nickname = ?, email = ?, about = ?, fullname = ?" +
-                " WHERE users.nickname = ? RETURNING *;";
+    private ResponseEntity<?> updateAllByNickname(User user, String nickname) {
         try {
-            Object[] args = new Object[]{nickname, user.getEmail(), user.getAbout(), user.getFullname(), nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return new ResponseEntity<>(resultUser, HttpStatus.OK);
+            User responseUser = userRepository.updateAllByNickname(user, nickname);
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         }
         catch (EmptyResultDataAccessException ex) {
-            System.out.println("[Exception in updateByAll user]: " + ex);
+            System.out.println("[updateAllByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in updateByAll user]: " + ex);
+            System.out.println("[updateAllByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }

@@ -6,7 +6,13 @@ import db.forum.model.User;
 import db.forum.Mappers.UserDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Transactional
+@Service
 public class UserRepository {
     private final JdbcTemplate jdbcTemplate;
     private final UserConverter userConverter;
@@ -14,18 +20,15 @@ public class UserRepository {
     @Autowired
     public UserRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.userConverter = new UserConverter(jdbcTemplate);
+        this.userConverter = new UserConverter();
     }
 
     public User get_by_id(int user_id) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
         String sql = "SELECT * FROM users WHERE user_id = ?;";
         try {
             Object[] args = new Object[]{user_id};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return resultUser;
+            UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+            return userConverter.getModel(resultUserDTO);
         }
         catch (Exception ex) {
             System.out.println("[UserConverter.get_by_id] exc: " + ex);
@@ -34,8 +37,6 @@ public class UserRepository {
     }
 
     public User get_by_slug_or_id(String slug_or_id) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
         String sql = null;
         Object[] args = null;
         try {
@@ -48,9 +49,8 @@ public class UserRepository {
             args = new Object[]{slug_or_id};
         }
         try {
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return resultUser;
+            UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+            return userConverter.getModel(resultUserDTO);
         }
         catch (Exception ex) {
             System.out.println("[UserConverter.get_by_nickname] exc: " + ex);
@@ -59,14 +59,11 @@ public class UserRepository {
     }
 
     public User get_by_nickname(String nickname) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
         String sql = "SELECT * FROM users WHERE nickname = ?::citext;";
         try {
             Object[] args = new Object[]{nickname};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return resultUser;
+            UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+            return userConverter.getModel(resultUserDTO);
         }
         catch (Exception ex) {
             System.out.println("[UserConverter.get_by_nickname] exc: " + ex);
@@ -75,18 +72,80 @@ public class UserRepository {
     }
 
     public User get_by_email(String email) {
-        UserDTO resultUserDTO = null;
-        User resultUser = null;
         String sql = "SELECT * FROM users WHERE email = ?::citext;";
         try {
             Object[] args = new Object[]{email};
-            resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
-            resultUser = userConverter.getModel(resultUserDTO);
-            return resultUser;
+            UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+            return userConverter.getModel(resultUserDTO);
         }
         catch (Exception ex) {
             System.out.println("[UserConverter.get_by_email] exc: " + ex);
             return null;
         }
+    }
+
+    public User create(User user, String nickname) {
+        String sql = "INSERT INTO users (nickname, email, about, fullname) VALUES (?, ?, ?, ?) RETURNING *;";
+        Object[] args = new Object[]{nickname, user.getEmail(), user.getAbout(), user.getFullname()};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public List<User> getByNicknameAndEmail(String nickname, String email) {
+        String sql = "SELECT * FROM users WHERE nickname = ?::citext or email = ?::citext;";
+        Object[] args = new Object[]{nickname, email};
+        List<UserDTO> existsUsersDTO = jdbcTemplate.query(sql, args, new UserDTOMapper());
+        return userConverter.getModelList(existsUsersDTO);
+    }
+
+    public User updateFullnameByNickname(String fullname, String nickname) {
+        String sql = "UPDATE users SET fullname = ? WHERE nickname = ? RETURNING *;";
+        Object[] args = new Object[]{fullname, nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public User updateEmailByNickname(String email, String nickname) {
+        String sql = "UPDATE users SET email = ? WHERE nickname = ? RETURNING *;";
+        Object[] args = new Object[]{email, nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public User updateAboutByNickname(String about, String nickname) {
+        String sql = "UPDATE users SET about = ? WHERE nickname = ? RETURNING *;";
+        Object[] args = new Object[]{about, nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public User updateAllByNickname(User user, String nickname) {
+        String sql = "UPDATE users SET nickname = ?, email = ?, about = ?, fullname = ?" +
+                " WHERE users.nickname = ? RETURNING *;";
+
+        Object[] args = new Object[]{nickname, user.getEmail(), user.getAbout(), user.getFullname(), nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public User updateEmailAndFullnameByNickname(String email, String fullname, String nickname) {
+        String sql = "UPDATE users SET email = ?::citext, fullname = ? WHERE nickname = ? RETURNING *;";
+        Object[] args = new Object[]{email, fullname, nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public User updateAboutAndFullnameByNickname(String about, String fullname, String nickname) {
+        String sql = "UPDATE users SET about = ?, fullname = ? WHERE nickname = ? RETURNING *;";
+        Object[] args = new Object[]{about, fullname, nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
+    }
+
+    public User updateEmailAndAboutByNickname(String email, String about, String nickname) {
+        String sql = "UPDATE users SET email = ?::citext, about = ? WHERE nickname = ? RETURNING *;";
+        Object[] args = new Object[]{email, about, nickname};
+        UserDTO resultUserDTO = jdbcTemplate.queryForObject(sql, args, new UserDTOMapper());
+        return userConverter.getModel(resultUserDTO);
     }
 }

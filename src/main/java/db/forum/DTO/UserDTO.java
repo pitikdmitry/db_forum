@@ -2,7 +2,6 @@ package db.forum.DTO;
 
 public class UserDTO {
     private Integer user_id;
-
     private String about;
     private String email;
     private String fullname;

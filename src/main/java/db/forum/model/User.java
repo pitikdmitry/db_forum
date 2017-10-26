@@ -10,11 +10,8 @@ public class User {
     private String email;
     private String fullname;
     private String nickname;
-    boolean is_loaded;
 
-    public User() {
-        is_loaded = false;
-    }
+    public User() {}
 
     public User(Integer user_id, String about, String email, String fullname, String nickname) {
         this.user_id = user_id;
@@ -22,7 +19,6 @@ public class User {
         this.email = email;
         this.fullname = fullname;
         this.nickname = nickname;
-        is_loaded = true;
     }
 
     public void fill(Integer user_id, String about, String email, String fullname, String nickname) {
@@ -31,7 +27,6 @@ public class User {
         this.email = email;
         this.fullname = fullname;
         this.nickname = nickname;
-        is_loaded = true;
     }
 
     public Integer getUser_id() { return user_id; }
