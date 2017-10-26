@@ -31,7 +31,6 @@ public class ForumService {
     private final ForumConverter forumConverter;
     private final ThreadConverter threadConverter;
 
-
     @Autowired
     public ForumService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -43,40 +42,23 @@ public class ForumService {
     }
 
     public ResponseEntity<?> create(Forum forum) {
-        ForumDTO resultForumDTO = null;
-        Forum resultForum = null;
-        String sql = "INSERT INTO forums (slug, user_id, title) VALUES (?, ?, ?)" +
-                " RETURNING *;";
-
-
-        Integer user_id = null;
         User user = null;
         try {
             user = userRepository.get_by_nickname(forum.getUser());
-            user_id = user.getUser_id();
         }
         catch(Exception ex) {
             System.out.println("[ForumService] User not found!");
             Message message = new Message("Can't find user with nickname: " + forum.getUser());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-
         try {
-            Object[] args = new Object[]{forum.getSlug(), user_id, forum.getTitle()};
-
-            resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
-            resultForum = forumConverter.getModel(resultForumDTO);
-
-            return new ResponseEntity<>(resultForum, HttpStatus.CREATED);
+            Forum responseForum = forumRepository.create(user.getUser_id(), forum);
+            return new ResponseEntity<>(responseForum, HttpStatus.CREATED);
         }
         catch (DuplicateKeyException ex) {
             System.out.println("[ForumService.DuplicateKeyException] " + ex);
-            sql = "SELECT * FROM forums WHERE user_id = ?;";
-            Object[] args = new Object[]{user_id};
-
-            ForumDTO existsForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
-            resultForum = forumConverter.getModel(existsForumDTO);
-            return new ResponseEntity<>(resultForum, HttpStatus.CONFLICT);
+            Forum responseForum = forumRepository.getByUserId(user.getUser_id());
+            return new ResponseEntity<>(responseForum, HttpStatus.CONFLICT);
         }
         catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
@@ -86,8 +68,6 @@ public class ForumService {
     }
 
     public ResponseEntity<?> createThread(Thread thread, String slug) {
-        ThreadDTO resultThreadDTO = null;
-        Thread resultThread = null;
         Boolean has_slug = false;
         if(thread.getSlug() != null) {
             has_slug = true;
@@ -101,62 +81,41 @@ public class ForumService {
         Integer thread_id = null;
         try {
             user = userRepository.get_by_nickname(thread.getAuthor());
-            user_id = user.getUser_id();
-
+        }
+        catch (Exception ex) {
+            Message message = new Message("Can't find user with nickname: " + thread.getAuthor());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+        try {
             forum = forumRepository.get_by_slug(thread.getForum());
             forum_id = forum.getForum_id();
         }
         catch(Exception ex) {
-            if(user == null) {
-                Message message = new Message("Can't find user with nickname: " + thread.getAuthor());
-                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            try {
+                Thread threadTemp = threadRepository.get_by_slug(slug);
+                thread_id = threadTemp.getId();
+                forum_id = threadRepository.get_forum_id_by_thread_id(thread_id);
             }
-            if(forum == null) {
-                System.out.println("[ForumService] createThread forum is null, trying to find forum!");
-                try {
-                    Thread threadTemp = threadRepository.get_by_slug(slug);
-                    thread_id = threadTemp.getId();
-                    forum_id = threadRepository.get_forum_id_by_thread_id(thread_id);
-                    forum = forumRepository.get_by_id(forum_id);
-                }
-                catch(Exception e) {
-                    Message message = new Message("Can't find forum with forum_id: " + forum_id);
-                    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-                }
+            catch(Exception e) {
+                //ignored
+                Message message = new Message("Can't find forum with forum_id: " + forum_id);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
         }
 
         try {
-            Object[] args = null;
-            if(thread.getCreated() != null) {
-                String sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
-                        " VALUES (?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
-                args = new Object[]{slug, forum_id, user_id, thread.getCreated(),
-                        thread.getMessage(), thread.getTitle()};
-                resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            }
-            else {
-                String sql = "INSERT INTO threads (slug, forum_id, user_id, message, title)" +
-                        " VALUES (?::citext, ?, ?, ?, ?) RETURNING *;";
-                args = new Object[]{slug, forum_id, user_id,
-                        thread.getMessage(), thread.getTitle()};
-                resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            }
-
-            resultThread = threadConverter.getModel(resultThreadDTO);
-            return new ResponseEntity<>(resultThread.getJson(has_slug).toString(), HttpStatus.CREATED);
+            Thread responseThread = threadRepository.create(slug, forum_id, user.getUser_id(), thread.getCreated(),
+                    thread.getMessage(), thread.getTitle());
+                return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CREATED);
         }
         catch (DuplicateKeyException dub) {
             System.out.println("[Dublicate thread exception]: " + dub);
-            String sql = "SELECT * FROM threads WHERE thread_id = ?;";
             if(thread_id == null) {
                 Thread threadTemp = threadRepository.get_by_slug(slug);
                 thread_id = threadTemp.getId();
             }
-            Object[] args = new Object[]{thread_id};
-            resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            resultThread = threadConverter.getModel(resultThreadDTO);
-            return new ResponseEntity<>(resultThread.getJson(has_slug).toString(), HttpStatus.CONFLICT);
+            Thread responseThread = threadRepository.get_by_id(thread_id);
+            return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CONFLICT);
 
         }
         catch (Exception ex) {
@@ -167,17 +126,9 @@ public class ForumService {
     }
 
     public ResponseEntity<?> getDetails(String slug) {
-        ForumDTO resultForumDTO = null;
-        Forum resultForum = null;
-        String sql = "SELECT * FROM forums WHERE slug = ?::citext;";
-
         try {
-            Object[] args = new Object[]{slug};
-
-            resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
-            resultForum = forumConverter.getModel(resultForumDTO);
-
-            return new ResponseEntity<>(resultForum, HttpStatus.OK);
+            Forum responseForum = forumRepository.get_by_slug(slug);
+            return new ResponseEntity<>(responseForum, HttpStatus.OK);
         }
         catch (Exception ex) {
             System.out.println("[ForumService] get details exc: " + ex);

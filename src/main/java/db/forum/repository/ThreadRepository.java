@@ -167,5 +167,26 @@ public class ThreadRepository {
         }
         return id;
     }
+
+    public Thread create(String slug, Integer forum_id, Integer user_id, String created, String message, String title) {
+        Object[] args = null;
+        ThreadDTO resultThreadDTO = null;
+        if(created != null) {
+            String sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
+                    " VALUES (?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
+            args = new Object[]{slug, forum_id, user_id, created,
+                    message, title};
+            resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        }
+        else {
+            String sql = "INSERT INTO threads (slug, forum_id, user_id, message, title)" +
+                    " VALUES (?::citext, ?, ?, ?, ?) RETURNING *;";
+            args = new Object[]{slug, forum_id, user_id,
+                    message, title};
+            resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        }
+
+        return threadConverter.getModel(resultThreadDTO);
+    }
 }
 
