@@ -54,8 +54,7 @@ public class ThreadService {
         this.postConverter = new PostConverter(jdbcTemplate);
         this.postRepository = new PostRepository(jdbcTemplate);
     }
-
-    @Transactional
+    
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
         ArrayList<Post> resultArr = new ArrayList<>();
         String created = null;
@@ -74,7 +73,6 @@ public class ThreadService {
 
     }
 
-    @Transactional
     public Post createOnePost(String slug_or_id, Post post, String created) {
         PostDTO resultPostDTO = null;
         Post resultPost = null;
@@ -123,7 +121,6 @@ public class ThreadService {
         return null;
     }
 
-    @Transactional
     private Post update_m_path(Integer parent_id, Integer post_id) {
         java.sql.Array arr = null;
         PostDTO resultPostDTO = null;
@@ -168,7 +165,6 @@ public class ThreadService {
         return intArray;
     }
 
-    @Transactional
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
         User user = null;
         Thread resultThread = null;
@@ -223,82 +219,44 @@ public class ThreadService {
         return new ResponseEntity<>(resultThread, HttpStatus.OK);
     }
 
-    @Transactional
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, String since, String sort, Boolean desc) {
         String sql = null;
         Object[] args = null;
-        if(limit == null && since == null && sort == null && desc == null) {
-            sql = "SELECT * FROM posts WHERE thread_id = ?;";
-            Integer id = threadRepository.get_id_from_slug_or_id(slug_or_id);
-            args = new Object[]{id};
-        }////
-        else if(limit == null && since == null && sort == null && desc != null) {
-
+        if(sort == null) {
+            try {
+                List<Post> responsePosts = postRepository.getPosts(slug_or_id, limit, since, desc);
+                return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+            } catch(Exception ex) {
+                System.out.println("[getPosts exc] no sort: ");
+            }
         }
-        else if(limit == null && since == null && desc == null && sort != null) {
-
-        }
-        else if(limit == null && desc == null && sort == null && since != null) {
-
-        }
-        else if(since == null && sort == null && desc == null && limit != null) {
-
-        }/////по две
-        else if(limit == null && since == null && sort != null && desc != null) {
-
-        }
-        else if(limit == null && since != null && sort != null && desc == null) {
-
-        }
-        else if(limit != null && since != null && sort == null && desc == null) {
-
-        }
-        else if(limit != null && since == null && sort == null && desc != null) {
-
-        }
-        else if(limit == null && since != null && sort == null && desc != null) {
-
-        }
-        else if(limit != null && since == null && sort != null && desc == null) {
-            //Тут
+        else {
             if(sort.equals("flat")) {
-                sql = "SELECT * FROM posts WHERE thread_id = ? ORDER BY created, post_id LIMIT ?;";
+                try {
+                    List<Post> responsePosts = postRepository.getPostFlat(slug_or_id, limit, since, desc);
+                    return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                } catch(Exception ex) {
+                    System.out.println("[getPosts exc] falt sort: ");
+                }
             }
             else if(sort.equals("tree")) {
-                sql = "SELECT * FROM posts WHERE thread_id = ? ORDER BY m_path, post_id LIMIT ?;";
-            }
-            Integer id = threadRepository.get_id_from_slug_or_id(slug_or_id);
-            if(id == null) {
-                args = new Object[]{slug_or_id, limit};
+                try {
+                    List<Post> responsePosts = postRepository.getPostTree(slug_or_id, limit, since, desc);
+                    return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                } catch(Exception ex) {
+                    System.out.println("[getPosts exc] tree sort: ");
+                }
             }
             else {
-                args = new Object[]{id, limit};
+                try {
+                    List<Post> responsePosts = postRepository.getPostsParentTree(slug_or_id, limit, since, desc);
+                    return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                } catch(Exception ex) {
+                    System.out.println("[getPosts exc] parent tree sort: ");
+                }
             }
-        }//////4  по одной
-        else if(limit == null && since != null && sort != null && desc != null) {
-
         }
-        else if(limit != null && since == null && sort != null && desc != null) {
 
-        }
-        else if(limit != null && since != null && sort == null && desc != null) {
-
-        }
-        else if(limit != null && since != null && sort != null && desc == null) {
-
-        }/////////// все not null
-        else if(limit != null && since != null && sort != null && desc != null) {
-
-        }
-        try {
-            List<PostDTO> postDTOs = jdbcTemplate.query(sql, args, new PostDTOMapper());
-            List<Post> posts = postConverter.getModelList(postDTOs);
-            return new ResponseEntity<>(posts, HttpStatus.OK);
-        }
-        catch(Exception ex) {
-            System.out.println("[getPosts]: " + ex);
-
-            return null;
-        }
+        return null;
     }
 }

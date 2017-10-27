@@ -45,8 +45,7 @@ public class ForumService {
         User user = null;
         try {
             user = userRepository.get_by_nickname(forum.getUser());
-        }
-        catch(Exception ex) {
+        } catch(Exception ex) {
             System.out.println("[ForumService] User not found!");
             Message message = new Message("Can't find user with nickname: " + forum.getUser());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -54,13 +53,11 @@ public class ForumService {
         try {
             Forum responseForum = forumRepository.create(user.getUser_id(), forum);
             return new ResponseEntity<>(responseForum, HttpStatus.CREATED);
-        }
-        catch (DuplicateKeyException ex) {
+        } catch (DuplicateKeyException ex) {
             System.out.println("[ForumService.DuplicateKeyException] " + ex);
             Forum responseForum = forumRepository.getByUserId(user.getUser_id());
             return new ResponseEntity<>(responseForum, HttpStatus.CONFLICT);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
             Message message = new Message("Can't find user with nickname: " + forum.getUser());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -81,8 +78,7 @@ public class ForumService {
         Integer thread_id = null;
         try {
             user = userRepository.get_by_nickname(thread.getAuthor());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Message message = new Message("Can't find user with nickname: " + thread.getAuthor());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -95,8 +91,7 @@ public class ForumService {
                 Thread threadTemp = threadRepository.get_by_slug(slug);
                 thread_id = threadTemp.getId();
                 forum_id = threadRepository.get_forum_id_by_thread_id(thread_id);
-            }
-            catch(Exception e) {
+            } catch(Exception e) {
                 //ignored
                 Message message = new Message("Can't find forum with forum_id: " + forum_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -107,8 +102,7 @@ public class ForumService {
             Thread responseThread = threadRepository.create(slug, forum_id, user.getUser_id(), thread.getCreated(),
                     thread.getMessage(), thread.getTitle());
                 return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CREATED);
-        }
-        catch (DuplicateKeyException dub) {
+        } catch (DuplicateKeyException dub) {
             System.out.println("[Dublicate thread exception]: " + dub);
             if(thread_id == null) {
                 Thread threadTemp = threadRepository.get_by_slug(slug);
@@ -116,9 +110,7 @@ public class ForumService {
             }
             Thread responseThread = threadRepository.get_by_id(thread_id);
             return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CONFLICT);
-
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
             Message message = new Message("Can't 42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
