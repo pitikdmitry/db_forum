@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Forum {
     @JsonIgnore
     private Integer forum_id;
-    @JsonIgnore
     private Integer posts;
     private String slug;
-    @JsonIgnore
     private Integer threads;
     private String title;
     private String user;//nickname

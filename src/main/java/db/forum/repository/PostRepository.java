@@ -29,6 +29,12 @@ public class PostRepository {
         this.postConverter = new PostConverter(jdbcTemplate);
     }
 
+    public Integer countPostsByForumId(Integer forum_id) {
+        String sql = "SELECT count(*) FROM posts WHERE forum_id = ?;";
+        Object[] args = new Object[]{forum_id};
+        return jdbcTemplate.queryForObject(sql, args, Integer.class);
+    }
+
     public Post createPost(Integer thread_id, Integer forum_id, Integer user_id,
                            Integer parent_id, String message, String created, Boolean is_edited) {
         String sql = "INSERT INTO posts (thread_id, forum_id, user_id, parent_id, " +

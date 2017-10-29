@@ -17,9 +17,8 @@ public class ThreadService {
     private final UserRepository userRepository;
     private final ThreadRepository threadRepository;
     private final DateRepository dateRepository;
-    private final PostRepository postRepository;
     private final VoteRepository voteRepository;
-
+    private final PostRepository postRepository;
     @Autowired
     public ThreadService(JdbcTemplate jdbcTemplate) {
         this.userRepository = new UserRepository(jdbcTemplate);
@@ -66,7 +65,7 @@ public class ThreadService {
         }
         try {
             thread = threadRepository.get_by_slug_or_id(slug_or_id);
-        } catch (Exception ex) {
+        } catch (Exception excountPostsByForumId) {
             System.out.println("[ThreadService] thread not found!");
         }
         try {
@@ -157,6 +156,15 @@ public class ThreadService {
                     System.out.println("[getPosts exc] parenttree sort: ");
                 }
             }
+        }
+        return null;
+    }
+
+    public ResponseEntity<?> update(String slug_or_id, Thread thread) {
+        Integer thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+        if(thread.getMessage() != null && thread.getTitle() != null) {
+            Thread resultThread = threadRepository.updateMessageTitle(thread_id, thread.getMessage(), thread.getTitle());
+            return new ResponseEntity<>(resultThread, HttpStatus.OK);
         }
         return null;
     }

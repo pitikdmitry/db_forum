@@ -22,7 +22,7 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST,
-            consumes = "application/json", produces = "application/json")
+                    consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> create(@RequestBody Forum forum) {
 
         return forumService.create(forum);
@@ -44,7 +44,7 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/{slug}/threads", method = RequestMethod.GET,
-            produces = "application/json")
+                    produces = "application/json")
     public ResponseEntity<?> getThreads(@PathVariable(name = "slug") String slug,
                                             @RequestParam(value = "limit", required = false) Integer limit,
                                             @RequestParam(value = "since", required = false) String since,
@@ -53,14 +53,12 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/{slug}/users", method = RequestMethod.GET,
-            consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> getUsers(@PathVariable(name = "slug") String slug,
+            produces = "application/json")
+    public ResponseEntity<?> getUsers(@PathVariable(name = "slug") String slug,
                                              @RequestParam(value = "limit", required = false) Integer limit,
                                              @RequestParam(value = "since", required = false) String since,
                                              @RequestParam(value = "desc", required = false) Boolean desc) {
-        final String forumUsers = forumService.getUsers(slug, limit, since, desc);
-
-        return new ResponseEntity<>(forumUsers, HttpStatus.OK);
+        return forumService.getUsers(slug, limit, since, desc);
     }
 
 }

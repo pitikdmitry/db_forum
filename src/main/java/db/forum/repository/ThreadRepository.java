@@ -17,6 +17,12 @@ public class ThreadRepository {
         this.threadConverter = new ThreadConverter(jdbcTemplate);
     }
 
+    public Integer countThreads(Integer forum_id) {
+        String sql = "SELECT count(*) FROM threads WHERE forum_id = ?;";
+        Object[] args = new Object[]{forum_id};
+        return jdbcTemplate.queryForObject(sql, args, Integer.class);
+    }
+
     public Thread get_by_id(int thread_id) {
         String sql = "SELECT * FROM threads WHERE thread_id = ?;";
         try {
@@ -134,6 +140,13 @@ public class ThreadRepository {
             args = new Object[]{slug, forum_id, user_id,
                     message, title};
         }
+        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        return threadConverter.getModel(resultThreadDTO);
+    }
+
+    public Thread updateMessageTitle(Integer thread_id, String message, String title) {
+        String sql = "UPDATE threads SET message = ?, title = ? WHERE thread_id = ? RETURNING *;";
+        Object[] args = new Object[]{message, title, thread_id};
         ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
         return threadConverter.getModel(resultThreadDTO);
     }

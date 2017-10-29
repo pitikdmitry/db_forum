@@ -1,18 +1,15 @@
 package db.forum.controller;
 
-import db.forum.model.Forum;
 import db.forum.model.Post;
 import db.forum.model.Vote;
-import db.forum.service.ForumService;
+import db.forum.model.Thread;
 import db.forum.service.ThreadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @RestController
@@ -58,5 +55,11 @@ public class ThreadController {
         return threadService.getPosts(slug_or_id, limit, since, sort, desc);
     }
 
+    @RequestMapping(value = "/{slug_or_id}/details", method = RequestMethod.POST,
+            consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> update(@PathVariable(name = "slug_or_id") String slug_or_id,
+                                    @RequestBody Thread thread) {
+        return threadService.update(slug_or_id, thread);
+    }
 
 }

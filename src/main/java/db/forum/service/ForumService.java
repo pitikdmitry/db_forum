@@ -11,6 +11,7 @@ import db.forum.model.Message;
 import db.forum.model.Thread;
 import db.forum.model.User;
 import db.forum.repository.ForumRepository;
+import db.forum.repository.PostRepository;
 import db.forum.repository.ThreadRepository;
 import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class ForumService {
     private final ThreadRepository threadRepository;
     private final ForumConverter forumConverter;
     private final ThreadConverter threadConverter;
+    private final PostRepository postRepository;
 
     @Autowired
     public ForumService(JdbcTemplate jdbcTemplate) {
@@ -39,6 +41,7 @@ public class ForumService {
         this.forumConverter = new ForumConverter(jdbcTemplate);
         this.threadConverter = new ThreadConverter(jdbcTemplate);
         this.threadRepository = new ThreadRepository(jdbcTemplate);
+        this.postRepository = new PostRepository(jdbcTemplate);
     }
 
     public ResponseEntity<?> create(Forum forum) {
@@ -120,6 +123,10 @@ public class ForumService {
     public ResponseEntity<?> getDetails(String slug) {
         try {
             Forum responseForum = forumRepository.get_by_slug(slug);
+            Integer postCount = postRepository.countPostsByForumId(responseForum.getForum_id());
+            Integer threadsCount = threadRepository.countThreads(responseForum.getForum_id());
+            responseForum.setPosts(postCount);
+            responseForum.setThreads(threadsCount);
             return new ResponseEntity<>(responseForum, HttpStatus.OK);
         }
         catch (Exception ex) {
@@ -199,7 +206,16 @@ public class ForumService {
         return new ResponseEntity<>(threads, HttpStatus.OK);
     }
 
-    public String getUsers(String slug, Integer limit, String since, Boolean desc) {
+    public ResponseEntity<?> getUsers(String slug, Integer limit, String since, Boolean desc) {
+        Forum forum = forumRepository.get_by_slug(slug);
+        try {
+            List<User> responseUsers = userRepository.getUsers(forum.getForum_id(), limit, since, desc);
+            return new ResponseEntity<>(responseUsers, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            //ign
+            System.out.println(ex);
+        }
         return null;
     }
 

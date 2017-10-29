@@ -39,7 +39,7 @@ public class ForumRepository {
     }
 
     public Forum create(Integer user_id, Forum forum) {
-        String sql = "INSERT INTO forums (slug, user_id, title) VALUES (?, ?, ?)" +
+        String sql = "INSERT INTO forums (slug, user_id, title) VALUES (?::citext, ?, ?)" +
                 " RETURNING *;";
         Object[] args = new Object[]{forum.getSlug(), user_id, forum.getTitle()};
         ForumDTO resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());

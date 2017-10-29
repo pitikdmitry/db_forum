@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -34,6 +35,27 @@ public class UserRepository {
             System.out.println("[UserConverter.get_by_id] exc: " + ex);
             return null;
         }
+    }
+
+    public List<User> getUsers(Integer forum_id, Integer limit, String since, Boolean desc) {
+        ArrayList<Object> args = new ArrayList<>();
+        String sql = "SELECT user_id, nickname, email, fullname, about from " +
+                    "(SELECT DISTINCT u.user_id, u.nickname, u.email, u.fullname, u.about" +
+                    " FROM users u JOIN posts p ON u.user_id=p.user_id WHERE p.forum_id = ? UNION" +
+                    " SELECT DISTINCT u2.user_id, u2.nickname, u2.email, u2.fullname, u2.about" +
+                    " FROM users u2 JOIN threads t ON u2.user_id=t.user_id WHERE t.forum_id = ?) as sub1" +
+                    " ORDER BY LOWER(sub1.nickname)";
+        args.add(forum_id);
+        args.add(forum_id);
+        if(desc != null && desc) {
+            sql += " DESC";
+        }
+        if(limit != null) {
+            sql += " LIMIT ?;";
+            args.add(limit);
+        }
+        List<UserDTO> resultUserDTO = jdbcTemplate.query(sql, args.toArray(), new UserDTOMapper());
+        return userConverter.getModelList(resultUserDTO);
     }
 
     public User get_by_slug_or_id(String slug_or_id) {
