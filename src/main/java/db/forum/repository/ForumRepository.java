@@ -4,11 +4,7 @@ import db.forum.Converter.ForumConverter;
 import db.forum.DTO.ForumDTO;
 import db.forum.Mappers.ForumDTOMapper;
 import db.forum.model.Forum;
-import db.forum.model.Message;
-import db.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
