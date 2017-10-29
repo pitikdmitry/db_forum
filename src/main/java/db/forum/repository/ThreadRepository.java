@@ -7,6 +7,8 @@ import db.forum.Mappers.ThreadDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Timestamp;
+
 public class ThreadRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ThreadConverter threadConverter;
@@ -125,7 +127,7 @@ public class ThreadRepository {
         return id;
     }
 
-    public Thread create(String slug, Integer forum_id, Integer user_id, String created, String message, String title) {
+    public Thread create(String slug, Integer forum_id, Integer user_id, Timestamp created, String message, String title) {
         Object[] args = null;
         String sql = null;
         if(created != null) {

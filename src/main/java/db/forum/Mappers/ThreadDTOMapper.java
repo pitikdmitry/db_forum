@@ -14,7 +14,7 @@ public class ThreadDTOMapper implements RowMapper<ThreadDTO>{
         threadDTO.setSlug(rs.getString("slug"));
         threadDTO.setForum_id(rs.getInt("forum_id"));
         threadDTO.setUser_id(rs.getInt("user_id"));
-        threadDTO.setCreated(rs.getString("created"));
+        threadDTO.setCreated(rs.getTimestamp("created"));
         threadDTO.setMessage(rs.getString("message"));
         threadDTO.setTitle(rs.getString("title"));
         threadDTO.setVotes(rs.getInt("votes"));

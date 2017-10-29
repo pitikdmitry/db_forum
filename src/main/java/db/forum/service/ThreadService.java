@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,21 +33,24 @@ public class ThreadService {
     
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
         ArrayList<Post> resultArr = new ArrayList<>();
-        String created = null;
-
+        Timestamp created = null;
+        try {
+            created = Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime());
+        } catch(Exception ex) {
+            System.out.println(ex);
+        }
         for (Post p : posts) {
             try {
                 Post res = createOnePost(slug_or_id, p, created);
-                created = res.getCreated();
                 resultArr.add(res);
             } catch (Exception ex) {
                 //ignored
             }
         }
-        return new ResponseEntity<>(resultArr, HttpStatus.CREATED);
+        return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
     }
 
-    private Post createOnePost(String slug_or_id, Post post, String created) {
+    private Post createOnePost(String slug_or_id, Post post, Timestamp created) {
         User user = null;
         Thread thread = null;
         Integer forum_id = null;
@@ -54,9 +60,6 @@ public class ThreadService {
         }
         else {
             parent_id = post.getParent();
-        }
-        if(created == null) {
-            created = dateRepository.getCurrentDate();
         }
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
@@ -93,7 +96,7 @@ public class ThreadService {
             voteRepository.create(currentThread.getId(), user.getUser_id(), vote.getVoice());
             Thread resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), false);
             //в resultThread уже лежит с обновленным рейтингом
-            return new ResponseEntity<>(resultThread, HttpStatus.OK);
+            return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
         } catch (Exception ex) {
             Vote exists_vote = voteRepository.get_exists_vote(vote.getNickname(), slug_or_id);
 
@@ -101,13 +104,13 @@ public class ThreadService {
                 //Если голос такой же как новый то голосование не делаем
                 if ((int) exists_vote.getVoice() == (int) vote.getVoice()) {
                     Thread resultThread = threadRepository.get_by_slug_or_id(slug_or_id);
-                    return new ResponseEntity<>(resultThread, HttpStatus.OK);
+                    return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
                 }
 
                 voteRepository.updateVoteValue(exists_vote.getVote_id(), vote.getVoice());
                 Thread resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), true);
                 //в resultThread уже лежит с обновленным рейтингом
-                return new ResponseEntity<>(resultThread, HttpStatus.OK);
+                return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
             }
             return null;
         }
@@ -119,14 +122,14 @@ public class ThreadService {
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(resultThread, HttpStatus.OK);
+        return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, Integer since, String sort, Boolean desc) {
         if(sort == null) {
             try {
                 List<Post> responsePosts = postRepository.getPosts(slug_or_id, limit, since, desc);
-                return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
             } catch(Exception ex) {
                 System.out.println("[getPosts exc] no sort: ");
             }
@@ -135,7 +138,7 @@ public class ThreadService {
             if(sort.equals("flat")) {
                 try {
                     List<Post> responsePosts = postRepository.getPostFlat(slug_or_id, limit, since, desc);
-                    return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                    return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] falt sort: ");
                 }
@@ -143,7 +146,7 @@ public class ThreadService {
             else if(sort.equals("tree")) {
                 try {
                     List<Post> responsePosts = postRepository.getPostTree(slug_or_id, limit, since, desc);
-                    return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                    return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] tree sort: ");
                 }
@@ -151,7 +154,7 @@ public class ThreadService {
             else {
                 try {
                     List<Post> responsePosts = postRepository.getPostsParentTree(slug_or_id, limit, since, desc);
-                    return new ResponseEntity<>(responsePosts, HttpStatus.OK);
+                    return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] parenttree sort: ");
                 }
@@ -164,7 +167,7 @@ public class ThreadService {
         Integer thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
         if(thread.getMessage() != null && thread.getTitle() != null) {
             Thread resultThread = threadRepository.updateMessageTitle(thread_id, thread.getMessage(), thread.getTitle());
-            return new ResponseEntity<>(resultThread, HttpStatus.OK);
+            return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
         }
         return null;
     }

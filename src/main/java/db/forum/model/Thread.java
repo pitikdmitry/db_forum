@@ -2,11 +2,15 @@ package db.forum.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 public class Thread {
     private String author;//nickname
-    private String created;
+    private Timestamp created;
     private String forum;
     private Integer id;
     private String message;
@@ -27,7 +31,7 @@ public class Thread {
                   @JsonProperty("message") String message,
                   @JsonProperty("forum") String forum,
                   @JsonProperty("votes") int votes,
-                  @JsonProperty("created") String created) {
+                  @JsonProperty("created") Timestamp created) {
         this.id = id;
         this.author = author;
         this.created = created;
@@ -39,7 +43,7 @@ public class Thread {
         this.is_loaded = true;
     }
 
-    public void fill(Integer id, String author, String created,
+    public void fill(Integer id, String author, Timestamp created,
                      String forum, String message, String slug,
                      String title, Integer votes) {
         this.id = id;
@@ -57,7 +61,7 @@ public class Thread {
 
     public String getAuthor() { return author; }
 
-    public String getCreated() { return created; }
+    public Timestamp getCreated() { return created; }
     public String getForum() { return forum; }
     public String getMessage() { return message; }
     public String getSlug() { return slug; }
@@ -66,7 +70,7 @@ public class Thread {
     public void setId(Integer id) { this.id = id; }
 
     public void setAuthor(String author) { this.author = author; }
-    public void setCreated(String created) { this.created = created;}
+    public void setCreated(Timestamp created) { this.created = created;}
     public void setForum(String forum) { this.forum = forum; }
     public void setMessage(String message) { this.message = message; }
     public void setSlug(String slug) { this.slug = slug; }
@@ -76,11 +80,13 @@ public class Thread {
     public JSONObject getJson(Boolean has_slug) {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("author", author);
-        jsonObject.put("created", created);
+        if(created != null) {
+            jsonObject.put("created", created.toInstant().toString());
+        }
         jsonObject.put("forum", forum);
         jsonObject.put("id", id);
         jsonObject.put("message", message);
-        if(has_slug == true) {
+        if(has_slug != null && has_slug == true) {
             jsonObject.put("slug", slug);
         }
         jsonObject.put("title", title);
@@ -88,5 +94,12 @@ public class Thread {
             jsonObject.put("votes", votes);
         }
         return jsonObject;
+    }
+    public static JSONArray getJsonArray(List<Thread> threads) {
+        final JSONArray arr = new JSONArray();
+        for (Thread p : threads) {
+            arr.put(p.getJson(true));
+        }
+        return arr;
     }
 }

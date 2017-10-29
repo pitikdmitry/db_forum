@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -99,7 +101,6 @@ public class ForumService {
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
         }
-
         try {
             Thread responseThread = threadRepository.create(slug, forum_id, user.getUser_id(), thread.getCreated(),
                     thread.getMessage(), thread.getTitle());
@@ -202,7 +203,7 @@ public class ForumService {
         }
         List<ThreadDTO> threadsDTO = jdbcTemplate.query(sql, args, new ThreadDTOMapper());
         List<Thread> threads = threadConverter.getModelList(threadsDTO);
-        return new ResponseEntity<>(threads, HttpStatus.OK);
+        return new ResponseEntity<>(Thread.getJsonArray(threads).toString(), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getUsers(String slug, Integer limit, String since, Boolean desc) {

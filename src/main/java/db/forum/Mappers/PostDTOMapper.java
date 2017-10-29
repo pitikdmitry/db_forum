@@ -16,7 +16,7 @@ public class PostDTOMapper implements RowMapper<PostDTO> {
         postDTO.setUser_id(rs.getInt("user_id"));
         postDTO.setParent_id(rs.getInt("parent_id"));
         postDTO.setMessage(rs.getString("message"));
-        postDTO.setCreated(rs.getString("created"));
+        postDTO.setCreated(rs.getTimestamp("created"));
         postDTO.setIs_edited(rs.getBoolean("is_edited"));
         return postDTO;
     }

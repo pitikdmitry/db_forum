@@ -1,5 +1,7 @@
 package db.forum.DTO;
 
+import java.sql.Timestamp;
+
 public class PostDTO {
     private Integer post_id;
     private Integer thread_id;
@@ -7,12 +9,12 @@ public class PostDTO {
     private Integer user_id;
     private Integer parent_id;
     private String message;
-    private String created;
+    private Timestamp created;
     private Boolean is_edited;
 
     public PostDTO(Integer post_id, Integer thread_id, Integer forum_id,
                    Integer user_id, Integer parent_id, String message,
-                   String created, Boolean is_edited) {
+                   Timestamp created, Boolean is_edited) {
         this.post_id = post_id;
         this.thread_id = thread_id;
         this.forum_id = forum_id;
@@ -31,7 +33,7 @@ public class PostDTO {
     public Integer getUser_id() { return user_id; }
     public Integer getParent_id() { return parent_id; }
     public String getMessage() { return message; }
-    public String getCreated() { return created; }
+    public Timestamp getCreated() { return created; }
     public Boolean getIs_edited() { return is_edited; }
 
     public void setPost_id(Integer post_id) { this.post_id = post_id; }
@@ -40,6 +42,6 @@ public class PostDTO {
     public void setUser_id(Integer user_id) { this.user_id = user_id; }
     public void setParent_id(Integer parent_id) { this.parent_id = parent_id; }
     public void setMessage(String message) { this.message = message; }
-    public void setCreated(String created) { this.created = created; }
+    public void setCreated(Timestamp created) { this.created = created; }
     public void setIs_edited(Boolean is_edited) { this.is_edited = is_edited; }
 }

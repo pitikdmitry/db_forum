@@ -12,6 +12,7 @@ import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,16 +38,18 @@ public class ThreadConverter {
 
         User author = userRepository.get_by_id(threadDTO.getUser_id());
         String nickname = author.getNickname();
-
-        String created = threadDTO.getCreated();
-        try {
-            if (created != null) {
-                created = dateRepository.changeDateFormat(created);
-            }
+        Timestamp created = null;
+        if(threadDTO.getCreated() != null) {
+            created = threadDTO.getCreated();
         }
-        catch(Exception eee) {
-            System.out.println("BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD");
-        }
+//        try {
+//            if (created != null) {
+//                created = dateRepository.changeDateFormat(created);
+//            }
+//        }
+//        catch(Exception eee) {
+//            System.out.println("BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD");
+//        }
         Forum forum = forumRepository.get_by_id(threadDTO.getForum_id());
         String forumSlug = forum.getSlug();
 

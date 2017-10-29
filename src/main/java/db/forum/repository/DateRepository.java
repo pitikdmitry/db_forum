@@ -15,67 +15,61 @@ public class DateRepository {
     }
 
     public String changeDateFormat(String str) {
-//        System.out.println("LENGTHHHH: "
-        String OLD_FORMAT = null;
-        String NEW_FORMAT = null;
-        int lengt = str.length();
-        String str2 = null;
+        if (str == null) {
+            return null;
+        }
 
+        if (str.charAt(10) == 'T') {
+            StringBuilder strBuild = new StringBuilder(str);
+            strBuild.setCharAt(10, 'T');
+            str = strBuild.toString();
+        }
+        str = addMilliseconds(str);
+        str = changeTime(str);
+        return str;
+    }
+
+    String changeTime(String str) {
+        if(str.length() == 26) {
+            String hours_str = str.substring(11, 13);
+            Integer hours = Integer.parseInt(hours_str);
+            hours -= 3;
+            hours_str = String.valueOf(hours);
+            String new_str = str.substring(0,10);
+            new_str += hours_str;
+            new_str += str.substring(14, str.length());
+            return new_str;
+        }
+        return null;
+    }
+
+    String addMilliseconds(String str) {
         if(str == null) {
             return null;
-//            2017-06-05T12:04:12.000+03:00
         }
-
-        if(str.length() == 25) {
-            if(str.charAt(10) == 'T') {
-                OLD_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS";
-            }
-            OLD_FORMAT = "yyyy-MM-dd HH:mm:ss.SS";
-            NEW_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'";
+        System.out.println(str.length() + str);
+        if(str.length() == 23) {
+            str += str.substring(19, 20);
+        }
+        else if(str.length() == 24) {
+            str += str.substring(19, 21);
+        }
+        else if(str.length() == 25) {
+            str += str.substring(19, 22);
         }
         else if(str.length() == 26) {
-            if(str.charAt(10) == 'T') {
-                OLD_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-            }
-            OLD_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-            NEW_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+            str += str.substring(19, 23);
+        }
+        else if(str.length() == 27) {
+            str += str.substring(19, 23);
+        }
+        else if(str.length() == 28) {
+            str += str.substring(19, 23);
         }
         else if(str.length() == 29) {
-            if(str.charAt(10) == 'T') {
-                OLD_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-            }
-            str2 = str.substring(0, 23);
-            str2 += str.substring(26, 29);
-            OLD_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-            NEW_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-            str = str2;
+            str += str.substring(19, 23);
         }
-        else {
-            if(str.charAt(10) == 'T') {
-                OLD_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS";
-            }
-            OLD_FORMAT = "yyyy-MM-dd HH:mm:ss.SS";
-            NEW_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'";
-        }
-
-        String oldDateString = str;
-        String newDateString = null;
-
-        SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-
-        Date d = null;
-        int offset = 0;
-        try {
-            d = sdf.parse(oldDateString);
-            offset = d.getTimezoneOffset();
-//            d.setMinutes(d.getMinutes() + offset);
-            d.setHours(d.getHours() + offset / 60);
-        }
-        catch (ParseException e) {
-            System.out.println("[EXc format date]");
-        }
-        sdf.applyPattern(NEW_FORMAT);
-        newDateString = sdf.format(d);
-        return newDateString;
+        str += 'Z';
+        return str;
     }
 }

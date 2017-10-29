@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +44,7 @@ public class PostRepository {
     }
 
     public Post createPost(Integer thread_id, Integer forum_id, Integer user_id,
-                           Integer parent_id, String message, String created, Boolean is_edited) {
+                           Integer parent_id, String message, Timestamp created, Boolean is_edited) {
         String sql = "INSERT INTO posts (thread_id, forum_id, user_id, parent_id, " +
                 "message, created, is_edited) VALUES (?, ?, ?, ?, ?, ?::timestamptz, ?) RETURNING *;";
         Object[] args = new Object[]{thread_id, forum_id, user_id, parent_id,

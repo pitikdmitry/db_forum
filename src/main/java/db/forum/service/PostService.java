@@ -20,7 +20,7 @@ public class PostService {
     public ResponseEntity<?> details(Integer id, String[] related) {
         if(related == null) {
             Post responsePost = postRepository.getById(id);
-            return new ResponseEntity<>(responsePost, HttpStatus.OK);
+            return new ResponseEntity<>(responsePost.getJson(), HttpStatus.OK);
         }
         return null;
     }

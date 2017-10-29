@@ -13,6 +13,7 @@ import db.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,10 +52,13 @@ public class PostConverter {
 
         int parent_id = postDTO.getParent_id();
         String message = postDTO.getMessage();
-        String created = postDTO.getCreated();
-        if(created != null) {
-            created = dateRepository.changeDateFormat(created);
+        Timestamp created = null;
+        if(postDTO.getCreated() != null) {
+            created = postDTO.getCreated();
         }
+//        if(created != null) {
+//            created = dateRepository.changeDateFormat(created);
+//        }
         Boolean is_edited = postDTO.getIs_edited();
 
         post.fill(author, created, forumSlug, post_id, is_edited,
