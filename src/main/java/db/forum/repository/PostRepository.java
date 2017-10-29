@@ -29,6 +29,13 @@ public class PostRepository {
         this.postConverter = new PostConverter(jdbcTemplate);
     }
 
+    public Post getById(Integer post_id) {
+        String sql = "SELECT * FROM posts WHERE post_id = ?;";
+        Object[] args = new Object[]{post_id};
+        PostDTO resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
+        return postConverter.getModel(resultPostDTO);
+    }
+
     public Integer countPostsByForumId(Integer forum_id) {
         String sql = "SELECT count(*) FROM posts WHERE forum_id = ?;";
         Object[] args = new Object[]{forum_id};

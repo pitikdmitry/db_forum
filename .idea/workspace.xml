@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6a08b1f-fd72-460b-985a-36cd5facf69c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/controller/ForumController.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/controller/ForumController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/model/Forum.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/model/Forum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/ForumRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/ForumRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/forum/controller/PostController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/PostService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/repository/UserRepository.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/repository/UserRepository.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/service/ForumService.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/service/ForumService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,36 +59,76 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java">
+      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+            <state relative-caret-position="513">
+              <caret line="50" column="12" lean-forward="true" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="35" column="53" lean-forward="false" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+              <folding>
+                <marker date="1509291627613" expanded="true" signature="1040:1077" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="1363:1408" ph="SELECT count... posts" />
+                <marker date="1509291627613" expanded="true" signature="1739:1902" ph="INSERT INTO posts... " />
+                <marker date="1509291627613" expanded="true" signature="2481:2538" ph="UPDATE posts... " />
+                <marker date="1509291627613" expanded="true" signature="3761:3803" ph="SELECT m_pat... posts" />
+                <marker date="1509291627613" expanded="true" signature="4520:4559" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="5563:5602" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="6608:6647" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="7896:8113" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="8274:8592" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="8787:9012" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="9234:9474" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="9533:9752" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="9927:10235" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="10491:10739" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="10798:11043" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="11281:11608" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="11668:11992" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="12229:12564" ph="SELECT * FRO... posts" />
+                <marker date="1509291627613" expanded="true" signature="12623:12955" ph="SELECT * FRO... posts" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Post.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/Post.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-32">
+              <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/PostController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="303">
+              <caret line="20" column="46" lean-forward="false" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1509287007938" expanded="true" signature="800:837" ph="SELECT * FRO... users" />
-                <marker date="1509287007938" expanded="true" signature="1384:1829" ph="SELECT user_... user_id" />
-                <marker date="1509287007938" expanded="true" signature="1384:1830" ph="SELECT user_... user_id" />
-                <marker date="1509287007938" expanded="true" signature="1384:1893" ph="SELECT user_... user_id" />
-                <marker date="1509287007938" expanded="true" signature="1464:1605" ph="SELECT DISTI... users" />
-                <marker date="1509287007938" expanded="true" signature="1464:1626" ph="SELECT DISTI... users" />
-                <marker date="1509287007938" expanded="true" signature="1464:1808" ph="SELECT u.use... users" />
-                <marker date="1509287007938" expanded="true" signature="1464:1814" ph="SELECT DISTI... users" />
-                <marker date="1509287007938" expanded="true" signature="1464:1829" ph="SELECT DISTI... users" />
-                <marker date="1509287007938" expanded="true" signature="1658:1730" ph="SELECT DISTI... " />
-                <marker date="1509287007938" expanded="true" signature="2494:2531" ph="SELECT * FRO... users" />
-                <marker date="1509287007938" expanded="true" signature="2636:2682" ph="SELECT * FRO... users" />
-                <marker date="1509287007938" expanded="true" signature="3141:3187" ph="SELECT * FRO... users" />
-                <marker date="1509287007938" expanded="true" signature="3637:3680" ph="SELECT * FRO... users" />
-                <marker date="1509287007938" expanded="true" signature="4135:4219" ph="INSERT INTO users... " />
-                <marker date="1509287007938" expanded="true" signature="4578:4645" ph="SELECT * FRO... users" />
-                <marker date="1509287007938" expanded="true" signature="4960:5020" ph="UPDATE users... " />
-                <marker date="1509287007938" expanded="true" signature="5329:5386" ph="UPDATE users... " />
-                <marker date="1509287007938" expanded="true" signature="5692:5749" ph="UPDATE users... " />
-                <marker date="1509287007938" expanded="true" signature="6050:6173" ph="UPDATE users... " />
-                <marker date="1509287007938" expanded="true" signature="6565:6644" ph="UPDATE users... " />
-                <marker date="1509287007938" expanded="true" signature="6988:7059" ph="UPDATE users... " />
-                <marker date="1509287007938" expanded="true" signature="7397:7473" ph="UPDATE users... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/PostService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,21 +137,21 @@
       <file leaf-file-name="ForumService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="218" column="20" lean-forward="true" selection-start-line="218" selection-start-column="20" selection-end-line="218" selection-end-column="20" />
+            <state relative-caret-position="185">
+              <caret line="103" column="56" lean-forward="false" selection-start-line="103" selection-start-column="56" selection-end-line="103" selection-end-column="56" />
               <folding>
-                <marker date="1509287007926" expanded="true" signature="6737:6798" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="6946:7015" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="7161:7252" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="7442:7504" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="7564:7625" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="7822:7892" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="7952:8021" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="8225:8317" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="8377:8468" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="8637:8736" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="8876:8976" ph="SELECT * FRO... threads" />
-                <marker date="1509287007926" expanded="true" signature="9036:9135" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="6729:6790" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="6938:7007" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="7153:7244" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="7434:7496" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="7556:7617" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="7814:7884" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="7944:8013" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="8217:8309" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="8369:8460" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="8629:8728" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="8868:8968" ph="SELECT * FRO... threads" />
+                <marker date="1509290603885" expanded="true" signature="9028:9127" ph="SELECT * FRO... threads" />
               </folding>
             </state>
           </provider>
@@ -152,6 +192,8 @@
       <find>createList</find>
       <find>get_m_pa</find>
       <find>user</find>
+      <find>update_m_path</find>
+      <find>updateMpath</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,8 +207,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Dockerfile" />
-        <option value="$PROJECT_DIR$/database/postgres/functions/users/add_user2.psql" />
         <option value="$PROJECT_DIR$/database/postgres/functions/users/add_user.psql" />
         <option value="$PROJECT_DIR$/runner/docker-compose.yml" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/User2.java" />
@@ -184,7 +224,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Thread.java" />
-        <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/DTO/VoteDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Vote.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/Converter/VoteConverter.java" />
@@ -208,14 +247,17 @@
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/VoteRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/ForumRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Forum.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/controller/ForumController.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/55f90f68-0f65-4efb-9b37-e1590954cfcf/console.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/controller/PostController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/service/PostService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
       </list>
     </option>
   </component>
@@ -649,12 +691,12 @@
       <workItem from="1509041074904" duration="4950000" />
       <workItem from="1509047462030" duration="3646000" />
       <workItem from="1509092229837" duration="5486000" />
-      <workItem from="1509192551114" duration="23516000" />
+      <workItem from="1509192551114" duration="26889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="200488000" />
+    <option name="totallyTimeSpent" value="203861000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -694,6 +736,7 @@
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4590846" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1981982" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32966322" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -704,7 +747,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,7 +757,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="111" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java</url>
+          <line>64</line>
+          <properties />
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="112" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
@@ -724,20 +774,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/postgres/schemas/schema.puml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/DTO/ThreadDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="42" column="63" lean-forward="false" selection-start-line="42" selection-start-column="63" selection-end-line="42" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Mappers/VoteDTOMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -819,13 +855,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-904">
           <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/Post.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -969,22 +998,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1520">
-          <caret line="87" column="11" lean-forward="false" selection-start-line="87" selection-start-column="11" selection-end-line="87" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-760">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -1019,37 +1032,6 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="31" column="38" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1509281736205" expanded="true" signature="1056:1101" ph="SELECT count... posts" />
-            <marker date="1509281736205" expanded="true" signature="1432:1595" ph="INSERT INTO posts... " />
-            <marker date="1509281736205" expanded="true" signature="2174:2231" ph="UPDATE posts... " />
-            <marker date="1509281736205" expanded="true" signature="3454:3496" ph="SELECT m_pat... posts" />
-            <marker date="1509281736205" expanded="true" signature="4213:4252" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="5256:5281" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="5256:5295" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="6301:6340" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="7589:7806" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="7967:8285" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="8480:8696" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="8480:8705" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="8927:9167" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="9226:9445" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="9620:9928" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="10184:10432" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="10491:10736" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="10974:11301" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="11361:11685" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="11922:12257" ph="SELECT * FRO... posts" />
-            <marker date="1509281736205" expanded="true" signature="12316:12648" ph="SELECT * FRO... posts" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1095,14 +1077,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ForumController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="46" column="41" lean-forward="false" selection-start-line="46" selection-start-column="41" selection-end-line="46" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/55f90f68-0f65-4efb-9b37-e1590954cfcf/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1121,8 +1095,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1737">
-          <caret line="22" column="67" lean-forward="false" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
+        <state relative-caret-position="174">
+          <caret line="127" column="18" lean-forward="false" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1509281966024" expanded="true" signature="680:727" ph="SELECT count... threads" />
@@ -1142,54 +1116,138 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="218" column="20" lean-forward="true" selection-start-line="218" selection-start-column="20" selection-end-line="218" selection-end-column="20" />
+        <state relative-caret-position="185">
+          <caret line="103" column="56" lean-forward="false" selection-start-line="103" selection-start-column="56" selection-end-line="103" selection-end-column="56" />
           <folding>
-            <marker date="1509287007926" expanded="true" signature="6737:6798" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="6946:7015" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="7161:7252" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="7442:7504" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="7564:7625" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="7822:7892" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="7952:8021" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="8225:8317" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="8377:8468" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="8637:8736" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="8876:8976" ph="SELECT * FRO... threads" />
-            <marker date="1509287007926" expanded="true" signature="9036:9135" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="6729:6790" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="6938:7007" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="7153:7244" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="7434:7496" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="7556:7617" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="7814:7884" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="7944:8013" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="8217:8309" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="8369:8460" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="8629:8728" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="8868:8968" ph="SELECT * FRO... threads" />
+            <marker date="1509290603885" expanded="true" signature="9028:9127" ph="SELECT * FRO... threads" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ThreadController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/UserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+        <state relative-caret-position="6">
+          <caret line="39" column="22" lean-forward="false" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1509287007938" expanded="true" signature="800:837" ph="SELECT * FRO... users" />
-            <marker date="1509287007938" expanded="true" signature="1384:1829" ph="SELECT user_... user_id" />
-            <marker date="1509287007938" expanded="true" signature="1384:1830" ph="SELECT user_... user_id" />
-            <marker date="1509287007938" expanded="true" signature="1384:1893" ph="SELECT user_... user_id" />
-            <marker date="1509287007938" expanded="true" signature="1464:1605" ph="SELECT DISTI... users" />
-            <marker date="1509287007938" expanded="true" signature="1464:1626" ph="SELECT DISTI... users" />
-            <marker date="1509287007938" expanded="true" signature="1464:1808" ph="SELECT u.use... users" />
-            <marker date="1509287007938" expanded="true" signature="1464:1814" ph="SELECT DISTI... users" />
-            <marker date="1509287007938" expanded="true" signature="1464:1829" ph="SELECT DISTI... users" />
-            <marker date="1509287007938" expanded="true" signature="1658:1730" ph="SELECT DISTI... " />
-            <marker date="1509287007938" expanded="true" signature="2494:2531" ph="SELECT * FRO... users" />
-            <marker date="1509287007938" expanded="true" signature="2636:2682" ph="SELECT * FRO... users" />
-            <marker date="1509287007938" expanded="true" signature="3141:3187" ph="SELECT * FRO... users" />
-            <marker date="1509287007938" expanded="true" signature="3637:3680" ph="SELECT * FRO... users" />
-            <marker date="1509287007938" expanded="true" signature="4135:4219" ph="INSERT INTO users... " />
-            <marker date="1509287007938" expanded="true" signature="4578:4645" ph="SELECT * FRO... users" />
-            <marker date="1509287007938" expanded="true" signature="4960:5020" ph="UPDATE users... " />
-            <marker date="1509287007938" expanded="true" signature="5329:5386" ph="UPDATE users... " />
-            <marker date="1509287007938" expanded="true" signature="5692:5749" ph="UPDATE users... " />
-            <marker date="1509287007938" expanded="true" signature="6050:6173" ph="UPDATE users... " />
-            <marker date="1509287007938" expanded="true" signature="6565:6644" ph="UPDATE users... " />
-            <marker date="1509287007938" expanded="true" signature="6988:7059" ph="UPDATE users... " />
-            <marker date="1509287007938" expanded="true" signature="7397:7473" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="800:837" ph="SELECT * FRO... users" />
+            <marker date="1509288261176" expanded="true" signature="1384:1829" ph="SELECT user_... user_id" />
+            <marker date="1509288261176" expanded="true" signature="1384:1830" ph="SELECT user_... user_id" />
+            <marker date="1509288261176" expanded="true" signature="1384:1838" ph="SELECT user_... user_id" />
+            <marker date="1509288261176" expanded="true" signature="1384:1839" ph="SELECT user_... user_id" />
+            <marker date="1509288261176" expanded="true" signature="1464:1605" ph="SELECT DISTI... users" />
+            <marker date="1509288261176" expanded="true" signature="1464:1626" ph="SELECT DISTI... users" />
+            <marker date="1509288261176" expanded="true" signature="1464:1808" ph="SELECT u.use... users" />
+            <marker date="1509288261176" expanded="true" signature="1464:1814" ph="SELECT DISTI... users" />
+            <marker date="1509288261176" expanded="true" signature="1464:1829" ph="SELECT DISTI... users" />
+            <marker date="1509288261176" expanded="true" signature="1658:1730" ph="SELECT DISTI... " />
+            <marker date="1509288261176" expanded="true" signature="2986:3023" ph="SELECT * FRO... users" />
+            <marker date="1509288261176" expanded="true" signature="3128:3174" ph="SELECT * FRO... users" />
+            <marker date="1509288261176" expanded="true" signature="3633:3679" ph="SELECT * FRO... users" />
+            <marker date="1509288261176" expanded="true" signature="4129:4172" ph="SELECT * FRO... users" />
+            <marker date="1509288261176" expanded="true" signature="4627:4711" ph="INSERT INTO users... " />
+            <marker date="1509288261176" expanded="true" signature="5070:5137" ph="SELECT * FRO... users" />
+            <marker date="1509288261176" expanded="true" signature="5452:5512" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="5821:5878" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="6184:6241" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="6542:6665" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="7057:7136" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="7480:7551" ph="UPDATE users... " />
+            <marker date="1509288261176" expanded="true" signature="7889:7965" ph="UPDATE users... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/ForumController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="36" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/Post.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-32">
+          <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="50" column="12" lean-forward="true" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="35" column="53" lean-forward="false" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+          <folding>
+            <marker date="1509291627613" expanded="true" signature="1040:1077" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="1363:1408" ph="SELECT count... posts" />
+            <marker date="1509291627613" expanded="true" signature="1739:1902" ph="INSERT INTO posts... " />
+            <marker date="1509291627613" expanded="true" signature="2481:2538" ph="UPDATE posts... " />
+            <marker date="1509291627613" expanded="true" signature="3761:3803" ph="SELECT m_pat... posts" />
+            <marker date="1509291627613" expanded="true" signature="4520:4559" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="5563:5602" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="6608:6647" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="7896:8113" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="8274:8592" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="8787:9012" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="9234:9474" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="9533:9752" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="9927:10235" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="10491:10739" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="10798:11043" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="11281:11608" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="11668:11992" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="12229:12564" ph="SELECT * FRO... posts" />
+            <marker date="1509291627613" expanded="true" signature="12623:12955" ph="SELECT * FRO... posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/controller/PostController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="20" column="46" lean-forward="false" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/PostService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

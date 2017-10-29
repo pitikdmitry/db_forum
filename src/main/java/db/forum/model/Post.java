@@ -1,12 +1,16 @@
 package db.forum.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Post {
     private String author;
     private String created;
     private String forum;
     private Integer id;
+    @JsonIgnore
     private Boolean isEdited;
     private String message;
+    @JsonIgnore
     private Integer parent;
     private Integer thread;
 

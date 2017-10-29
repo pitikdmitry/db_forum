@@ -43,16 +43,30 @@ public class UserRepository {
                     "(SELECT DISTINCT u.user_id, u.nickname, u.email, u.fullname, u.about" +
                     " FROM users u JOIN posts p ON u.user_id=p.user_id WHERE p.forum_id = ? UNION" +
                     " SELECT DISTINCT u2.user_id, u2.nickname, u2.email, u2.fullname, u2.about" +
-                    " FROM users u2 JOIN threads t ON u2.user_id=t.user_id WHERE t.forum_id = ?) as sub1" +
-                    " ORDER BY LOWER(sub1.nickname)";
+                    " FROM users u2 JOIN threads t ON u2.user_id=t.user_id WHERE t.forum_id = ?) as sub1";
         args.add(forum_id);
         args.add(forum_id);
+        if(since != null) {
+            if(desc != null && desc) {
+                sql += " WHERE LOWER(sub1.nickname COLLATE \"ucs_basic\") < LOWER(?::citext)";
+            }
+            else {
+                sql += " WHERE LOWER(sub1.nickname COLLATE \"ucs_basic\") > LOWER(?::citext)";
+            }
+            args.add(since);
+        }
         if(desc != null && desc) {
-            sql += " DESC";
+            sql += " ORDER BY LOWER(sub1.nickname) COLLATE \"ucs_basic\" DESC";
+        }
+        else {
+            sql += " ORDER BY LOWER(sub1.nickname) COLLATE \"ucs_basic\" ASC";
         }
         if(limit != null) {
             sql += " LIMIT ?;";
             args.add(limit);
+        }
+        else{
+            sql += ";";
         }
         List<UserDTO> resultUserDTO = jdbcTemplate.query(sql, args.toArray(), new UserDTOMapper());
         return userConverter.getModelList(resultUserDTO);

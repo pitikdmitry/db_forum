@@ -1,0 +1,23 @@
+package db.forum.controller;
+
+import db.forum.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/post/")
+public class PostController {
+    private final PostService postService;
+
+    @Autowired
+    public PostController(PostService postService) { this.postService = postService; }
+
+    @RequestMapping(value = "/{id}/details", method = RequestMethod.GET,
+            produces = "application/json")
+    public ResponseEntity<?> createThread(@PathVariable(name = "id") Integer id,
+                                          @RequestParam(value = "related", required = false) String[] related) {
+
+        return postService.details(id, related);
+    }
+}

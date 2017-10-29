@@ -88,8 +88,7 @@ public class ForumService {
         try {
             forum = forumRepository.get_by_slug(thread.getForum());
             forum_id = forum.getForum_id();
-        }
-        catch(Exception ex) {
+        } catch(Exception ex) {
             try {
                 Thread threadTemp = threadRepository.get_by_slug(slug);
                 thread_id = threadTemp.getId();
@@ -207,7 +206,14 @@ public class ForumService {
     }
 
     public ResponseEntity<?> getUsers(String slug, Integer limit, String since, Boolean desc) {
-        Forum forum = forumRepository.get_by_slug(slug);
+        Forum forum = null;
+        try {
+            forum = forumRepository.get_by_slug(slug);
+        } catch(Exception ex) {
+            System.out.println(ex);
+            Message message = new Message("Can't find forum by slug: " + slug);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
         try {
             List<User> responseUsers = userRepository.getUsers(forum.getForum_id(), limit, since, desc);
             return new ResponseEntity<>(responseUsers, HttpStatus.OK);
@@ -215,8 +221,9 @@ public class ForumService {
         catch(Exception ex) {
             //ign
             System.out.println(ex);
+            Message message = new Message("[ForumService] Error getUsers: ");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
 
