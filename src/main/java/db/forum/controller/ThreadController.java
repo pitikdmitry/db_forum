@@ -52,7 +52,7 @@ public class ThreadController {
             produces = "application/json")
     public ResponseEntity<?> getPosts(@PathVariable(name = "slug_or_id") String slug_or_id,
                                       @RequestParam(value = "limit", required = false) Integer limit,
-                                      @RequestParam(value = "since", required = false) String since,
+                                      @RequestParam(value = "since", required = false) Integer since,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "desc", required = false) Boolean desc) {
         return threadService.getPosts(slug_or_id, limit, since, sort, desc);

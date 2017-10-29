@@ -219,9 +219,7 @@ public class ThreadService {
         return new ResponseEntity<>(resultThread, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, String since, String sort, Boolean desc) {
-        String sql = null;
-        Object[] args = null;
+    public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, Integer since, String sort, Boolean desc) {
         if(sort == null) {
             try {
                 List<Post> responsePosts = postRepository.getPosts(slug_or_id, limit, since, desc);
@@ -252,7 +250,7 @@ public class ThreadService {
                     List<Post> responsePosts = postRepository.getPostsParentTree(slug_or_id, limit, since, desc);
                     return new ResponseEntity<>(responsePosts, HttpStatus.OK);
                 } catch(Exception ex) {
-                    System.out.println("[getPosts exc] parent tree sort: ");
+                    System.out.println("[getPosts exc] parenttree sort: ");
                 }
             }
         }
