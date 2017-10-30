@@ -1,6 +1,10 @@
 package db.forum.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class User {
     @JsonIgnore
@@ -40,4 +44,21 @@ public class User {
     public void setEmail(String email) { this.email = email; }
     public void setFullname(String fullname) { this.fullname = fullname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
+
+    public JSONObject getJson() {
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("about", about);
+        jsonObject.put("email", email);
+        jsonObject.put("fullname", fullname);
+        jsonObject.put("nickname", nickname);
+        return jsonObject;
+    }
+
+    public static JSONArray getJsonArray(List<User> users) {
+        final JSONArray arr = new JSONArray();
+        for (User p : users) {
+            arr.put(p.getJson());
+        }
+        return arr;
+    }
 }

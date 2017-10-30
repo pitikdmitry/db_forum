@@ -57,11 +57,11 @@ public class ForumService {
         }
         try {
             Forum responseForum = forumRepository.create(user.getUser_id(), forum);
-            return new ResponseEntity<>(responseForum, HttpStatus.CREATED);
+            return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException ex) {
             System.out.println("[ForumService.DuplicateKeyException] " + ex);
             Forum responseForum = forumRepository.getByUserId(user.getUser_id());
-            return new ResponseEntity<>(responseForum, HttpStatus.CONFLICT);
+            return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.CONFLICT);
         } catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
             Message message = new Message("Can't find user with nickname: " + forum.getUser());
@@ -127,7 +127,7 @@ public class ForumService {
             Integer threadsCount = threadRepository.countThreads(responseForum.getForum_id());
             responseForum.setPosts(postCount);
             responseForum.setThreads(threadsCount);
-            return new ResponseEntity<>(responseForum, HttpStatus.OK);
+            return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.OK);
         }
         catch (Exception ex) {
             System.out.println("[ForumService] get details exc: " + ex);
@@ -217,7 +217,7 @@ public class ForumService {
         }
         try {
             List<User> responseUsers = userRepository.getUsers(forum.getForum_id(), limit, since, desc);
-            return new ResponseEntity<>(responseUsers, HttpStatus.OK);
+            return new ResponseEntity<>(User.getJsonArray(responseUsers).toString(), HttpStatus.OK);
         }
         catch(Exception ex) {
             //ign

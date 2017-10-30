@@ -1,6 +1,7 @@
 package db.forum.service;
 
-import db.forum.model.Post;
+import db.forum.model.*;
+import db.forum.model.Thread;
 import db.forum.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,25 @@ public class PostService {
     }
 
     public ResponseEntity<?> details(Integer id, String[] related) {
+        User user = null;
+        Forum forum = null;
+        Post post = null;
+        Thread thread = null;
         if(related == null) {
-            Post responsePost = postRepository.getById(id);
-            return new ResponseEntity<>(responsePost.getJson(), HttpStatus.OK);
+            post = postRepository.getById(id);
         }
-        return null;
+        return new ResponseEntity<>(Post.getJsonObjects(user, forum, post, thread).toString(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> update(Integer id, Post post) {
+        try {
+            Post responsePost = postRepository.update(id, post);
+            return new ResponseEntity<>(responsePost.getJson().toString(), HttpStatus.OK);
+        } catch(Exception ex) {
+            System.out.println("[postService] update exc: " + ex);
+            Message message = new Message("Can't find user with id #" + id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
     }
 }

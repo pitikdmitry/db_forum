@@ -25,7 +25,9 @@ public class PostDTO {
         this.is_edited = is_edited;
     }
 
-    public PostDTO() { }
+    public PostDTO() {
+        this.is_edited = false;
+    }
 
     public Integer getPost_id() { return post_id; }
     public Integer getThread_id() { return thread_id; }

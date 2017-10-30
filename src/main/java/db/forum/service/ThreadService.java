@@ -4,6 +4,7 @@ import db.forum.model.*;
 import db.forum.model.Thread;
 import db.forum.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -43,8 +44,10 @@ public class ThreadService {
             try {
                 Post res = createOnePost(slug_or_id, p, created);
                 resultArr.add(res);
-            } catch (Exception ex) {
+            } catch (RuntimeException ex) {
                 //ignored
+                Message message = new Message("Parent post was created in another thread");
+                return new ResponseEntity<>(message, HttpStatus.CONFLICT);
             }
         }
         return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
@@ -68,7 +71,17 @@ public class ThreadService {
         }
         try {
             thread = threadRepository.get_by_slug_or_id(slug_or_id);
-        } catch (Exception excountPostsByForumId) {
+            //check parent's thread and current post thread
+
+            //getting parent post
+            Post parents_post = postRepository.getById(parent_id);
+            if(parents_post != null) {
+                if(!parents_post.getThread().equals(thread.getId())) {
+                    throw new RuntimeException();
+                }
+            }
+
+        } catch (EmptyResultDataAccessException ex) {
             System.out.println("[ThreadService] thread not found!");
         }
         try {

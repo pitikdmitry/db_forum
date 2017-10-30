@@ -12,13 +12,14 @@ public class Post {
     private Timestamp created;
     private String forum;
     private Integer id;
-    @JsonIgnore
     private Boolean isEdited;
     private String message;
     private Integer parent;
     private Integer thread;
 
-    public Post() {}
+    public Post() {
+        this.isEdited = false;
+    }
 
     public Post(String author, Timestamp created, String forum,
                 Integer id, Boolean isEdited, String message,
@@ -72,6 +73,7 @@ public class Post {
         }
         jsonObject.put("forum", forum);
         jsonObject.put("id", id);
+        jsonObject.put("isEdited", isEdited);
         jsonObject.put("message", message);
         jsonObject.put("parent", parent);
         jsonObject.put("thread", thread);
@@ -83,6 +85,22 @@ public class Post {
             arr.put(p.getJson());
         }
         return arr;
+    }
+    public static JSONObject getJsonObjects(User user, Forum forum, Post post, Thread thread) {
+        final JSONObject bigObject = new JSONObject();
+        if(user != null) {
+            bigObject.put("user", user.getJson());
+        }
+        if(forum != null) {
+            bigObject.put("forum", forum.getJson());
+        }
+        if(post != null) {
+            bigObject.put("post", post.getJson());
+        }
+        if(thread != null) {
+            bigObject.put("thread", thread.getJson(true));
+        }
+        return bigObject;
     }
 
 }

@@ -320,4 +320,15 @@ public class PostRepository {
         List<PostDTO> postDTOs = jdbcTemplate.query(sql, arguments.toArray(), new PostDTOMapper());
         return postConverter.getModelList(postDTOs);
     }
+
+    public Post update(Integer id, Post post) {
+        ArrayList<Object> args = new ArrayList<>();
+        String sql = "UPDATE posts SET message = ?, is_edited = ? WHERE post_id = ? RETURNING *";
+        args.add(post.getMessage());
+        args.add(true);
+        args.add(id);
+        PostDTO postDTO = jdbcTemplate.queryForObject(sql, args.toArray(), new PostDTOMapper());
+        return postConverter.getModel(postDTO);
+    }
+
 }

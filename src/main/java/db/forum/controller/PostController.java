@@ -1,5 +1,6 @@
 package db.forum.controller;
 
+import db.forum.model.Post;
 import db.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +21,14 @@ public class PostController {
 
         return postService.details(id, related);
     }
+
+    @RequestMapping(value = "/{id}/details", method = RequestMethod.POST,
+            consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> createThread(@PathVariable(name = "id") Integer id,
+                                          @RequestBody Post post) {
+
+        return postService.update(id, post);
+    }
+
+
 }

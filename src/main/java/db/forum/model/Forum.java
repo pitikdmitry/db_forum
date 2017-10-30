@@ -1,6 +1,10 @@
 package db.forum.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class Forum {
     @JsonIgnore
@@ -51,5 +55,23 @@ public class Forum {
         this.title = title;
         this.user = user;
         this.is_loaded = true;
+    }
+
+    public JSONObject getJson() {
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("posts", posts);
+        jsonObject.put("slug", slug);
+        jsonObject.put("threads", threads);
+        jsonObject.put("title", title);
+        jsonObject.put("user", user);
+        return jsonObject;
+    }
+
+    public static JSONArray getJsonArray(List<Forum> forums) {
+        final JSONArray arr = new JSONArray();
+        for (Forum p : forums) {
+            arr.put(p.getJson());
+        }
+        return arr;
     }
 }
