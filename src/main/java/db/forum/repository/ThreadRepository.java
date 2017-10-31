@@ -1,7 +1,11 @@
 package db.forum.repository;
 
+import db.forum.Converter.ForumConverter;
 import db.forum.Converter.ThreadConverter;
+import db.forum.DTO.ForumDTO;
 import db.forum.DTO.ThreadDTO;
+import db.forum.Mappers.ForumDTOMapper;
+import db.forum.model.Forum;
 import db.forum.model.Thread;
 import db.forum.Mappers.ThreadDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,6 +152,20 @@ public class ThreadRepository {
         return threadConverter.getModel(resultThreadDTO);
     }
 
+    public Thread updateTitle(Integer thread_id, String title) {
+        String sql = "UPDATE threads SET title = ? WHERE thread_id = ? RETURNING *;";
+        Object[] args = new Object[]{title, thread_id};
+        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        return threadConverter.getModel(resultThreadDTO);
+    }
+
+    public Thread updateMessage(Integer thread_id, String message) {
+        String sql = "UPDATE threads SET message = ? WHERE thread_id = ? RETURNING *;";
+        Object[] args = new Object[]{message, thread_id};
+        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        return threadConverter.getModel(resultThreadDTO);
+    }
+
     public Thread checkThread(String slug_or_id) {
         String sql = "SELECT * FROM threads WHERE thread_id = ?;";
         Integer thread_id = get_id_from_slug_or_id(slug_or_id);
@@ -159,5 +177,6 @@ public class ThreadRepository {
         ThreadDTO threadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
         return threadConverter.getModel(threadDTO);
     }
+
 }
 

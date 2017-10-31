@@ -2,8 +2,11 @@ package db.forum.repository;
 
 import db.forum.Converter.ForumConverter;
 import db.forum.DTO.ForumDTO;
+import db.forum.DTO.ThreadDTO;
 import db.forum.Mappers.ForumDTOMapper;
+import db.forum.Mappers.ThreadDTOMapper;
 import db.forum.model.Forum;
+import db.forum.model.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -15,11 +18,13 @@ import javax.transaction.Transactional;
 public class ForumRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ForumConverter forumConverter;
+//    private final ThreadRepository threadRepository;
 
     @Autowired
     public ForumRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.forumConverter = new ForumConverter(jdbcTemplate);
+//        this.threadRepository = new ThreadRepository(jdbcTemplate);
     }
 
     public Forum get_by_id(int forum_id) {

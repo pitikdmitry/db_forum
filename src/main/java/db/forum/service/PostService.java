@@ -24,7 +24,19 @@ public class PostService {
         Post post = null;
         Thread thread = null;
         if(related == null) {
+            try{
             post = postRepository.getById(id);
+            } catch(Exception ex) {
+                Message message = new Message("Can't find post with id: " + id);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            }
+        } else {
+            try {
+                post = postRepository.getById(id);
+            } catch(Exception ex) {
+                Message message = new Message("Can't find post with id: " + id);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            }
         }
         return new ResponseEntity<>(Post.getJsonObjects(user, forum, post, thread).toString(), HttpStatus.OK);
     }

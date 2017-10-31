@@ -3,6 +3,7 @@ package db.forum.repository;
 import db.forum.Converter.PostConverter;
 import db.forum.DTO.PostDTO;
 import db.forum.Mappers.PostDTOMapper;
+import db.forum.My_Exceptions.NoThreadException;
 import db.forum.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -151,11 +152,15 @@ public class PostRepository {
         return postConverter.getModelList(postDTOs);
     }
 
-    public List<Post> getPostFlat(String slug_or_id, Integer limit, Integer since, Boolean desc) {
+    public List<Post> getPostFlat(String slug_or_id, Integer limit, Integer since, Boolean desc) throws NoThreadException {
         List<Object> arguments = new ArrayList<Object>();
+        Integer id = null;
         String sql = "SELECT * FROM posts WHERE thread_id = ?";
-        Integer id = threadRepository.get_id_from_slug_or_id(slug_or_id);
-
+        try {
+            id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+        } catch(Exception ex) {
+            throw new NoThreadException(slug_or_id);
+        }
         arguments.add(id);
         if (since != null) {
             if(desc != null && desc) {

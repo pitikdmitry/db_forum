@@ -26,6 +26,7 @@ public class ThreadService {
     private final DateRepository dateRepository;
     private final VoteRepository voteRepository;
     private final PostRepository postRepository;
+    private final ForumRepository forumRepository;
     @Autowired
     public ThreadService(JdbcTemplate jdbcTemplate) {
         this.userRepository = new UserRepository(jdbcTemplate);
@@ -33,6 +34,7 @@ public class ThreadService {
         this.dateRepository = new DateRepository();
         this.postRepository = new PostRepository(jdbcTemplate);
         this.voteRepository = new VoteRepository(jdbcTemplate);
+        this.forumRepository = new ForumRepository(jdbcTemplate);
     }
     
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
@@ -158,12 +160,22 @@ public class ThreadService {
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
         Thread currentThread = null;
-        currentThread = threadRepository.get_by_slug_or_id(slug_or_id);
-
+        User user = null;
+        try {
+            currentThread = threadRepository.get_by_slug_or_id(slug_or_id);
+        } catch(Exception ex) {
+            Message message = new Message("Can't find thread by slug: " + slug_or_id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
         try {
             //Если голоса нет то голосуем
-            User user = userRepository.get_by_nickname(vote.getNickname());
+            user = userRepository.get_by_nickname(vote.getNickname());
+        } catch(Exception ex) {
+            Message message = new Message("Can't find user by nickname: " + vote.getNickname());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
 
+        try{
             voteRepository.create(currentThread.getId(), user.getUser_id(), vote.getVoice());
             Thread resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), false);
             //в resultThread уже лежит с обновленным рейтингом
@@ -188,7 +200,13 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> getDetails(String slug_or_id) {
-        Thread resultThread = threadRepository.get_by_slug_or_id(slug_or_id);
+        Thread resultThread = null;
+        try {
+            resultThread = threadRepository.get_by_slug_or_id(slug_or_id);
+        } catch(Exception ex) {
+            Message message = new Message("Can't find thread by slug: " + slug_or_id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
         if (resultThread == null) {
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -197,6 +215,16 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, Integer since, String sort, Boolean desc) {
+        try{
+            Thread thread = threadRepository.checkThread(slug_or_id);
+            if(thread == null) {
+                Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            }
+        } catch(Exception ex) {
+            Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
         if(sort == null) {
             try {
                 List<Post> responsePosts = postRepository.getPosts(slug_or_id, limit, since, desc);
@@ -210,6 +238,9 @@ public class ThreadService {
                 try {
                     List<Post> responsePosts = postRepository.getPostFlat(slug_or_id, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
+                } catch(NoThreadException ex) {
+                    Message message = new Message("Can't find thread by slug: " + ex.getSlugOrId());
+                    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] falt sort: ");
                 }
@@ -235,11 +266,36 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> update(String slug_or_id, Thread thread) {
-        Integer thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+        Integer thread_id = null;
+        try {
+            thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+        } catch(Exception ex) {
+            Message message = new Message("Can't find thread by slug: " + slug_or_id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+        try{
+            Thread threadres = threadRepository.checkThread(slug_or_id);
+            if(thread == null) {
+                Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            }
+        } catch(Exception ex) {
+            Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
         if(thread.getMessage() != null && thread.getTitle() != null) {
             Thread resultThread = threadRepository.updateMessageTitle(thread_id, thread.getMessage(), thread.getTitle());
             return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
+        } else if(thread.getTitle() != null) {
+            Thread resultThread = threadRepository.updateTitle(thread_id, thread.getTitle());
+            return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
+        } else if(thread.getMessage() != null) {
+            Thread resultThread = threadRepository.updateMessage(thread_id, thread.getMessage());
+            return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
         }
-        return null;
+        else{
+            Thread responseThread = threadRepository.get_by_id(thread_id);
+            return new ResponseEntity<>(responseThread.getJson(true).toString(), HttpStatus.OK);
+        }
     }
 }
