@@ -63,14 +63,9 @@ public class ThreadRepository {
             sql = "SELECT * FROM threads WHERE slug = ?::citext;";
             args = new Object[]{slug_or_id};
         }
-        try {
-            ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            return threadConverter.getModel(resultThreadDTO);
-        }
-        catch (Exception ex) {
-            System.out.println("[ThreadRepository.get_by_slug_or_id] exc: " + ex);
-            return null;
-        }
+
+        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        return threadConverter.getModel(resultThreadDTO);
     }
 
     public Integer get_forum_id_by_thread_id(int thread_id) {
@@ -151,6 +146,18 @@ public class ThreadRepository {
         Object[] args = new Object[]{message, title, thread_id};
         ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
         return threadConverter.getModel(resultThreadDTO);
+    }
+
+    public Thread checkThread(String slug_or_id) {
+        String sql = "SELECT * FROM threads WHERE thread_id = ?;";
+        Integer thread_id = get_id_from_slug_or_id(slug_or_id);
+        if(thread_id == null) {
+            return null;
+            //nno thread
+        }
+        Object[] args = new Object[]{thread_id};
+        ThreadDTO threadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
+        return threadConverter.getModel(threadDTO);
     }
 }
 

@@ -331,4 +331,22 @@ public class PostRepository {
         return postConverter.getModel(postDTO);
     }
 
+    public List<Post> getAnotherPostWithSameParent(Integer parent_id) {
+        String sql = "SELECT * FROM posts WHERE parent_id = ?;";
+        Object[] args = new Object[]{parent_id};
+        List<PostDTO> postDTOs = jdbcTemplate.query(sql, args, new PostDTOMapper());
+        return postConverter.getModelList(postDTOs);
+    }
+
+//    public List<Post> checkThread(String slug_or_id) {
+//        String sql = "SELECT * FROM posts WHERE thread_id = ?;";
+//        Integer thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
+//        if(thread_id == null) {
+//            return null;
+//            //nno thread
+//        }
+//        Object[] args = new Object[]{thread_id};
+//        List<PostDTO> postDTOs = jdbcTemplate.query(sql, args, new PostDTOMapper());
+//        return postConverter.getModelList(postDTOs);
+//    }
 }
