@@ -1,10 +1,6 @@
 FROM ubuntu:16.04
 
 MAINTAINER Pitik Dmitry
-#ENV http_proxy http://10.100.122.141:3128/
-#ENV https_proxy http://10.100.122.141:3128/
-#ENV ftp_proxy http://10.100.122.141:3128/
-#ENV no_proxy registry.gitlab2.rnd.pkcc.ru, *.rnd.pkcc.ru, 10.*, 192.*, 172.16.*
 
 # Обвновление списка пакетов
 RUN apt-get -y update
@@ -44,16 +40,18 @@ USER root
 # Сборка проекта
 #
 # Установка JDK
-#RUN apt-get install -y openjdk-8-jdk-headless
+RUN apt-get install -y openjdk-8-jdk-headless
+# Установка maven
+RUN apt-get install -y maven
 
 # Копируем исходный код в Docker-контейнер
 ENV WORK /project
-ADD ./ $WORK/java-project/
-WORKDIR /
-
+ADD . $WORK/java-project/
+WORKDIR $WORK/java-project/
+RUN mvn package
 
 # Объявлем порт сервера
-#EXPOSE 5000
+EXPOSE 5000
 
 #
 # Запускаем PostgreSQL и сервер
@@ -69,6 +67,5 @@ ENV DBPASS=forum_user
 ENV DATABASE=$WORK/java-project/database
 
 CMD service postgresql start && \
-    bash $WORK/java-project/database/loader/create_db.sh $DBHOST $DBPORT $DBNAME $DBUSER $DBPASS $DATABASE
-#    && \
-#    java -jar $WORK/java-project/release/DataBaseProject-0.1.0.jar
+    bash $WORK/java-project/database/loader/database_loader/create_db.sh $DBHOST $DBPORT $DBNAME $DBUSER $DBPASS $DATABASE && \
+    java -jar $WORK/java-project/release/DataBaseProject-0.1.0.jar

@@ -2,30 +2,152 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6a08b1f-fd72-460b-985a-36cd5facf69c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/Converter/ForumConverter.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/Converter/ForumConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/DTO/ForumDTO.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/DTO/ForumDTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/Mappers/ForumDTOMapper.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/Mappers/ForumDTOMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/controller/PostController.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/controller/PostController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/model/Forum.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/model/Forum.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/model/Post.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/model/Post.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/repository/ForumRepository.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/repository/ForumRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/service/ForumService.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/service/ForumService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/service/PostService.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/service/PostService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/service/ThreadService.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/service/ThreadService.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Dockerfile3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/forums/add_forum.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/forums/get_forum_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/forums/get_forum_by_slug.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/forums/get_forum_for_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/add_post.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/get_post_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/get_post_by_parent_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/get_post_by_thread_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/get_post_by_user_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/update_post_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/posts/update_post_by_slug.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/add_thread.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_thread_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_thread_by_slug.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_thread_for_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_limit.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_limit_since.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort_limit.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort_limit_since.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/add_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/add_user2.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/get_user_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/get_user_by_nickname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/get_users_by_nickname_or_email.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_about.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_about_fullname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_email.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_email_about.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_email_fullname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_empty_data.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/users/update/update_user_by_fullname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/vote/add_vote.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/vote/get_vote_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/vote/get_vote_by_thread_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/postgres/functions/vote/get_vote_by_user_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/DataBaseProject.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/Dockerfile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/Dockerfile3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/loader/Dockerfile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/loader/database_loader/create_db.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/constraints/forums.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/constraints/posts.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/constraints/threads.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/constraints/vote.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/forums/add_forum.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/forums/get_forum_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/forums/get_forum_by_slug.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/forums/get_forum_for_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/add_post.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/get_post_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/get_post_by_parent_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/get_post_by_thread_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/get_post_by_user_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/update_post_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/posts/update_post_by_slug.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/add_thread.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_thread_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_thread_by_slug.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_thread_for_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_limit.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_limit_since.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort_limit.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/threads/get_threads_for_forum/get_threads_for_forum_sort_limit_since.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/add_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/add_user2.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/get_user_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/get_user_by_nickname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/get_users_by_nickname_or_email.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_about.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_about_fullname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_email.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_email_about.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_email_fullname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_empty_data.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/users/update/update_user_by_fullname.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/vote/add_vote.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/vote/get_vote_by_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/vote/get_vote_by_thread_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/functions/vote/get_vote_by_user_id.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/indexes/forums.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/indexes/posts.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/indexes/threads.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/indexes/users.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/indexes/vote.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/schemas/schema.puml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/tables/forums.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/tables/posts.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/tables/threads.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/tables/users.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/database/postgres/tables/vote.psql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/release/DataBaseProject-0.1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/runner/.env" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/runner/docker-compose.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/runner/start" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/runner/stop" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/Application.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/controller/ForumController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/controller/ThreadController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/controller/UserController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/model/Forum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/model/Post.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/model/Thread.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/model/User.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/service/DbConnection.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/service/ForumService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/service/ThreadService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/service/UserService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/java/db/forum/sqlQueries/UserQueries.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/src/main/resources/application.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/DataBaseProject-0.1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/DataBaseProject-0.1.0.jar.original" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/application.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/Application.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/controller/ForumController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/controller/ThreadController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/controller/UserController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/model/Forum.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/model/Post.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/model/Thread.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/model/User.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/service/DbConnection.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/service/ForumService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/service/ThreadService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/service/UserService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/classes/db/forum/sqlQueries/UserQueries.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/oldversion/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/DataBaseProject-0.1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/DataBaseProject-0.1.0.jar.original" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/postgres/tables/forums.psql" afterPath="$PROJECT_DIR$/database/postgres/tables/forums.psql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/Converter/ForumConverter.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/Converter/ForumConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/Converter/PostConverter.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/Converter/PostConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/DTO/ForumDTO.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/DTO/ForumDTO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/Mappers/ForumDTOMapper.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/Mappers/ForumDTOMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/controller/PostController.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/controller/PostController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/model/Forum.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/model/Forum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/ForumRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/ForumRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/ForumService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/PostService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/PostService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -73,7 +195,28 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="66" column="40" lean-forward="true" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users.psql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/postgres/tables/users.psql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="2" lean-forward="false" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -128,8 +271,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/db/forum/Mappers/UserDTOMapper.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/DTO/VoteDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Vote.java" />
@@ -179,6 +320,8 @@
         <option value="$PROJECT_DIR$/src/main/java/db/forum/Converter/PostConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/Dockerfile" />
       </list>
     </option>
   </component>
@@ -243,23 +386,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
-              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
-              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
-              <item name="db.forum" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scratches">
         <subPane>
           <expand>
@@ -271,6 +397,18 @@
               <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
               <item name="DB Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
               <item name="55f90f68-0f65-4efb-9b37-e1590954cfcf" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="DataBaseProject" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DataBaseProject" type="1039202d:NonAndroidModuleNode" />
             </path>
           </expand>
           <select />
@@ -292,6 +430,19 @@
               <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="db_forum" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="loader" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="loader" type="462c0819:PsiDirectoryNode" />
+              <item name="database_loader" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
               <item name="postgres" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -301,121 +452,21 @@
               <item name="postgres" type="462c0819:PsiDirectoryNode" />
               <item name="tables" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="Converter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="DTO" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="Mappers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="My_Exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="repository" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="forum" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DataBaseProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="db_forum" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView">
+      <pane id="PackagesPane">
         <subPane>
           <expand>
             <path>
-              <item name="DataBaseProject" type="1abcf292:AndroidViewProjectNode" />
-              <item name="DataBaseProject" type="1039202d:NonAndroidModuleNode" />
+              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
+              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="DataBaseProject" type="58d84e3e:PackageViewProjectNode" />
+              <item name="DataBaseProject" type="616d4139:PackageViewModuleNode" />
+              <item name="db.forum" type="1f31426a:PackageElementNode" />
             </path>
           </expand>
           <select />
@@ -599,12 +650,13 @@
       <workItem from="1509521346537" duration="4604000" />
       <workItem from="1509526115243" duration="1633000" />
       <workItem from="1509530247140" duration="682000" />
-      <workItem from="1509532905035" duration="2264000" />
+      <workItem from="1509532905035" duration="2346000" />
+      <workItem from="1509547774917" duration="3586000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="241808000" />
+    <option name="totallyTimeSpent" value="245476000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -616,7 +668,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1600" height="870" extended-state="6" />
+    <frame x="0" y="-1" width="1600" height="870" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36852333" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -636,11 +689,11 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34674063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34674063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1553398" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21106821" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15512465" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21364221" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32966322" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -682,88 +735,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/sql/Timestamp.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4503">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/DTO/UserDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="3" column="28" lean-forward="false" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/DTO/VoteDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Mappers/ThreadDTOMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/DTO/ThreadDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Converter/ThreadConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="61" column="19" lean-forward="true" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/DTO/PostDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-          <folding>
-            <element signature="e#816#817#0" expanded="false" />
-            <element signature="e#854#855#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/lang/Exception.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,12 +761,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding>
-            <element signature="e#151#152#0" expanded="false" />
-            <element signature="e#187#188#0" expanded="false" />
-            <element signature="e#220#221#0" expanded="false" />
-            <element signature="e#249#250#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -820,21 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#242#243#0" expanded="false" />
-            <element signature="e#275#276#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/My_Exceptions/NoPostException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#228#229#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -843,7 +797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="79" column="4" lean-forward="false" selection-start-line="79" selection-start-column="4" selection-end-line="96" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,7 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="481">
           <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,7 +811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="138" column="12" lean-forward="false" selection-start-line="138" selection-start-column="12" selection-end-line="138" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -867,9 +818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="61" column="33" lean-forward="false" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -877,22 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
           <caret line="163" column="44" lean-forward="false" selection-start-line="163" selection-start-column="44" selection-end-line="163" selection-end-column="44" />
-          <folding>
-            <marker date="1509473838918" expanded="true" signature="849:896" ph="SELECT count... threads" />
-            <marker date="1509473838918" expanded="true" signature="1092:1133" ph="SELECT * FRO... threads" />
-            <marker date="1509473838918" expanded="true" signature="1594:1638" ph="SELECT * FRO... threads" />
-            <marker date="1509473838918" expanded="true" signature="2232:2273" ph="SELECT * FRO... threads" />
-            <marker date="1509473838918" expanded="true" signature="2373:2417" ph="SELECT * FRO... threads" />
-            <marker date="1509473838918" expanded="true" signature="2758:2806" ph="SELECT forum... threads" />
-            <marker date="1509473838918" expanded="true" signature="3417:3477" ph="UPDATE threa... " />
-            <marker date="1509473838918" expanded="true" signature="4442:4494" ph="SELECT threa... threads" />
-            <marker date="1509473838918" expanded="true" signature="4890:5044" ph="INSERT INTO threads... " />
-            <marker date="1509473838918" expanded="true" signature="5195:5324" ph="INSERT INTO threads... " />
-            <marker date="1509473838918" expanded="true" signature="5706:5779" ph="UPDATE threa... " />
-            <marker date="1509473838918" expanded="true" signature="6099:6159" ph="UPDATE threa... " />
-            <marker date="1509473838918" expanded="true" signature="6474:6536" ph="UPDATE threa... " />
-            <marker date="1509473838918" expanded="true" signature="6835:6876" ph="SELECT * FRO... threads" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -910,13 +842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
           <caret line="40" column="30" lean-forward="false" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1509474575093" expanded="true" signature="552:579" ph="SELECT COUNT... forums" />
-            <marker date="1509474575093" expanded="true" signature="609:635" ph="SELECT COUNT... posts" />
-            <marker date="1509474575093" expanded="true" signature="667:695" ph="SELECT COUNT... threads" />
-            <marker date="1509474575093" expanded="true" signature="725:751" ph="SELECT COUNT... users" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -924,9 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -934,7 +856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="15" column="49" lean-forward="false" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -942,7 +863,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
           <caret line="27" column="63" lean-forward="true" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -971,15 +891,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="633">
           <caret line="63" column="70" lean-forward="false" selection-start-line="63" selection-start-column="70" selection-end-line="63" selection-end-column="70" />
-          <folding>
-            <marker date="1509524714440" expanded="true" signature="875:914" ph="SELECT * FRO... forums" />
-            <marker date="1509524714440" expanded="true" signature="1191:1234" ph="SELECT * FRO... forums" />
-            <marker date="1509524714440" expanded="true" signature="1519:1618" ph="INSERT INTO forums... " />
-            <marker date="1509524714440" expanded="true" signature="1933:1971" ph="SELECT * FRO... forums" />
-            <marker date="1509524714440" expanded="true" signature="2284:2313" ph="UPDATE forum... " />
-            <marker date="1509524714440" expanded="true" signature="2284:2332" ph="UPDATE forum... " />
-            <marker date="1509524714440" expanded="true" signature="2550:2596" ph="UPDATE forum... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -987,7 +898,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -995,7 +905,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
           <caret line="30" column="43" lean-forward="true" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1003,9 +912,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="75" column="43" lean-forward="true" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1013,7 +919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1021,7 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="70" column="51" lean-forward="true" selection-start-line="70" selection-start-column="51" selection-end-line="70" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,7 +933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
           <caret line="680" column="69" lean-forward="true" selection-start-line="680" selection-start-column="69" selection-end-line="680" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1037,7 +940,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1045,7 +947,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1053,9 +954,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2091">
           <caret line="145" column="0" lean-forward="false" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1063,7 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="353">
           <caret line="80" column="51" lean-forward="true" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1071,32 +968,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="421">
           <caret line="343" column="31" lean-forward="false" selection-start-line="343" selection-start-column="31" selection-end-line="343" selection-end-column="31" />
-          <folding>
-            <marker date="1509534500010" expanded="true" signature="1116:1153" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="1439:1484" ph="SELECT count... posts" />
-            <marker date="1509534500010" expanded="true" signature="1818:1981" ph="INSERT INTO posts... " />
-            <marker date="1509534500010" expanded="true" signature="2560:2617" ph="UPDATE posts... " />
-            <marker date="1509534500010" expanded="true" signature="3840:3882" ph="SELECT m_pat... posts" />
-            <marker date="1509534500010" expanded="true" signature="4599:4638" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="5694:5733" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="6843:6882" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="8131:8348" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="8509:8827" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="9022:9247" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="9469:9709" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="9768:9987" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="10162:10470" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="10726:10974" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="11033:11278" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="11516:11843" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="11903:12227" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="12464:12799" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="12858:13190" ph="SELECT * FRO... posts" />
-            <marker date="1509534500010" expanded="true" signature="13789:13862" ph="UPDATE posts... " />
-            <marker date="1509534500010" expanded="true" signature="14169:14177" ph="SELECT *miss... " />
-            <marker date="1509534500010" expanded="true" signature="14169:14206" ph="SELECT post_... posts" />
-            <marker date="1509534500010" expanded="true" signature="14487:14526" ph="SELECT * FRO... posts" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1104,20 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="421">
           <caret line="226" column="57" lean-forward="true" selection-start-line="226" selection-start-column="57" selection-end-line="226" selection-end-column="57" />
-          <folding>
-            <marker date="1509523822321" expanded="true" signature="7155:7216" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="7364:7433" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="7579:7670" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="7860:7922" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="7982:8043" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="8240:8310" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="8370:8439" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="8643:8735" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="8795:8886" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="9055:9154" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="9294:9394" ph="SELECT * FRO... threads" />
-            <marker date="1509523822321" expanded="true" signature="9454:9553" ph="SELECT * FRO... threads" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1125,32 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="40" column="51" lean-forward="true" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-          <folding>
-            <marker date="1509288261176" expanded="true" signature="800:837" ph="SELECT * FRO... users" />
-            <marker date="1509288261176" expanded="true" signature="1384:1829" ph="SELECT user_... user_id" />
-            <marker date="1509288261176" expanded="true" signature="1384:1830" ph="SELECT user_... user_id" />
-            <marker date="1509288261176" expanded="true" signature="1384:1838" ph="SELECT user_... user_id" />
-            <marker date="1509288261176" expanded="true" signature="1384:1839" ph="SELECT user_... user_id" />
-            <marker date="1509288261176" expanded="true" signature="1464:1605" ph="SELECT DISTI... users" />
-            <marker date="1509288261176" expanded="true" signature="1464:1626" ph="SELECT DISTI... users" />
-            <marker date="1509288261176" expanded="true" signature="1464:1808" ph="SELECT u.use... users" />
-            <marker date="1509288261176" expanded="true" signature="1464:1814" ph="SELECT DISTI... users" />
-            <marker date="1509288261176" expanded="true" signature="1464:1829" ph="SELECT DISTI... users" />
-            <marker date="1509288261176" expanded="true" signature="1658:1730" ph="SELECT DISTI... " />
-            <marker date="1509288261176" expanded="true" signature="2986:3023" ph="SELECT * FRO... users" />
-            <marker date="1509288261176" expanded="true" signature="3128:3174" ph="SELECT * FRO... users" />
-            <marker date="1509288261176" expanded="true" signature="3633:3679" ph="SELECT * FRO... users" />
-            <marker date="1509288261176" expanded="true" signature="4129:4172" ph="SELECT * FRO... users" />
-            <marker date="1509288261176" expanded="true" signature="4627:4711" ph="INSERT INTO users... " />
-            <marker date="1509288261176" expanded="true" signature="5070:5137" ph="SELECT * FRO... users" />
-            <marker date="1509288261176" expanded="true" signature="5452:5512" ph="UPDATE users... " />
-            <marker date="1509288261176" expanded="true" signature="5821:5878" ph="UPDATE users... " />
-            <marker date="1509288261176" expanded="true" signature="6184:6241" ph="UPDATE users... " />
-            <marker date="1509288261176" expanded="true" signature="6542:6665" ph="UPDATE users... " />
-            <marker date="1509288261176" expanded="true" signature="7057:7136" ph="UPDATE users... " />
-            <marker date="1509288261176" expanded="true" signature="7480:7551" ph="UPDATE users... " />
-            <marker date="1509288261176" expanded="true" signature="7889:7965" ph="UPDATE users... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1158,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1166,7 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1174,7 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
           <caret line="60" column="32" lean-forward="false" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,6 +1010,86 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/My_Exceptions/NoPostException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/loader/database_loader/create_db.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/postgres/functions/forums/add_forum.psql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runner/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile3">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/loader/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/postgres/tables/users.psql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="2" lean-forward="false" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="66" column="40" lean-forward="true" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
