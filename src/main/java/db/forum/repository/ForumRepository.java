@@ -18,26 +18,22 @@ import javax.transaction.Transactional;
 public class ForumRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ForumConverter forumConverter;
-//    private final ThreadRepository threadRepository;
 
     @Autowired
     public ForumRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.forumConverter = new ForumConverter(jdbcTemplate);
-//        this.threadRepository = new ThreadRepository(jdbcTemplate);
     }
 
     public Forum get_by_id(int forum_id) {
         String sql = "SELECT * FROM forums WHERE forum_id = ?;";
         Object[] args = new Object[]{forum_id};
-
         ForumDTO resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
         return forumConverter.getModel(resultForumDTO);
     }
 
     public Forum get_by_slug(String slug) {
         String sql = "SELECT * FROM forums WHERE slug = ?::citext;";
-
         Object[] args = new Object[]{slug};
         ForumDTO resultForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
         return forumConverter.getModel(resultForumDTO);
@@ -56,6 +52,17 @@ public class ForumRepository {
         Object[] args = new Object[]{user_id};
         ForumDTO existsForumDTO = jdbcTemplate.queryForObject(sql, args, new ForumDTOMapper());
         return forumConverter.getModel(existsForumDTO);
+    }
 
+    public void incrementThreadStat(Integer current_threads, Integer forum_id) {
+        String sql = "UPDATE forums SET threads = ? WHERE forum_id = ?";
+        Object[] args = new Object[]{current_threads + 1, forum_id};
+        jdbcTemplate.update(sql, args);
+    }
+
+    public void incrementPostStat(Integer current_posts, Integer forum_id) {
+        String sql = "UPDATE forums SET posts = ? WHERE forum_id = ?";
+        Object[] args = new Object[]{current_posts + 1, forum_id};
+        jdbcTemplate.update(sql, args);
     }
 }

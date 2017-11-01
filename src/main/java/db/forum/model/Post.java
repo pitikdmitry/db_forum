@@ -1,6 +1,5 @@
 package db.forum.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -89,7 +88,7 @@ public class Post {
     public static JSONObject getJsonObjects(User user, Forum forum, Post post, Thread thread) {
         final JSONObject bigObject = new JSONObject();
         if(user != null) {
-            bigObject.put("user", user.getJson());
+            bigObject.put("author", user.getJson());
         }
         if(forum != null) {
             bigObject.put("forum", forum.getJson());

@@ -327,12 +327,23 @@ public class PostRepository {
     }
 
     public Post update(Integer id, Post post) {
+        Post responsePost = checkPostUpdate(id);
+        if(responsePost.getMessage().equals(post.getMessage())) {
+            return responsePost;
+        }
         ArrayList<Object> args = new ArrayList<>();
         String sql = "UPDATE posts SET message = ?, is_edited = ? WHERE post_id = ? RETURNING *";
         args.add(post.getMessage());
         args.add(true);
         args.add(id);
         PostDTO postDTO = jdbcTemplate.queryForObject(sql, args.toArray(), new PostDTOMapper());
+        return postConverter.getModel(postDTO);
+    }
+
+    private Post checkPostUpdate(Integer id) {
+        String sql = "SELECT * FROM posts WHERE post_id = ?";
+        Object[] args = new Object[]{id};
+        PostDTO postDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
         return postConverter.getModel(postDTO);
     }
 
@@ -343,15 +354,4 @@ public class PostRepository {
         return postConverter.getModelList(postDTOs);
     }
 
-//    public List<Post> checkThread(String slug_or_id) {
-//        String sql = "SELECT * FROM posts WHERE thread_id = ?;";
-//        Integer thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
-//        if(thread_id == null) {
-//            return null;
-//            //nno thread
-//        }
-//        Object[] args = new Object[]{thread_id};
-//        List<PostDTO> postDTOs = jdbcTemplate.query(sql, args, new PostDTOMapper());
-//        return postConverter.getModelList(postDTOs);
-//    }
 }

@@ -46,12 +46,12 @@ public class Forum {
     public void setUser(String user) { this.user = user; }
 
 //    public void fill(Integer forum_id, Integer posts, String slug, Integer threads, String title, String user) {
-    public void fill(Integer forum_id, String slug, String title, String user) {
+    public void fill(Integer forum_id, Integer posts, String slug, Integer threads, String title, String user) {
 
         this.forum_id = forum_id;
-//        this.posts = posts;
+        this.posts = posts;
         this.slug = slug;
-//        this.threads = threads;
+        this.threads = threads;
         this.title = title;
         this.user = user;
         this.is_loaded = true;

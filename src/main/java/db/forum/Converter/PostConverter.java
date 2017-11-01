@@ -56,9 +56,6 @@ public class PostConverter {
         if(postDTO.getCreated() != null) {
             created = postDTO.getCreated();
         }
-//        if(created != null) {
-//            created = dateRepository.changeDateFormat(created);
-//        }
         Boolean is_edited = postDTO.getIs_edited();
 
         post.fill(author, created, forumSlug, post_id, is_edited,

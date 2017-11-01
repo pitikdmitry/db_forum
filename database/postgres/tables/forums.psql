@@ -1,7 +1,9 @@
 CREATE TABLE forums
 (
     forum_id serial primary key,
+    posts int DEFAULT 0,
     slug CITEXT NOT NULL UNIQUE,
+    threads int DEFAULT 0,
     user_id int NOT NULL,
     title TEXT NOT NULL
 );

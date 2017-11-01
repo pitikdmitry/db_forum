@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -104,6 +105,13 @@ public class ForumService {
         try {
             Thread responseThread = threadRepository.create(slug, forum_id, user.getUser_id(), thread.getCreated(),
                     thread.getMessage(), thread.getTitle());
+            if(forum != null) {
+                try {
+                    forumRepository.incrementThreadStat(forum.getThreads(), forum_id);
+                } catch(NullPointerException ex) {
+                    forumRepository.incrementThreadStat(0, forum_id);
+                }
+            }
                 return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException dub) {
             System.out.println("[Dublicate thread exception]: " + dub);

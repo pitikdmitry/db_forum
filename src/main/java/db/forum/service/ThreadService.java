@@ -90,6 +90,7 @@ public class ThreadService {
         Thread thread = null;
         Integer forum_id = null;
         Integer parent_id = null;
+        Forum forum = null;
         if (post.getParent() == null) {
             parent_id = 0;
         }
@@ -98,6 +99,7 @@ public class ThreadService {
         }
         try {
             thread = threadRepository.get_by_slug_or_id(slug_or_id);
+            forum = forumRepository.get_by_slug(thread.getForum());
         } catch (Exception ex) {
             System.out.println("[ThreadService] thread not found!");
             throw new NoThreadException(slug_or_id);
@@ -135,13 +137,20 @@ public class ThreadService {
         }
 
         try {
-            forum_id = threadRepository.get_forum_id_by_thread_id(thread.getId());
+//            forum_id = threadRepository.get_forum_id_by_thread_id(thread.getId());
+            forum = forumRepository.get_by_slug(thread.getForum());
         } catch (Exception ex) {
             System.out.println("[ThreadService] forum_id not found!");
         }
         try {
-            return postRepository.createPost(thread.getId(), forum_id, user.getUser_id(), parent_id, post.getMessage(),
+            Post resultPost = postRepository.createPost(thread.getId(), forum.getForum_id(), user.getUser_id(), parent_id, post.getMessage(),
                     created, false);
+            try{
+                forumRepository.incrementPostStat(forum.getPosts(), forum.getForum_id());
+            } catch(NullPointerException ex) {
+                forumRepository.incrementPostStat(0, forum.getForum_id());
+            }
+            return resultPost;
         } catch (Exception ex) {
             System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
         }

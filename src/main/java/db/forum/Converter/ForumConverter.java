@@ -21,14 +21,16 @@ public class ForumConverter {
         Forum forum = new Forum();
 
         int forum_id = forumDTO.getForum_id();
+        Integer posts = forumDTO.getPosts();
         String slug = forumDTO.getSlug();
+        Integer threads = forumDTO.getThreads();
 
         User user = userRepository.get_by_id(forumDTO.getUser_id());
         String nickname = user.getNickname();
 
         String title = forumDTO.getTitle();
 
-        forum.fill(forum_id, slug, title, nickname);
+        forum.fill(forum_id, posts, slug, threads, title, nickname);
         return forum;
     }
 
