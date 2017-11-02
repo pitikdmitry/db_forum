@@ -185,7 +185,7 @@ public class ThreadService {
         }
 
         try{
-            voteRepository.create(currentThread.getId(), user.getUser_id(), vote.getVoice());
+            voteRepository.create(currentThread.getId(), user, vote.getVoice());
             Thread resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), false);
             //в resultThread уже лежит с обновленным рейтингом
             return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
