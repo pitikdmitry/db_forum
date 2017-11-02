@@ -1,10 +1,11 @@
 package db.forum.repository;
 
-import db.forum.Converter.PostConverter;
-import db.forum.DTO.PostDTO;
-import db.forum.Mappers.PostDTOMapper;
+import db.forum.Mappers.PostMapper;
 import db.forum.My_Exceptions.NoThreadException;
+import db.forum.model.Forum;
 import db.forum.model.Post;
+import db.forum.model.User;
+import db.forum.model.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -22,20 +23,17 @@ import java.util.List;
 public class PostRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ThreadRepository threadRepository;
-    private final PostConverter postConverter;
 
     @Autowired
     public PostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.threadRepository = new ThreadRepository(jdbcTemplate);
-        this.postConverter = new PostConverter(jdbcTemplate);
     }
 
     public Post getById(Integer post_id) {
         String sql = "SELECT * FROM posts WHERE post_id = ?;";
         Object[] args = new Object[]{post_id};
-        PostDTO resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
-        return postConverter.getModel(resultPostDTO);
+        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
     }
 
     public Integer countPostsByForumId(Integer forum_id) {
@@ -44,15 +42,15 @@ public class PostRepository {
         return jdbcTemplate.queryForObject(sql, args, Integer.class);
     }
 
-    public Post createPost(Integer thread_id, Integer forum_id, Integer user_id,
+    public Post createPost(Thread thread, Forum forum, User user,
                            Integer parent_id, String message, Timestamp created, Boolean is_edited) {
-        String sql = "INSERT INTO posts (thread_id, forum_id, user_id, parent_id, " +
-                "message, created, is_edited) VALUES (?, ?, ?, ?, ?, ?::timestamptz, ?) RETURNING *;";
-        Object[] args = new Object[]{thread_id, forum_id, user_id, parent_id,
-                message, created, false};
+        String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
+                "message, created, is_edited) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?::timestamptz, ?) RETURNING *;";
+        Object[] args = new Object[]{thread.getId(), thread.getSlug(), forum.getForum_id(), forum.getSlug(),
+                                    user.getUser_id(), user.getNickname(), parent_id, message, created, false};
 
-        PostDTO resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
-        return updateMpath(parent_id, resultPostDTO.getPost_id());
+        Post resultPost = jdbcTemplate.queryForObject(sql, args, new PostMapper());
+        return updateMpath(parent_id, resultPost.getId());
     }
 
     public Post updateMpath(Integer parent_id, Integer post_id) {
@@ -70,8 +68,7 @@ public class PostRepository {
         }
         Object[] args = new Object[]{arr, post_id};
         try {
-            PostDTO resultPostDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
-            return postConverter.getModel(resultPostDTO);
+            return jdbcTemplate.queryForObject(sql, args, new PostMapper());
         } catch(Exception ex) {
             System.out.println("update_m_path!exc: " + ex);
         }
@@ -148,8 +145,7 @@ public class PostRepository {
         } else {
             sql += ";";
         }
-        List<PostDTO> postDTOs = jdbcTemplate.query(sql, arguments.toArray(), new PostDTOMapper());
-        return postConverter.getModelList(postDTOs);
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public List<Post> getPostFlat(String slug_or_id, Integer limit, Integer since, Boolean desc) throws NoThreadException {
@@ -182,8 +178,7 @@ public class PostRepository {
         } else {
             sql += ";";
         }
-        List<PostDTO> postDTOs = jdbcTemplate.query(sql, arguments.toArray(), new PostDTOMapper());
-        return postConverter.getModelList(postDTOs);
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public List<Post> getPostTree(String slug_or_id, Integer limit, Integer since, Boolean desc) {
@@ -212,8 +207,7 @@ public class PostRepository {
         } else {
             sql += ";";
         }
-        List<PostDTO> postDTOs = jdbcTemplate.query(sql, arguments.toArray(), new PostDTOMapper());
-        return postConverter.getModelList(postDTOs);
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public List<Post> getPostsParentTree(String slug_or_id, Integer limit, Integer since, Boolean desc) {
@@ -322,8 +316,7 @@ public class PostRepository {
             arguments.add(limit);
         }
 
-        List<PostDTO> postDTOs = jdbcTemplate.query(sql, arguments.toArray(), new PostDTOMapper());
-        return postConverter.getModelList(postDTOs);
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public Post update(Integer id, Post post) {
@@ -336,22 +329,19 @@ public class PostRepository {
         args.add(post.getMessage());
         args.add(true);
         args.add(id);
-        PostDTO postDTO = jdbcTemplate.queryForObject(sql, args.toArray(), new PostDTOMapper());
-        return postConverter.getModel(postDTO);
+        return jdbcTemplate.queryForObject(sql, args.toArray(), new PostMapper());
     }
 
     private Post checkPostUpdate(Integer id) {
         String sql = "SELECT * FROM posts WHERE post_id = ?";
         Object[] args = new Object[]{id};
-        PostDTO postDTO = jdbcTemplate.queryForObject(sql, args, new PostDTOMapper());
-        return postConverter.getModel(postDTO);
+        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
     }
 
     public List<Post> getAnotherPostWithSameParent(Integer parent_id) {
         String sql = "SELECT * FROM posts WHERE parent_id = ?;";
         Object[] args = new Object[]{parent_id};
-        List<PostDTO> postDTOs = jdbcTemplate.query(sql, args, new PostDTOMapper());
-        return postConverter.getModelList(postDTOs);
+        return jdbcTemplate.query(sql, args, new PostMapper());
     }
 
 }

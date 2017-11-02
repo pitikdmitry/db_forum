@@ -1,11 +1,6 @@
 package db.forum.service;
 
-import db.forum.Converter.ForumConverter;
-import db.forum.Converter.ThreadConverter;
-import db.forum.DTO.ForumDTO;
-import db.forum.DTO.ThreadDTO;
-import db.forum.Mappers.ForumDTOMapper;
-import db.forum.Mappers.ThreadDTOMapper;
+import db.forum.Mappers.ThreadMapper;
 import db.forum.model.Forum;
 import db.forum.model.Message;
 import db.forum.model.Thread;
@@ -21,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Null;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -32,8 +25,6 @@ public class ForumService {
     private final UserRepository userRepository;
     private final ForumRepository forumRepository;
     private final ThreadRepository threadRepository;
-    private final ForumConverter forumConverter;
-    private final ThreadConverter threadConverter;
     private final PostRepository postRepository;
 
     @Autowired
@@ -41,8 +32,6 @@ public class ForumService {
         this.jdbcTemplate = jdbcTemplate;
         this.userRepository = new UserRepository(jdbcTemplate);
         this.forumRepository = new ForumRepository(jdbcTemplate);
-        this.forumConverter = new ForumConverter(jdbcTemplate);
-        this.threadConverter = new ThreadConverter(jdbcTemplate);
         this.threadRepository = new ThreadRepository(jdbcTemplate);
         this.postRepository = new PostRepository(jdbcTemplate);
     }
@@ -57,7 +46,7 @@ public class ForumService {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         try {
-            Forum responseForum = forumRepository.create(user.getUser_id(), forum);
+            Forum responseForum = forumRepository.create(user, forum);
             return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException ex) {
             System.out.println("[ForumService.DuplicateKeyException] " + ex);
@@ -77,7 +66,6 @@ public class ForumService {
             slug = thread.getSlug();
         }
 
-        Integer user_id = null;
         User user = null;
         Forum forum = null;
         Integer forum_id = null;
@@ -90,12 +78,11 @@ public class ForumService {
         }
         try {
             forum = forumRepository.get_by_slug(thread.getForum());
-            forum_id = forum.getForum_id();
         } catch(Exception ex) {
             try {
                 Thread threadTemp = threadRepository.get_by_slug(slug);
-                thread_id = threadTemp.getId();
-                forum_id = threadRepository.get_forum_id_by_thread_id(thread_id);
+                forum_id = threadRepository.get_forum_id_by_thread_id(threadTemp.getId());
+                forum = forumRepository.get_by_id(forum_id);
             } catch(Exception e) {
                 //ignored
                 Message message = new Message("Can't find forum with forum_id: " + forum_id);
@@ -103,13 +90,12 @@ public class ForumService {
             }
         }
         try {
-            Thread responseThread = threadRepository.create(slug, forum_id, user.getUser_id(), thread.getCreated(),
-                    thread.getMessage(), thread.getTitle());
+            Thread responseThread = threadRepository.create(slug, user, thread, forum);
             if(forum != null) {
                 try {
-                    forumRepository.incrementThreadStat(forum.getThreads(), forum_id);
+                    forumRepository.incrementThreadStat(forum.getThreads(), forum.getForum_id());
                 } catch(NullPointerException ex) {
-                    forumRepository.incrementThreadStat(0, forum_id);
+                    forumRepository.incrementThreadStat(0, forum.getForum_id());
                 }
             }
                 return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CREATED);
@@ -131,10 +117,6 @@ public class ForumService {
     public ResponseEntity<?> getDetails(String slug) {
         try {
             Forum responseForum = forumRepository.get_by_slug(slug);
-            Integer postCount = postRepository.countPostsByForumId(responseForum.getForum_id());
-            Integer threadsCount = threadRepository.countThreads(responseForum.getForum_id());
-            responseForum.setPosts(postCount);
-            responseForum.setThreads(threadsCount);
             return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.OK);
         }
         catch (Exception ex) {
@@ -209,8 +191,7 @@ public class ForumService {
             }
             args = new Object[]{forum_id, since, limit};
         }
-        List<ThreadDTO> threadsDTO = jdbcTemplate.query(sql, args, new ThreadDTOMapper());
-        List<Thread> threads = threadConverter.getModelList(threadsDTO);
+        List<Thread> threads = jdbcTemplate.query(sql, args, new ThreadMapper());
         return new ResponseEntity<>(Thread.getJsonArray(threads).toString(), HttpStatus.OK);
     }
 

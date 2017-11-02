@@ -54,7 +54,7 @@ public class PostService {
             if(related.contains("thread")) {
                 if(post.getThread() != null) {
                     try {
-                        thread = threadRepository.get_by_id(post.getThread());
+                        thread = threadRepository.get_by_id(post.getThread_id());
                     } catch (Exception ex) {
                         Message message = new Message("Can't find thread with id: " + post.getThread());
                         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);

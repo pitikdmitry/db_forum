@@ -124,7 +124,7 @@ public class ThreadService {
             }
         }
         if(parents_post != null) {
-            if(!parents_post.getThread().equals(thread.getId())) {
+            if(!parents_post.getThread_id().equals(thread.getId())) {
                 throw new NoPostException(parent_id);
             }
         } else {
@@ -143,7 +143,7 @@ public class ThreadService {
             System.out.println("[ThreadService] forum_id not found!");
         }
         try {
-            Post resultPost = postRepository.createPost(thread.getId(), forum.getForum_id(), user.getUser_id(), parent_id, post.getMessage(),
+            Post resultPost = postRepository.createPost(thread, forum, user, parent_id, post.getMessage(),
                     created, false);
             try{
                 forumRepository.incrementPostStat(forum.getPosts(), forum.getForum_id());
@@ -159,7 +159,7 @@ public class ThreadService {
 
     private Boolean check_another_posts(List<Post> posts, Integer thread_id) {
         for(int i = 0; i < posts.size(); ++i) {
-            if(posts.get(i).getThread() != thread_id) {
+            if(posts.get(i).getThread_id() != thread_id) {
                 return true;
                 //разные ветки
             }

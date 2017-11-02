@@ -13,22 +13,21 @@ public class Forum {
     private String slug;
     private Integer threads;
     private String title;
-    private String user;//nickname
-    private boolean is_loaded;
+    @JsonIgnore
+    private Integer user_id;
+    private String user;
 
-    public Forum() {
-        is_loaded = false;
-    }
+    public Forum() {}
 
-    public Forum(Integer forum_id, Integer posts, String slug, Integer threads, String title, String user) {
+    public Forum(Integer forum_id, Integer posts, String slug, Integer threads, String title, Integer user_id, String user) {
 
         this.forum_id = forum_id;
         this.posts = posts;
         this.slug = slug;
         this.threads = threads;
         this.title = title;
+        this.user_id = user_id;
         this.user = user;
-        this.is_loaded = true;
     }
 
     public Integer getForum_id() { return forum_id; }
@@ -37,6 +36,7 @@ public class Forum {
     public Integer getThreads() { return threads; }
     public String getTitle() { return title; }
     public String getUser() { return user; }
+    public Integer getUser_id() { return user_id; }
 
     public void setForum_id(Integer forum_id) { this.forum_id = forum_id; }
     public void setPosts(Integer posts) { this.posts = posts; }
@@ -44,9 +44,8 @@ public class Forum {
     public void setThreads(Integer threads) { this.threads = threads; }
     public void setTitle(String title) { this.title = title; }
     public void setUser(String user) { this.user = user; }
-
-//    public void fill(Integer forum_id, Integer posts, String slug, Integer threads, String title, String user) {
-    public void fill(Integer forum_id, Integer posts, String slug, Integer threads, String title, String user) {
+    public void setUser_id(Integer user_id) { this.user_id = user_id; }
+        public void fill(Integer forum_id, Integer posts, String slug, Integer threads, String title, String user) {
 
         this.forum_id = forum_id;
         this.posts = posts;
@@ -54,7 +53,6 @@ public class Forum {
         this.threads = threads;
         this.title = title;
         this.user = user;
-        this.is_loaded = true;
     }
 
     public JSONObject getJson() {

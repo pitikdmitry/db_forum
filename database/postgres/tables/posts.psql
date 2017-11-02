@@ -2,8 +2,11 @@ CREATE TABLE posts
 (
     post_id serial primary key,
     thread_id int NOT NULL,
+    thread TEXT NOT NULL,
     forum_id int NOT NULL,
+    forum TEXT NOT NULL,
     user_id int NOT NULL,
+    author TEXT NOT NULL,
     parent_id int NOT NULL,
     message TEXT NOT NULL,
     created TIMESTAMP WITH TIME ZONE DEFAULT NULL,

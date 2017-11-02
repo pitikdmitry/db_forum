@@ -1,9 +1,6 @@
 package db.forum.Converter;
 
-import db.forum.DTO.ThreadDTO;
 import db.forum.DTO.VoteDTO;
-import db.forum.model.Forum;
-import db.forum.model.Thread;
 import db.forum.model.User;
 import db.forum.model.Vote;
 import db.forum.repository.DateRepository;

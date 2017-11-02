@@ -1,26 +1,18 @@
 package db.forum.repository;
 
-import db.forum.Converter.ForumConverter;
-import db.forum.Converter.ThreadConverter;
-import db.forum.DTO.ForumDTO;
-import db.forum.DTO.ThreadDTO;
-import db.forum.Mappers.ForumDTOMapper;
 import db.forum.model.Forum;
 import db.forum.model.Thread;
-import db.forum.Mappers.ThreadDTOMapper;
+import db.forum.Mappers.ThreadMapper;
+import db.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Timestamp;
-
 public class ThreadRepository {
     private final JdbcTemplate jdbcTemplate;
-    private final ThreadConverter threadConverter;
 
     @Autowired
     public ThreadRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.threadConverter = new ThreadConverter(jdbcTemplate);
     }
 
     public Integer countThreads(Integer forum_id) {
@@ -33,8 +25,7 @@ public class ThreadRepository {
         String sql = "SELECT * FROM threads WHERE thread_id = ?;";
         try {
             Object[] args = new Object[]{thread_id};
-            ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            return threadConverter.getModel(resultThreadDTO);
+            return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
         }
         catch (Exception ex) {
             System.out.println("[ThreadRepository.get_by_id] exc: " + ex);
@@ -46,8 +37,7 @@ public class ThreadRepository {
         String sql = "SELECT * FROM threads WHERE slug = ?::citext;";
         try {
             Object[] args = new Object[]{slug};
-            ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            return threadConverter.getModel(resultThreadDTO);
+            return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
         }
         catch (Exception ex) {
             System.out.println("[ThreadRepository.get_by_islug] exc: " + ex);
@@ -68,8 +58,7 @@ public class ThreadRepository {
             args = new Object[]{slug_or_id};
         }
 
-        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-        return threadConverter.getModel(resultThreadDTO);
+        return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
     public Integer get_forum_id_by_thread_id(int thread_id) {
@@ -104,8 +93,7 @@ public class ThreadRepository {
             catch(Exception ex) {
                 args = new Object[]{vote_value, old_thread.getId()};
             }
-            ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-            return threadConverter.getModel(resultThreadDTO);
+            return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
         }
         catch(Exception ex) {
             System.out.println(("BAF IF HEREE"));
@@ -126,44 +114,40 @@ public class ThreadRepository {
         return id;
     }
 
-    public Thread create(String slug, Integer forum_id, Integer user_id, Timestamp created, String message, String title) {
+    public Thread create(String slug, User user, Thread thread, Forum forum) {
         Object[] args = null;
         String sql = null;
-        if(created != null) {
-            sql = "INSERT INTO threads (slug, forum_id, user_id, created, message, title)" +
-                    " VALUES (?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
-            args = new Object[]{slug, forum_id, user_id, created,
-                    message, title};
+        if(thread.getCreated() != null) {
+            sql = "INSERT INTO threads (slug, forum, forum_id, author, user_id, created, message, title)" +
+                    " VALUES (?::citext, ?, ?, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
+            args = new Object[]{slug, forum.getSlug(), forum.getForum_id(), user.getNickname(), user.getUser_id(), thread.getCreated(),
+                    thread.getMessage(), thread.getTitle()};
         }
         else {
-            sql = "INSERT INTO threads (slug, forum_id, user_id, message, title)" +
-                    " VALUES (?::citext, ?, ?, ?, ?) RETURNING *;";
-            args = new Object[]{slug, forum_id, user_id,
-                    message, title};
+            sql = "INSERT INTO threads (slug, forum, forum_id, author, user_id, message, title)" +
+                    " VALUES (?::citext, ?, ?, ?, ?, ?, ?) RETURNING *;";
+            args = new Object[]{slug, thread.getForum(), forum.getForum_id(), user.getNickname(), user.getUser_id(),
+                    thread.getMessage(), thread.getTitle()};
         }
-        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-        return threadConverter.getModel(resultThreadDTO);
+        return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
     public Thread updateMessageTitle(Integer thread_id, String message, String title) {
         String sql = "UPDATE threads SET message = ?, title = ? WHERE thread_id = ? RETURNING *;";
         Object[] args = new Object[]{message, title, thread_id};
-        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-        return threadConverter.getModel(resultThreadDTO);
+        return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
     public Thread updateTitle(Integer thread_id, String title) {
         String sql = "UPDATE threads SET title = ? WHERE thread_id = ? RETURNING *;";
         Object[] args = new Object[]{title, thread_id};
-        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-        return threadConverter.getModel(resultThreadDTO);
+        return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
     public Thread updateMessage(Integer thread_id, String message) {
         String sql = "UPDATE threads SET message = ? WHERE thread_id = ? RETURNING *;";
         Object[] args = new Object[]{message, thread_id};
-        ThreadDTO resultThreadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-        return threadConverter.getModel(resultThreadDTO);
+        return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
     public Thread checkThread(String slug_or_id) {
@@ -174,8 +158,7 @@ public class ThreadRepository {
             //nno thread
         }
         Object[] args = new Object[]{thread_id};
-        ThreadDTO threadDTO = jdbcTemplate.queryForObject(sql, args, new ThreadDTOMapper());
-        return threadConverter.getModel(threadDTO);
+        return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
 }

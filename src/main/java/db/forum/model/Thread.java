@@ -1,6 +1,7 @@
 package db.forum.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,52 +10,49 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Thread {
+    private Integer id;
     private String author;//nickname
+    @JsonIgnore
+    private Integer user_id;
     private Timestamp created;
     private String forum;
-    private Integer id;
+    @JsonIgnore
+    private Integer forum_id;
     private String message;
     private String slug;
     private String title;
     private Integer votes;
-    private Boolean is_loaded;
 
-    public Thread() {
-        is_loaded = false;
-    }
+    public Thread() {}
 
-    @JsonCreator
-    public Thread(@JsonProperty("id") int id,
-                  @JsonProperty("title") String title,
-                  @JsonProperty("author") String author,
-                  @JsonProperty("slug") String slug,
-                  @JsonProperty("message") String message,
-                  @JsonProperty("forum") String forum,
-                  @JsonProperty("votes") int votes,
-                  @JsonProperty("created") Timestamp created) {
+    public Thread(Integer id, String author, Integer user_id,
+                  Timestamp created, String forum, Integer forum_id,
+                  String message, String slug, String title, Integer votes) {
         this.id = id;
         this.author = author;
+        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
+        this.forum_id = forum_id;
         this.message = message;
         this.slug = slug;
         this.title = title;
         this.votes = votes;
-        this.is_loaded = true;
     }
 
-    public void fill(Integer id, String author, Timestamp created,
-                     String forum, String message, String slug,
-                     String title, Integer votes) {
+    public void fill(Integer id, String author, Integer user_id,
+                     Timestamp created, String forum, Integer forum_id,
+                     String message, String slug, String title, Integer votes) {
         this.id = id;
         this.author = author;
+        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
+        this.forum_id = forum_id;
         this.message = message;
         this.slug = slug;
         this.title = title;
         this.votes = votes;
-        this.is_loaded = true;
     }
 
     public Integer getId() { return id; }
@@ -67,8 +65,10 @@ public class Thread {
     public String getSlug() { return slug; }
     public String getTitle() { return title; }
     public Integer getVotes() { return votes; }
-    public void setId(Integer id) { this.id = id; }
+    public Integer getUser_id() { return user_id; }
+    public Integer getForum_id() { return forum_id; }
 
+    public void setId(Integer id) { this.id = id; }
     public void setAuthor(String author) { this.author = author; }
     public void setCreated(Timestamp created) { this.created = created;}
     public void setForum(String forum) { this.forum = forum; }
@@ -76,6 +76,9 @@ public class Thread {
     public void setSlug(String slug) { this.slug = slug; }
     public void setTitle(String title) { this.title = title; }
     public void setVotes(Integer votes) { this.votes = votes; }
+
+    public void setUser_id(Integer user_id) { this.user_id = user_id; }
+    public void setForum_id(Integer forum_id) { this.forum_id = forum_id; }
 
     public JSONObject getJson(Boolean has_slug) {
         final JSONObject jsonObject = new JSONObject();
