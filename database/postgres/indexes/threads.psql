@@ -7,3 +7,6 @@ CREATE INDEX threads_forums_idx
 CREATE INDEX threads_users_idx
   ON threads (user_id);
 
+
+CREATE INDEX threads_forum_idx
+  ON threads (forum);

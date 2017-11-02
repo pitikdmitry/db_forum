@@ -45,7 +45,7 @@ public class PostRepository {
     public Post createPost(Thread thread, Forum forum, User user,
                            Integer parent_id, String message, Timestamp created, Boolean is_edited) {
         String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
-                "message, created, is_edited) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?::timestamptz, ?) RETURNING *;";
+                "message, created, is_edited) VALUES (?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
         Object[] args = new Object[]{thread.getId(), thread.getSlug(), forum.getForum_id(), forum.getSlug(),
                                     user.getUser_id(), user.getNickname(), parent_id, message, created, false};
 
@@ -67,12 +67,9 @@ public class PostRepository {
             arr = createSqlArray(m_path);
         }
         Object[] args = new Object[]{arr, post_id};
-        try {
-            return jdbcTemplate.queryForObject(sql, args, new PostMapper());
-        } catch(Exception ex) {
-            System.out.println("update_m_path!exc: " + ex);
-        }
-        return null;
+
+        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
+
     }
 
     private java.sql.Array createSqlArray(List<Integer> list){

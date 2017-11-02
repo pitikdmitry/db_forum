@@ -54,10 +54,10 @@ public class ThreadService {
                 Message message = new Message("Can't find post thread by id: " + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
-            if(currentThread == null) {
-                Message message = new Message("Can't find post thread by id: " + slug_or_id);
-                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-            }
+//            if(currentThread == null) {
+//                Message message = new Message("Can't find post thread by id: " + slug_or_id);
+//                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+//            }
         }
         for (Post p : posts) {
             try {
@@ -86,17 +86,15 @@ public class ThreadService {
     }
 
     private Post createOnePost(String slug_or_id, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
-        User user = null;
-        Thread thread = null;
-        Integer forum_id = null;
         Integer parent_id = null;
-        Forum forum = null;
         if (post.getParent() == null) {
             parent_id = 0;
         }
         else {
             parent_id = post.getParent();
         }
+        Thread thread = null;
+        Forum forum = null;
         try {
             thread = threadRepository.get_by_slug_or_id(slug_or_id);
             forum = forumRepository.get_by_slug(thread.getForum());
@@ -104,6 +102,7 @@ public class ThreadService {
             System.out.println("[ThreadService] thread not found!");
             throw new NoThreadException(slug_or_id);
         }
+        User user = null;
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
         } catch (Exception ex) {
@@ -111,7 +110,6 @@ public class ThreadService {
             throw new NoUserException(post.getAuthor());
         }
             //check parent's thread and current post thread
-
             //getting parent post
         Post parents_post = null;
         if(parent_id != 0) {
@@ -135,19 +133,12 @@ public class ThreadService {
                 }
             }
         }
-
-        try {
-//            forum_id = threadRepository.get_forum_id_by_thread_id(thread.getId());
-            forum = forumRepository.get_by_slug(thread.getForum());
-        } catch (Exception ex) {
-            System.out.println("[ThreadService] forum_id not found!");
-        }
         try {
             Post resultPost = postRepository.createPost(thread, forum, user, parent_id, post.getMessage(),
                     created, false);
-            try{
+            if(forum.getPosts() != null) {
                 forumRepository.incrementPostStat(forum.getPosts(), forum.getForum_id());
-            } catch(NullPointerException ex) {
+            } else {
                 forumRepository.incrementPostStat(0, forum.getForum_id());
             }
             return resultPost;
@@ -183,7 +174,6 @@ public class ThreadService {
             Message message = new Message("Can't find user by nickname: " + vote.getNickname());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-
         try{
             voteRepository.create(currentThread.getId(), user, vote.getVoice());
             Thread resultThread = threadRepository.increment_vote_rating(currentThread, vote.getVoice(), false);
@@ -209,18 +199,13 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> getDetails(String slug_or_id) {
-        Thread resultThread = null;
         try {
-            resultThread = threadRepository.get_by_slug_or_id(slug_or_id);
+            Thread resultThread = threadRepository.get_by_slug_or_id(slug_or_id);
+            return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
         } catch(Exception ex) {
             Message message = new Message("Can't find thread by slug: " + slug_or_id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-        if (resultThread == null) {
-            Message message = new Message("Can't find user with id #42");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(resultThread.getJson(true).toString(), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, Integer since, String sort, Boolean desc) {
@@ -276,14 +261,8 @@ public class ThreadService {
 
     public ResponseEntity<?> update(String slug_or_id, Thread thread) {
         Integer thread_id = null;
-        try {
-            thread_id = threadRepository.get_id_from_slug_or_id(slug_or_id);
-        } catch(Exception ex) {
-            Message message = new Message("Can't find thread by slug: " + slug_or_id);
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
         try{
-            Thread threadres = threadRepository.checkThread(slug_or_id);
+            thread_id = threadRepository.checkThreadGetId(slug_or_id);
             if(thread == null) {
                 Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);

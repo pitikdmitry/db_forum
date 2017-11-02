@@ -2,7 +2,6 @@ package db.forum.Mappers;
 
 import db.forum.model.User;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

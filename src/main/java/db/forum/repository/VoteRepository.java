@@ -20,7 +20,7 @@ public class VoteRepository {
     }
 
     public Vote create(Integer thread_id, User user, Integer vote_value) {
-        String sql = "INSERT INTO vote (thread_id, user_id, vote_value, nickname) VALUES (?, ?, ?, ?) RETURNING *;";
+        String sql = "INSERT INTO vote (thread_id, user_id, vote_value, nickname) VALUES (?, ?, ?, ?::citext) RETURNING *;";
         Object[] args = new Object[]{thread_id, user.getUser_id(), vote_value, user.getNickname()};
         return jdbcTemplate.queryForObject(sql, args, new VoteMapper());
     }

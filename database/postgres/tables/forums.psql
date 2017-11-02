@@ -5,6 +5,6 @@ CREATE TABLE forums
     slug CITEXT NOT NULL UNIQUE,
     threads int DEFAULT 0,
     user_id int NOT NULL,
-    user_nickname TEXT NOT NULL,
+    user_nickname CITEXT NOT NULL,
     title TEXT NOT NULL
 );

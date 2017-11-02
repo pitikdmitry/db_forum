@@ -31,9 +31,15 @@ public class ForumRepository {
         return jdbcTemplate.queryForObject(sql, args, new ForumMapper());
     }
 
+    public Integer get_id_by_slug(String slug) {
+        String sql = "SELECT forum_id FROM forums WHERE slug = ?::citext;";
+        Object[] args = new Object[]{slug};
+        return jdbcTemplate.queryForObject(sql, args, Integer.class);
+    }
+
     public Forum create(User user, Forum forum) {
-        String sql = "INSERT INTO forums (slug, user_id, user_nickname, title) VALUES (?::citext, ?, ?, ?)" +
-                " RETURNING *;";
+        String sql = "INSERT INTO forums (slug, user_id, user_nickname, title) VALUES (?::citext, ?, ?::citext, ?)" +
+                    " RETURNING *;";
         Object[] args = new Object[]{forum.getSlug(), user.getUser_id(), user.getNickname(), forum.getTitle()};
         return jdbcTemplate.queryForObject(sql, args, new ForumMapper());
     }

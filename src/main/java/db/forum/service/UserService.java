@@ -29,7 +29,6 @@ public class UserService {
         } catch (DuplicateKeyException ex) {
             System.out.println("[UserService.create insert DuplicateKeyException] " + ex);
         }
-
         try{
             List<User> responseUsers = userRepository.getByNicknameAndEmail(nickname, user.getEmail());
             return new ResponseEntity<>(User.getJsonArray(responseUsers).toString(), HttpStatus.CONFLICT);
@@ -62,13 +61,13 @@ public class UserService {
         if((user.getEmail() == null) && (user.getFullname() == null) && (user.getAbout() == null)) {
             return updateByEmpty(nickname);
         }
-        else if((user.getEmail() == null) && (user.getFullname() == null)) {
+        else if(user.getEmail() == null && user.getFullname() == null) {
             return updateAboutByNickname(user, nickname);
         }
-        else if((user.getAbout() == null) && (user.getFullname() == null)) {
+        else if(user.getAbout() == null && user.getFullname() == null) {
             return updateEmailByNickname(user, nickname);
         }
-        else if((user.getAbout() == null) && (user.getEmail() == null)) {
+        else if(user.getAbout() == null && user.getEmail() == null) {
             return updateFullnameByNickname(user, nickname);
         }
         else if(user.getAbout() == null) {

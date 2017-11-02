@@ -1,7 +1,7 @@
 CREATE TABLE users
 (
     user_id serial primary key,
-    nickname CITEXT NOT NULL UNIQUE,
+    nickname CITEXT COLLATE ucs_basic NOT NULL UNIQUE,
     email CITEXT NOT NULL UNIQUE,
     fullname TEXT NOT NULL,
     about TEXT NOT NULL

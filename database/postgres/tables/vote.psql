@@ -4,5 +4,5 @@ CREATE TABLE vote
     thread_id int NOT NULL,
     user_id int NOT NULL,
     vote_value int NOT NULL,
-    nickname TEXT NOT NULL
+    nickname CITEXT NOT NULL
 );

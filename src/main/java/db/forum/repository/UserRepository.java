@@ -22,14 +22,8 @@ public class UserRepository {
 
     public User get_by_id(int user_id) {
         String sql = "SELECT * FROM users WHERE user_id = ?;";
-        try {
-            Object[] args = new Object[]{user_id};
-            return jdbcTemplate.queryForObject(sql, args, new UserMapper());
-        }
-        catch (Exception ex) {
-            System.out.println("[UserConverter.get_by_id] exc: " + ex);
-            return null;
-        }
+        Object[] args = new Object[]{user_id};
+        return jdbcTemplate.queryForObject(sql, args, new UserMapper());
     }
 
     public List<User> getUsers(Integer forum_id, Integer limit, String since, Boolean desc) {
@@ -43,24 +37,21 @@ public class UserRepository {
         args.add(forum_id);
         if(since != null) {
             if(desc != null && desc) {
-                sql += " WHERE LOWER(sub1.nickname COLLATE \"ucs_basic\") < LOWER(?::citext)";
-            }
-            else {
-                sql += " WHERE LOWER(sub1.nickname COLLATE \"ucs_basic\") > LOWER(?::citext)";
+                sql += " WHERE sub1.nickname < ?::citext";
+            } else {
+                sql += " WHERE sub1.nickname > ?::citext";
             }
             args.add(since);
         }
         if(desc != null && desc) {
-            sql += " ORDER BY LOWER(sub1.nickname) COLLATE \"ucs_basic\" DESC";
-        }
-        else {
-            sql += " ORDER BY LOWER(sub1.nickname) COLLATE \"ucs_basic\" ASC";
+            sql += " ORDER BY sub1.nickname DESC";
+        } else {
+            sql += " ORDER BY sub1.nickname ASC";
         }
         if(limit != null) {
             sql += " LIMIT ?;";
             args.add(limit);
-        }
-        else{
+        } else{
             sql += ";";
         }
         return jdbcTemplate.query(sql, args.toArray(), new UserMapper());
@@ -78,37 +69,19 @@ public class UserRepository {
             sql = "SELECT * FROM users WHERE nickname = ?::citext;";
             args = new Object[]{slug_or_id};
         }
-        try {
-            return jdbcTemplate.queryForObject(sql, args, new UserMapper());
-        }
-        catch (Exception ex) {
-            System.out.println("[UserConverter.get_by_nickname] exc: " + ex);
-            throw ex;
-        }
+        return jdbcTemplate.queryForObject(sql, args, new UserMapper());
     }
 
     public User get_by_nickname(String nickname) {
         String sql = "SELECT * FROM users WHERE nickname = ?::citext;";
-        try {
-            Object[] args = new Object[]{nickname};
-            return jdbcTemplate.queryForObject(sql, args, new UserMapper());
-        }
-        catch (Exception ex) {
-            System.out.println("[UserConverter.get_by_nickname] exc: " + ex);
-            throw ex;
-        }
+        Object[] args = new Object[]{nickname};
+        return jdbcTemplate.queryForObject(sql, args, new UserMapper());
     }
 
     public User get_by_email(String email) {
         String sql = "SELECT * FROM users WHERE email = ?::citext;";
-        try {
-            Object[] args = new Object[]{email};
-            return jdbcTemplate.queryForObject(sql, args, new UserMapper());
-        }
-        catch (Exception ex) {
-            System.out.println("[UserConverter.get_by_email] exc: " + ex);
-            return null;
-        }
+        Object[] args = new Object[]{email};
+        return jdbcTemplate.queryForObject(sql, args, new UserMapper());
     }
 
     public User create(User user, String nickname) {
