@@ -17,12 +17,10 @@ import java.util.ArrayList;
 public class ThreadController {
 
     private final ThreadService threadService;
-    private Logger logger;
 
     @Autowired
     public ThreadController(ThreadService threadService) {
         this.threadService = threadService;
-        this.logger = LoggerFactory.getLogger(ThreadService.class);
     }
 
     @RequestMapping(value = "/{slug_or_id}/create", method = RequestMethod.POST,

@@ -3,5 +3,6 @@ CREATE TABLE vote
     vote_id serial primary key,
     thread_id int NOT NULL,
     user_id int NOT NULL,
-    vote_value int NOT NULL
+    vote_value int NOT NULL,
+    nickname CITEXT NOT NULL
 );
