@@ -14,7 +14,7 @@ RUN /etc/init.d/postgresql start &&\
     psql --command "ALTER USER postgres WITH SUPERUSER PASSWORD 'postgres';" &&\
     /etc/init.d/postgresql stop
 
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$PGVER/main/pg_hba.conf`
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$PGVER/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/$PGVER/main/postgresql.conf
 # Expose the PostgreSQL port
 EXPOSE 5432
