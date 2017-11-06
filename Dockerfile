@@ -34,7 +34,7 @@ RUN apt-get install -y maven
 ENV WORK /project
 ADD . $WORK/java-project/
 WORKDIR $WORK/java-project/
-#RUN mvn package
+RUN mvn package
 
 # Объявлем порт сервера
 EXPOSE 5000
@@ -44,20 +44,19 @@ EXPOSE 5000
 #
 USER postgres
 
-ENV DBHOST=localhost
+ENV DBHOST=postgres
 ENV DBPORT=5432
 ENV DBNAME=forum_user
 ENV DBUSER=forum_user
 ENV DBPASS=forum_user
 ENV DATABASE=$WORK/java-project/database
 
-CMD service postgresql start  && \
-     psql --command "UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';" && \
+CMD service postgresql start && psql --command "UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';" && \
      psql --command "DROP DATABASE template1;" && \
      psql --command "CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UNICODE';" && \
      psql --command "UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';" && \
      psql --command "\c template1" && \
      psql --command "VACUUM FREEZE;" && \
      psql --command "CREATE DATABASE forum_user WITH ENCODING 'UTF8';" && \
-    bash $WORK/java-project/database/loader/database_loader/create_db.sh $DBHOST $DBPORT $DBNAME $DBUSER $DBPASS $DATABASE && \
-    java -jar $WORK/java-project/release/DataBaseProject-0.1.0.jar
+     psql -f $WORK/java-project/database/loader/database_loader/create_sql.sql forum_user postgres && \
+     java -jar $WORK/java-project/target/DataBaseProject-1.0.jar
