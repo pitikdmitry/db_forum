@@ -90,7 +90,7 @@ then
     wait_postgres
 fi
 
-echo "db_user = ${db_user}; db_password = ${db_password}; db_name = ${db_name}"
+#echo "db_user = ${db_user}; db_password = ${db_password}; db_name = ${db_name}"
 re_create_database "${db_name}" "${db_user}" "${db_password}"
 load_database_structure
 load_database_constraints
