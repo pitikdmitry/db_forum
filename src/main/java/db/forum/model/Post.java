@@ -41,6 +41,22 @@ public class Post {
         this.thread_id = thread_id;
     }
 
+    public Post(String author, Integer user_id,
+                Timestamp created, String forum, Integer forum_id,
+                Boolean isEdited, String message, Integer parent,
+                String thread, Integer thread_id) {
+        this.author = author;
+        this.user_id = user_id;
+        this.created = created;
+        this.forum = forum;
+        this.forum_id = forum_id;
+        this.isEdited = isEdited;
+        this.message = message;
+        this.parent = parent;
+        this.thread = thread;
+        this.thread_id = thread_id;
+    }
+
     public String getAuthor() { return author; }
     public Timestamp getCreated() { return created; }
     public String getForum() { return forum; }

@@ -6,6 +6,7 @@ import db.forum.My_Exceptions.NoUserException;
 import db.forum.model.*;
 import db.forum.model.Thread;
 import db.forum.repository.*;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,8 @@ public class ThreadService {
     private final VoteRepository voteRepository;
     private final PostRepository postRepository;
     private final ForumRepository forumRepository;
+    private static int counter = 1;
+
     @Autowired
     public ThreadService(JdbcTemplate jdbcTemplate) {
         this.userRepository = new UserRepository(jdbcTemplate);
@@ -40,6 +43,7 @@ public class ThreadService {
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
         ArrayList<Post> resultArr = new ArrayList<>();
         Timestamp created = null;
+
         try {
             created = Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime());
         } catch(Exception ex) {
@@ -62,7 +66,11 @@ public class ThreadService {
         for (Post p : posts) {
             try {
                 Post res = createOnePost(slug_or_id, p, created);
-                resultArr.add(res);
+                if(res != null) {
+                    res.setId(counter);
+                    resultArr.add(res);
+                    counter++;
+                }
             } catch(NoUserException ex) {
                 Message message = new Message("Can't find post author by nickname: " + ex.getAuthor());
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -82,7 +90,18 @@ public class ThreadService {
                 return new ResponseEntity<>(message, HttpStatus.CONFLICT);
             }
         }
-        return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
+        ArrayList<Post> newArr = null;
+        try {
+            postRepository.executePosts(resultArr);
+            newArr = new ArrayList<>();
+            for(Post p : resultArr) {
+                Post newP = postRepository.updateMpath(p.getParent(), p.getId());
+                newArr.add(newP);
+            }
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        return new ResponseEntity<>(Post.getJsonArray(newArr).toString(), HttpStatus.CREATED);
     }
 
     private Post createOnePost(String slug_or_id, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
@@ -134,14 +153,18 @@ public class ThreadService {
             }
         }
         try {
-            Post resultPost = postRepository.createPost(thread, forum, user, parent_id, post.getMessage(),
-                    created, false);
+//            Post resultPost = postRepository.createPost(thread, forum, user, parent_id, post.getMessage(),
+//                    created, false);
+            Post newPost = new Post(post.getId(), user.getNickname(), user.getUser_id(), created, forum.getSlug(),
+                                    forum.getForum_id(), false, post.getMessage(), parent_id,
+                                    thread.getSlug(), thread.getId());
+
             if(forum.getPosts() != null) {
                 forumRepository.incrementPostStat(forum.getPosts(), forum.getForum_id());
             } else {
                 forumRepository.incrementPostStat(0, forum.getForum_id());
             }
-            return resultPost;
+            return newPost;
         } catch (Exception ex) {
             System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
         }

@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.sql.Array;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -341,4 +338,39 @@ public class PostRepository {
         return jdbcTemplate.query(sql, args, new PostMapper());
     }
 
+    public void executePosts(List<Post> posts) {
+        Connection connection = null;
+        String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
+                "message, created, is_edited) VALUES (?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
+
+        try {
+            connection = jdbcTemplate.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for(Post p : posts) {
+                preparedStatement.setInt(1, (int)p.getThread_id());
+                preparedStatement.setString(2, p.getThread());
+                preparedStatement.setInt(3, (int)p.getForum_id());
+                preparedStatement.setString(4, p.getForum());
+                preparedStatement.setInt(5, (int)p.getUser_id());
+                preparedStatement.setString(6, p.getAuthor());
+                preparedStatement.setInt(7, p.getParent());
+                preparedStatement.setString(8, p.getMessage());
+                preparedStatement.setTimestamp(9, p.getCreated());
+                preparedStatement.setBoolean(10, p.getEdited());
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
