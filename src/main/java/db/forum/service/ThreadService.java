@@ -118,14 +118,14 @@ public class ThreadService {
             try {
                 parentPost = postRepository.getById(parent_id);
             } catch (Exception ex) {
-//                throw new NoPostException(parent_id);
+                throw new NoPostException(parent_id);
             }
             if(parentPost == null) {
 //                throw new NoPostException(parent_id);
-            } else {
-                if(!parentPost.getThread().equals(thread.getSlug())) {
-                    throw new NoPostException(parent_id);
-                }
+            }
+
+            if(!parentPost.getThread().equals(thread.getSlug())) {
+                throw new NoPostException(parent_id);
             }
         }
         try {
@@ -148,11 +148,6 @@ public class ThreadService {
         }
         return null;
     }
-
-//    private Boolean check_another_posts(Post post, Integer thread_id) {
-//        List<Post> postsWithSpostRepository.getPostsWithByParent(post.getParent(), thread_id);
-//        return false;
-//    }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
         Thread currentThread = null;
