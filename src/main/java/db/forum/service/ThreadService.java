@@ -109,20 +109,19 @@ public class ThreadService {
             throw new NoUserException(post.getAuthor());
         }
 
-        Integer parent_id = null;
-        if (post.getParent() == null) {
-            parent_id = 0;
-        }
-        else {
+        Integer parent_id = 0;
+        if(post.getParent() != null) {
             parent_id = post.getParent();
+        }
+        if (parent_id != 0) {
             Post parentPost = null;
             try {
                 parentPost = postRepository.getById(parent_id);
             } catch (Exception ex) {
-                throw new NoPostException(parent_id);
+//                throw new NoPostException(parent_id);
             }
             if(parentPost == null) {
-                throw new NoPostException(parent_id);
+//                throw new NoPostException(parent_id);
             } else {
                 if(!parentPost.getThread().equals(thread.getSlug())) {
                     throw new NoPostException(parent_id);
@@ -136,6 +135,7 @@ public class ThreadService {
                                     forum.getForum_id(), false, post.getMessage(), parent_id,
                                     thread.getSlug(), thread.getId());
             newPost.setId(postRepository.getNext());
+            newPost.setParent(parent_id);
 
             if(forum.getPosts() != null) {
                 forumRepository.incrementPostStat(forum.getPosts(), forum.getForum_id());
