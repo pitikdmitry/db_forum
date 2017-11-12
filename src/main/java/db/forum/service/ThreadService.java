@@ -80,18 +80,15 @@ public class ThreadService {
                 return new ResponseEntity<>(message, HttpStatus.CONFLICT);
             }
         }
-        ArrayList<Post> newArr = null;
         try {
             postRepository.executePosts(resultArr);
-            newArr = new ArrayList<>();
             for(Post p : resultArr) {
-                Post newP = postRepository.updateMpath(p.getParent(), p.getId());
-                newArr.add(newP);
+                postRepository.updateMpath(p.getParent(), p.getId());
             }
         } catch(Exception e) {
             System.out.println(e);
         }
-        return new ResponseEntity<>(Post.getJsonArray(newArr).toString(), HttpStatus.CREATED);
+        return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
     }
 
     private Post createOnePost(String slug_or_id_thread, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {

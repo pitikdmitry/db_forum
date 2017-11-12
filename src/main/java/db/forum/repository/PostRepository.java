@@ -39,16 +39,16 @@ public class PostRepository {
         return jdbcTemplate.queryForObject(sql, args, Integer.class);
     }
 
-    public Post createPost(Thread thread, Forum forum, User user,
-                           Integer parent_id, String message, Timestamp created, Boolean is_edited) {
-        String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
-                "message, created, is_edited) VALUES (?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
-        Object[] args = new Object[]{thread.getId(), thread.getSlug(), forum.getForum_id(), forum.getSlug(),
-                                    user.getUser_id(), user.getNickname(), parent_id, message, created, false};
-
-        Post resultPost = jdbcTemplate.queryForObject(sql, args, new PostMapper());
-        return updateMpath(parent_id, resultPost.getId());
-    }
+//    public Post createPost(Thread thread, Forum forum, User user,
+//                           Integer parent_id, String message, Timestamp created, Boolean is_edited) {
+//        String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
+//                "message, created, is_edited) VALUES (?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
+//        Object[] args = new Object[]{thread.getId(), thread.getSlug(), forum.getForum_id(), forum.getSlug(),
+//                                    user.getUser_id(), user.getNickname(), parent_id, message, created, false};
+//
+//        Post resultPost = jdbcTemplate.queryForObject(sql, args, new PostMapper());
+//        return updateMpath(parent_id, resultPost.getId());
+//    }
 
     public List<Post> getAnotherPostWithSameParent(Integer parent_id) {
         String sql = "SELECT * FROM posts WHERE parent_id = ?;";
@@ -56,7 +56,7 @@ public class PostRepository {
         return jdbcTemplate.query(sql, args, new PostMapper());
     }
 
-    public Post updateMpath(Integer parent_id, Integer post_id) {
+    public void updateMpath(Integer parent_id, Integer post_id) {
         java.sql.Array arr = null;
         List<Integer> m_path = get_m_path(parent_id);
         if(m_path == null) {
@@ -65,14 +65,13 @@ public class PostRepository {
 
         m_path.add(post_id);
 
-        String sql = "UPDATE posts SET m_path = ? WHERE post_id = ? RETURNING *;";
+        String sql = "UPDATE posts SET m_path = ? WHERE post_id = ?;";
         if(m_path != null) {
             arr = createSqlArray(m_path);
         }
         Object[] args = new Object[]{arr, post_id};
 
-        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
-
+        jdbcTemplate.update(sql, args);
     }
 
     private java.sql.Array createSqlArray(List<Integer> list){
