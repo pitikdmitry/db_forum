@@ -137,7 +137,7 @@ public class Post {
             bigObject.put("post", post.getJson());
         }
         if(thread != null) {
-            bigObject.put("thread", thread.getJson(true));
+            bigObject.put("thread", thread.getJson());
         }
         return bigObject;
     }

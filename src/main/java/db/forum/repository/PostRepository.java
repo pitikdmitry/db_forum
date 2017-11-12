@@ -332,31 +332,26 @@ public class PostRepository {
         return jdbcTemplate.queryForObject(sql, args, new PostMapper());
     }
 
-    public List<Post> getAnotherPostWithSameParent(Integer parent_id) {
-        String sql = "SELECT * FROM posts WHERE parent_id = ?;";
-        Object[] args = new Object[]{parent_id};
-        return jdbcTemplate.query(sql, args, new PostMapper());
-    }
-
     public void executePosts(List<Post> posts) {
         Connection connection = null;
-        String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
-                "message, created, is_edited) VALUES (?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
+        String sql = "INSERT INTO posts (post_id, thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
+                "message, created, is_edited) VALUES (?, ?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
 
         try {
             connection = jdbcTemplate.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             for(Post p : posts) {
-                preparedStatement.setInt(1, (int)p.getThread_id());
-                preparedStatement.setString(2, p.getThread());
-                preparedStatement.setInt(3, (int)p.getForum_id());
-                preparedStatement.setString(4, p.getForum());
-                preparedStatement.setInt(5, (int)p.getUser_id());
-                preparedStatement.setString(6, p.getAuthor());
-                preparedStatement.setInt(7, p.getParent());
-                preparedStatement.setString(8, p.getMessage());
-                preparedStatement.setTimestamp(9, p.getCreated());
-                preparedStatement.setBoolean(10, p.getEdited());
+                preparedStatement.setInt(1, (int)p.getId());
+                preparedStatement.setInt(2, (int)p.getThread_id());
+                preparedStatement.setString(3, p.getThread());
+                preparedStatement.setInt(4, (int)p.getForum_id());
+                preparedStatement.setString(5, p.getForum());
+                preparedStatement.setInt(6, (int)p.getUser_id());
+                preparedStatement.setString(7, p.getAuthor());
+                preparedStatement.setInt(8, p.getParent());
+                preparedStatement.setString(9, p.getMessage());
+                preparedStatement.setTimestamp(10, p.getCreated());
+                preparedStatement.setBoolean(11, p.getEdited());
                 preparedStatement.addBatch();
             }
 
@@ -372,5 +367,9 @@ public class PostRepository {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Integer getNext() {
+        return jdbcTemplate.queryForObject("SELECT nextval('posts_post_id_seq')", Integer.class);
     }
 }

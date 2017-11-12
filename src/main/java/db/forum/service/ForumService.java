@@ -59,14 +59,7 @@ public class ForumService {
         }
     }
 
-    public ResponseEntity<?> createThread(Thread thread, String slug) {
-        Boolean has_slug = false;
-        if(thread.getSlug() != null) {
-            has_slug = true;
-            slug = thread.getSlug();
-        }
-
-
+    public ResponseEntity<?> createThread(Thread thread, String forum_slug) {
         User user = null;
         try {
             user = userRepository.get_by_nickname(thread.getAuthor());
@@ -76,33 +69,20 @@ public class ForumService {
         }
         Forum forum = null;
         try {
-            forum = forumRepository.get_by_slug(thread.getForum());
+            forum = forumRepository.get_by_slug(forum_slug);
         } catch(Exception ex) {
-            Integer forum_id = null;
-            try {
-                Integer threadTempId = threadRepository.get_thread_id_by_slug(slug);
-                forum_id = threadRepository.get_forum_id_by_thread_id(threadTempId);
-                forum = forumRepository.get_by_id(forum_id);
-            } catch(Exception e) {
-                //ignored
-                Message message = new Message("Can't find forum with forum_id: " + forum_id);
-                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-            }
+            Message message = new Message("Can't find forum with forum_id: ");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         try {
-            Thread responseThread = threadRepository.create(slug, user, thread, forum);
+            Thread responseThread = threadRepository.create(thread.getSlug(), user, thread, forum);
             if(forum != null) {
-                try {
-                    forumRepository.incrementThreadStat(forum.getThreads(), forum.getForum_id());
-                } catch(NullPointerException ex) {
-                    forumRepository.incrementThreadStat(0, forum.getForum_id());
-                }
+                forumRepository.incrementThreadStat(forum.getForum_id());
             }
-                return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CREATED);
+            return new ResponseEntity<>(responseThread.getJson().toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException dub) {
-            Thread threadTemp = threadRepository.get_by_slug(slug);
-            Thread responseThread = threadRepository.get_by_id(threadTemp.getId());
-            return new ResponseEntity<>(responseThread.getJson(has_slug).toString(), HttpStatus.CONFLICT);
+            Thread threadTemp = threadRepository.get_by_slug(thread.getSlug());
+            return new ResponseEntity<>(threadTemp.getJson().toString(), HttpStatus.CONFLICT);
         } catch (Exception ex) {
             System.out.println("[OTHER EXCEPTION]: " + ex);
             Message message = new Message("Can't 42");

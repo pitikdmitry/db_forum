@@ -50,9 +50,9 @@ public class ForumRepository {
         return jdbcTemplate.queryForObject(sql, args, new ForumMapper());
     }
 
-    public void incrementThreadStat(Integer current_threads, Integer forum_id) {
-        String sql = "UPDATE forums SET threads = ? WHERE forum_id = ?";
-        Object[] args = new Object[]{current_threads + 1, forum_id};
+    public void incrementThreadStat(Integer forum_id) {
+        String sql = "UPDATE forums SET threads = threads + 1 WHERE forum_id = ?";
+        Object[] args = new Object[]{forum_id};
         jdbcTemplate.update(sql, args);
     }
 

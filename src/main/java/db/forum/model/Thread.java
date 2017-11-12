@@ -80,7 +80,7 @@ public class Thread {
     public void setUser_id(Integer user_id) { this.user_id = user_id; }
     public void setForum_id(Integer forum_id) { this.forum_id = forum_id; }
 
-    public JSONObject getJson(Boolean has_slug) {
+    public JSONObject getJson() {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("author", author);
         if(created != null) {
@@ -89,7 +89,7 @@ public class Thread {
         jsonObject.put("forum", forum);
         jsonObject.put("id", id);
         jsonObject.put("message", message);
-        if(has_slug != null && has_slug == true) {
+        if(slug != null) {
             jsonObject.put("slug", slug);
         }
         jsonObject.put("title", title);
@@ -101,7 +101,7 @@ public class Thread {
     public static JSONArray getJsonArray(List<Thread> threads) {
         final JSONArray arr = new JSONArray();
         for (Thread p : threads) {
-            arr.put(p.getJson(true));
+            arr.put(p.getJson());
         }
         return arr;
     }
