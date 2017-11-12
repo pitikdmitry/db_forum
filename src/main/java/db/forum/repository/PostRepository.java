@@ -50,9 +50,9 @@ public class PostRepository {
 //        return updateMpath(parent_id, resultPost.getId());
 //    }
 
-    public List<Post> getAnotherPostWithSameParent(Integer parent_id) {
-        String sql = "SELECT * FROM posts WHERE parent_id = ?;";
-        Object[] args = new Object[]{parent_id};
+    public List<Post> getPostsWithByParent(Integer parent_id, Integer thread_id) {
+        String sql = "SELECT * FROM posts WHERE post_id = ? and thread_id = ?;";
+        Object[] args = new Object[]{parent_id, thread_id};
         return jdbcTemplate.query(sql, args, new PostMapper());
     }
 

@@ -74,9 +74,9 @@ public class ThreadService {
             } catch(NoPostException ex) {
                 Message message = new Message("Parent post was created in another thread");
                 return new ResponseEntity<>(message, HttpStatus.CONFLICT);
-            } catch (RuntimeException ex) {
+            } catch (Exception ex) {
                 //ignored
-                Message message = new Message("Parent post was created in another thread");
+                Message message = new Message("RUNTIME EROOR CREATING POST");
                 return new ResponseEntity<>(message, HttpStatus.CONFLICT);
             }
         }
@@ -92,13 +92,6 @@ public class ThreadService {
     }
 
     private Post createOnePost(String slug_or_id_thread, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
-        Integer parent_id = null;
-        if (post.getParent() == null) {
-            parent_id = 0;
-        }
-        else {
-            parent_id = post.getParent();
-        }
         Thread thread = null;
         Forum forum = null;
         try {
@@ -115,25 +108,23 @@ public class ThreadService {
             System.out.println("[ThreadService] User not found!");
             throw new NoUserException(post.getAuthor());
         }
-            //check parent's thread and current post thread
-            //getting parent post
-        Post parents_post = null;
-        if(parent_id != 0) {
-            try {
-                parents_post = postRepository.getById(parent_id);
-            } catch (EmptyResultDataAccessException ex) {
-                System.out.println("empty post");
-                throw new NoPostException(parent_id);
-            }
+
+        Integer parent_id = null;
+        if (post.getParent() == null) {
+            parent_id = 0;
         }
-        if(parents_post != null) {
-            if(!parents_post.getThread_id().equals(thread.getId())) {
+        else {
+            parent_id = post.getParent();
+            Post parentPost = null;
+            try {
+                parentPost = postRepository.getById(parent_id);
+            } catch (Exception ex) {
                 throw new NoPostException(parent_id);
             }
-        } else {
-            if(parent_id != 0) {
-                List<Post> another_posts = postRepository.getAnotherPostWithSameParent(parent_id);
-                    if (check_another_posts(another_posts, thread.getId())) {
+            if(parentPost == null) {
+                throw new NoPostException(parent_id);
+            } else {
+                if(!parentPost.getThread().equals(thread.getSlug())) {
                     throw new NoPostException(parent_id);
                 }
             }
@@ -158,15 +149,10 @@ public class ThreadService {
         return null;
     }
 
-    private Boolean check_another_posts(List<Post> posts, Integer thread_id) {
-        for(int i = 0; i < posts.size(); ++i) {
-            if(posts.get(i).getThread_id() != thread_id) {
-                return true;
-                //разные ветки
-            }
-        }
-        return false;
-    }
+//    private Boolean check_another_posts(Post post, Integer thread_id) {
+//        List<Post> postsWithSpostRepository.getPostsWithByParent(post.getParent(), thread_id);
+//        return false;
+//    }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
         Thread currentThread = null;
