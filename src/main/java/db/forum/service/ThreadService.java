@@ -133,6 +133,13 @@ public class ThreadService {
             if(!parents_post.getThread_id().equals(thread.getId())) {
                 throw new NoPostException(parent_id);
             }
+        } else {
+            if(parent_id != 0) {
+                List<Post> another_posts = postRepository.getAnotherPostWithSameParent(parent_id);
+                    if (check_another_posts(another_posts, thread.getId())) {
+                    throw new NoPostException(parent_id);
+                }
+            }
         }
         try {
 //            Post resultPost = postRepository.createPost(thread, forum, user, parent_id, post.getMessage(),
@@ -152,6 +159,16 @@ public class ThreadService {
             System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
         }
         return null;
+    }
+
+    private Boolean check_another_posts(List<Post> posts, Integer thread_id) {
+        for(int i = 0; i < posts.size(); ++i) {
+            if(posts.get(i).getThread_id() != thread_id) {
+                return true;
+                //разные ветки
+            }
+        }
+        return false;
     }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {

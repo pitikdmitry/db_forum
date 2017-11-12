@@ -50,6 +50,12 @@ public class PostRepository {
         return updateMpath(parent_id, resultPost.getId());
     }
 
+    public List<Post> getAnotherPostWithSameParent(Integer parent_id) {
+        String sql = "SELECT * FROM posts WHERE parent_id = ?;";
+        Object[] args = new Object[]{parent_id};
+        return jdbcTemplate.query(sql, args, new PostMapper());
+    }
+
     public Post updateMpath(Integer parent_id, Integer post_id) {
         java.sql.Array arr = null;
         List<Integer> m_path = get_m_path(parent_id);
