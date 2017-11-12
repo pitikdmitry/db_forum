@@ -59,17 +59,24 @@ public class ThreadService {
             return new ResponseEntity<>(Post.getJsonArray(newArr).toString(), HttpStatus.CREATED);
         }
 
+        Thread thread = null;
+        Forum forum = null;
+        try {
+            thread = threadRepository.get_by_slug_or_id(slug_or_id);
+            forum = forumRepository.get_by_slug(thread.getForum());
+        } catch (Exception ex) {
+            Message message = new Message("Can't find post thread by id: " + slug_or_id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
         for (Post p : posts) {
             try {
-                Post res = createOnePost(slug_or_id, p, created);
+                Post res = createOnePost(slug_or_id, thread, forum, p, created);
                 if(res != null) { ;
                     resultArr.add(res);
                 }
             } catch(NoUserException ex) {
                 Message message = new Message("Can't find post author by nickname: " + ex.getAuthor());
-                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-            } catch(NoThreadException ex) {
-                Message message = new Message("Can't find post thread by id: " + ex.getSlugOrId());
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             } catch(NoPostException ex) {
                 Message message = new Message("Parent post was created in another thread");
@@ -82,25 +89,13 @@ public class ThreadService {
         }
         try {
             postRepository.executePosts(resultArr);
-            for(Post p : resultArr) {
-                postRepository.updateMpath(p.getParent(), p.getId());
-            }
         } catch(Exception e) {
             System.out.println(e);
         }
         return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
     }
 
-    private Post createOnePost(String slug_or_id_thread, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
-        Thread thread = null;
-        Forum forum = null;
-        try {
-            thread = threadRepository.get_by_slug_or_id(slug_or_id_thread);
-            forum = forumRepository.get_by_slug(thread.getForum());
-        } catch (Exception ex) {
-            System.out.println("[ThreadService] thread not found! or forum not found!");
-            throw new NoThreadException(slug_or_id_thread);
-        }
+    private Post createOnePost(String slug_or_id_thread, Thread thread, Forum forum, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
         User user = null;
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
@@ -113,6 +108,8 @@ public class ThreadService {
         if(post.getParent() != null) {
             parent_id = post.getParent();
         }
+        List<Integer> m_path = null;
+        Integer next_post_id = postRepository.getNext();
         if (parent_id != 0) {
             Post parentPost = null;
             try {
@@ -120,21 +117,19 @@ public class ThreadService {
             } catch (Exception ex) {
                 throw new NoPostException(parent_id);
             }
-            if(parentPost == null) {
-//                throw new NoPostException(parent_id);
-            }
 
             if(!parentPost.getThread().equals(thread.getSlug())) {
                 throw new NoPostException(parent_id);
             }
+            m_path = postRepository.get_m_path(parent_id, next_post_id);
+        } else {
+            m_path = postRepository.get_new_m_path(next_post_id);
         }
         try {
-//            Post resultPost = postRepository.createPost(thread, forum, user, parent_id, post.getMessage(),
-//                    created, false);
             Post newPost = new Post(post.getId(), user.getNickname(), user.getUser_id(), created, forum.getSlug(),
                                     forum.getForum_id(), false, post.getMessage(), parent_id,
-                                    thread.getSlug(), thread.getId());
-            newPost.setId(postRepository.getNext());
+                                    thread.getSlug(), thread.getId(), m_path);
+            newPost.setId(next_post_id);
             newPost.setParent(parent_id);
 
             if(forum.getPosts() != null) {

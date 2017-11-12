@@ -19,6 +19,7 @@ public class Post {
     private Integer parent;
     private String thread;
     private Integer thread_id;
+    private List<Integer> m_path;
 
     public Post() {
         this.isEdited = false;
@@ -39,6 +40,32 @@ public class Post {
         this.parent = parent;
         this.thread = thread;
         this.thread_id = thread_id;
+    }
+
+    public List<Integer> getM_path() {
+        return m_path;
+    }
+
+    public void setM_path(List<Integer> m_path) {
+        this.m_path = m_path;
+    }
+
+    public Post(Integer id, String author, Integer user_id,
+                Timestamp created, String forum, Integer forum_id,
+                Boolean isEdited, String message, Integer parent,
+                String thread, Integer thread_id, List<Integer> m_path) {
+        this.id = id;
+        this.author = author;
+        this.user_id = user_id;
+        this.created = created;
+        this.forum = forum;
+        this.forum_id = forum_id;
+        this.isEdited = isEdited;
+        this.message = message;
+        this.parent = parent;
+        this.thread = thread;
+        this.thread_id = thread_id;
+        this.m_path.addAll(m_path);
     }
 
     public Post(String author, Integer user_id,

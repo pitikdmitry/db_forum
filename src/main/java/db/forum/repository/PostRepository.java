@@ -33,47 +33,6 @@ public class PostRepository {
         return jdbcTemplate.queryForObject(sql, args, new PostMapper());
     }
 
-    public Integer countPostsByForumId(Integer forum_id) {
-        String sql = "SELECT count(*) FROM posts WHERE forum_id = ?;";
-        Object[] args = new Object[]{forum_id};
-        return jdbcTemplate.queryForObject(sql, args, Integer.class);
-    }
-
-//    public Post createPost(Thread thread, Forum forum, User user,
-//                           Integer parent_id, String message, Timestamp created, Boolean is_edited) {
-//        String sql = "INSERT INTO posts (thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
-//                "message, created, is_edited) VALUES (?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
-//        Object[] args = new Object[]{thread.getId(), thread.getSlug(), forum.getForum_id(), forum.getSlug(),
-//                                    user.getUser_id(), user.getNickname(), parent_id, message, created, false};
-//
-//        Post resultPost = jdbcTemplate.queryForObject(sql, args, new PostMapper());
-//        return updateMpath(parent_id, resultPost.getId());
-//    }
-
-    public List<Post> getPostsWithByParent(Integer parent_id, Integer thread_id) {
-        String sql = "SELECT * FROM posts WHERE post_id = ? and thread_id = ?;";
-        Object[] args = new Object[]{parent_id, thread_id};
-        return jdbcTemplate.query(sql, args, new PostMapper());
-    }
-
-    public void updateMpath(Integer parent_id, Integer post_id) {
-        java.sql.Array arr = null;
-        List<Integer> m_path = get_m_path(parent_id);
-        if(m_path == null) {
-            m_path = new ArrayList<>();
-        }
-
-        m_path.add(post_id);
-
-        String sql = "UPDATE posts SET m_path = ? WHERE post_id = ?;";
-        if(m_path != null) {
-            arr = createSqlArray(m_path);
-        }
-        Object[] args = new Object[]{arr, post_id};
-
-        jdbcTemplate.update(sql, args);
-    }
-
     private java.sql.Array createSqlArray(List<Integer> list){
         java.sql.Array intArray = null;
         Connection connection = null;
@@ -93,13 +52,12 @@ public class PostRepository {
         return intArray;
     }
 
-    public List<Integer> get_m_path(Integer parent_id) {
+    public List<Integer> get_m_path(Integer parent_id, Integer post_id) {
         if (parent_id == null) {
             return null;
         }
-        int par_id = parent_id;
         String sql = "SELECT m_path FROM posts WHERE post_id = ?";
-        Object[] args = new Object[]{par_id};
+        Object[] args = new Object[]{(int)parent_id};
 
         try {
             Array arr = jdbcTemplate.queryForObject(sql, args, Array.class);
@@ -110,11 +68,19 @@ public class PostRepository {
                     return null;
                 }
             }
+
+            list.add(post_id);
             return list;
         } catch (Exception ex) {
             System.out.println("CANT GET MASS MAPTH: " + ex);
             return null;
         }
+    }
+
+    public List<Integer> get_new_m_path(Integer post_id) {
+       List<Integer> m_path = new ArrayList<>();
+       m_path.add(post_id);
+       return m_path;
     }
 
     public List<Post> getPosts(String slug_or_id, Integer limit, Integer since, Boolean desc) {
@@ -340,7 +306,7 @@ public class PostRepository {
     public void executePosts(List<Post> posts) {
         Connection connection = null;
         String sql = "INSERT INTO posts (post_id, thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
-                "message, created, is_edited) VALUES (?, ?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?) RETURNING *;";
+                "message, created, is_edited, m_path) VALUES (?, ?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
 
         try {
             connection = jdbcTemplate.getDataSource().getConnection();
@@ -357,6 +323,7 @@ public class PostRepository {
                 preparedStatement.setString(9, p.getMessage());
                 preparedStatement.setTimestamp(10, p.getCreated());
                 preparedStatement.setBoolean(11, p.getEdited());
+                preparedStatement.setArray(12, createSqlArray(p.getM_path()));
                 preparedStatement.addBatch();
             }
 
