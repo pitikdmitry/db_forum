@@ -342,7 +342,6 @@ public class PostRepository {
     }
 
     public Integer getNext() {
-//        return jdbcTemplate.queryForObject("SELECT nextval(pg_get_serial_sequence('posts', 'post_id'))", Integer.class);
-        return jdbcTemplate.queryForObject("SELECT currval('posts_post_id_seq') + 1;", Integer.class);
+        return jdbcTemplate.queryForObject("SELECT nextval('posts_post_id_seq')", Integer.class);
     }
 }

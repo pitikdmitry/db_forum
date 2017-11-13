@@ -2,7 +2,7 @@ CREATE TABLE posts
 (
     post_id serial primary key,
     thread_id int NOT NULL,
-    thread CITEXT NOT NULL,
+    thread CITEXT DEFAULT NULL,
     forum_id int NOT NULL,
     forum CITEXT NOT NULL,
     user_id int NOT NULL,

@@ -27,6 +27,7 @@ public class ThreadService {
     private final VoteRepository voteRepository;
     private final PostRepository postRepository;
     private final ForumRepository forumRepository;
+    public static int counter = 1;
 
     @Autowired
     public ThreadService(JdbcTemplate jdbcTemplate) {
@@ -69,6 +70,7 @@ public class ThreadService {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
+        System.out.println("here1");
         for (Post p : posts) {
             try {
                 Post res = createOnePost(thread, forum, p, created);
@@ -88,6 +90,7 @@ public class ThreadService {
                 return new ResponseEntity<>(message, HttpStatus.BAD_GATEWAY);
             }
         }
+        System.out.println("here2");
         try {
             postRepository.executePosts(resultArr);
             forumRepository.addPostStat(resultArr.size(), forum.getForum_id());
@@ -110,9 +113,9 @@ public class ThreadService {
         if(post.getParent() != null) {
             parent_id = post.getParent();
         }
+
         List<Integer> m_path = null;
         Integer next_post_id = postRepository.getNext();
-//        next_post_id +=1;
         if (parent_id != 0) {
             Post parentPost = null;
             try {
@@ -121,19 +124,18 @@ public class ThreadService {
                 throw new NoPostException(parent_id);
             }
 
-            if(!parentPost.getThread().equals(thread.getSlug())) {
-                throw new NoPostException(parent_id);
+            if(thread.getSlug() != null) {
+                if (!parentPost.getThread().equals(thread.getSlug())) {
+                    throw new NoPostException(parent_id);
+                }
             }
             m_path = postRepository.get_m_path(parent_id, next_post_id);
         } else {
             m_path = postRepository.get_new_m_path(next_post_id);
         }
-        Post newPost = new Post(next_post_id, user.getNickname(), user.getUser_id(), created, forum.getSlug(),
+        return new Post(next_post_id, user.getNickname(), user.getUser_id(), created, forum.getSlug(),
                                 forum.getForum_id(), false, post.getMessage(), parent_id,
                                 thread.getSlug(), thread.getId(), m_path);
-
-//        forumRepository.incrementPostStat(forum.getForum_id());
-        return newPost;
     }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {

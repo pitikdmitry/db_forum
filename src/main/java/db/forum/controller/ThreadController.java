@@ -27,6 +27,7 @@ public class ThreadController {
             consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> createPost(@PathVariable(name = "slug_or_id") String slug_or_id,
                                             @RequestBody ArrayList<Post> posts) {
+        System.out.println("create posts");
         return threadService.createPosts(slug_or_id, posts);
     }
 
