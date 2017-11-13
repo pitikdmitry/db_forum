@@ -56,9 +56,15 @@ public class ForumRepository {
         jdbcTemplate.update(sql, args);
     }
 
-    public void incrementPostStat(Integer current_posts, Integer forum_id) {
-        String sql = "UPDATE forums SET posts = ? WHERE forum_id = ?";
-        Object[] args = new Object[]{current_posts + 1, forum_id};
+    public void incrementPostStat(Integer forum_id) {
+        String sql = "UPDATE forums SET posts = posts + 1 WHERE forum_id = ?";
+        Object[] args = new Object[]{forum_id};
+        jdbcTemplate.update(sql, args);
+    }
+
+    public void addPostStat(Integer add, Integer forum_id) {
+        String sql = "UPDATE forums SET posts = posts + ? WHERE forum_id = ?";
+        Object[] args = new Object[]{add, forum_id};
         jdbcTemplate.update(sql, args);
     }
 }

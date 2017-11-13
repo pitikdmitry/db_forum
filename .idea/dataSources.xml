@@ -5,7 +5,7 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/forum_user</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5454/forum_user</jdbc-url>
       <driver-properties>
         <property name="ApplicationName" value="DataGrip" />
       </driver-properties>

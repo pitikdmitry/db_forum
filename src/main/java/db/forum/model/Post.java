@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
@@ -65,6 +66,7 @@ public class Post {
         this.parent = parent;
         this.thread = thread;
         this.thread_id = thread_id;
+        this.m_path = new ArrayList<Integer>();
         this.m_path.addAll(m_path);
     }
 

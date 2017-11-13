@@ -71,31 +71,33 @@ public class ThreadService {
 
         for (Post p : posts) {
             try {
-                Post res = createOnePost(slug_or_id, thread, forum, p, created);
-                if(res != null) { ;
+                Post res = createOnePost(thread, forum, p, created);
+                if(res != null) {
                     resultArr.add(res);
                 }
             } catch(NoUserException ex) {
                 Message message = new Message("Can't find post author by nickname: " + ex.getAuthor());
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             } catch(NoPostException ex) {
-                Message message = new Message("Parent post was created in another thread");
+                Message message = new Message("Parent post was created in another thread" + ex.getPostId());
                 return new ResponseEntity<>(message, HttpStatus.CONFLICT);
             } catch (Exception ex) {
                 //ignored
-                Message message = new Message("RUNTIME EROOR CREATING POST");
-                return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+                Message message = new Message("[ThreadService] POST NOT CREATED database post exception: ");
+                System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
+                return new ResponseEntity<>(message, HttpStatus.BAD_GATEWAY);
             }
         }
         try {
             postRepository.executePosts(resultArr);
+            forumRepository.addPostStat(resultArr.size(), forum.getForum_id());
         } catch(Exception e) {
             System.out.println(e);
         }
         return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
     }
 
-    private Post createOnePost(String slug_or_id_thread, Thread thread, Forum forum, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
+    private Post createOnePost(Thread thread, Forum forum, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
         User user = null;
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
@@ -110,6 +112,7 @@ public class ThreadService {
         }
         List<Integer> m_path = null;
         Integer next_post_id = postRepository.getNext();
+//        next_post_id +=1;
         if (parent_id != 0) {
             Post parentPost = null;
             try {
@@ -125,23 +128,12 @@ public class ThreadService {
         } else {
             m_path = postRepository.get_new_m_path(next_post_id);
         }
-        try {
-            Post newPost = new Post(post.getId(), user.getNickname(), user.getUser_id(), created, forum.getSlug(),
-                                    forum.getForum_id(), false, post.getMessage(), parent_id,
-                                    thread.getSlug(), thread.getId(), m_path);
-            newPost.setId(next_post_id);
-            newPost.setParent(parent_id);
+        Post newPost = new Post(next_post_id, user.getNickname(), user.getUser_id(), created, forum.getSlug(),
+                                forum.getForum_id(), false, post.getMessage(), parent_id,
+                                thread.getSlug(), thread.getId(), m_path);
 
-            if(forum.getPosts() != null) {
-                forumRepository.incrementPostStat(forum.getPosts(), forum.getForum_id());
-            } else {
-                forumRepository.incrementPostStat(0, forum.getForum_id());
-            }
-            return newPost;
-        } catch (Exception ex) {
-            System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
-        }
-        return null;
+//        forumRepository.incrementPostStat(forum.getForum_id());
+        return newPost;
     }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {
