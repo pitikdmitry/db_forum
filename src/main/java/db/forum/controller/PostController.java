@@ -18,7 +18,6 @@ public class PostController {
             produces = "application/json")
     public ResponseEntity<?> createThread(@PathVariable(name = "id") Integer id,
                                           @RequestParam(value = "related", required = false) String related) {
-
         return postService.details(id, related);
     }
 

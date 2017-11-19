@@ -51,7 +51,10 @@ public class ThreadController {
                                       @RequestParam(value = "since", required = false) Integer since,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "desc", required = false) Boolean desc) {
-        return threadService.getPosts(slug_or_id, limit, since, sort, desc);
+        System.out.println("GET POSTS START");
+        ResponseEntity<?>  r =  threadService.getPosts(slug_or_id, limit, since, sort, desc);
+        System.out.println("GET POSTS START");
+        return r;
     }
 
     @RequestMapping(value = "/{slug_or_id}/details", method = RequestMethod.POST,

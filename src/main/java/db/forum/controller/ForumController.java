@@ -46,7 +46,10 @@ public class ForumController {
                                             @RequestParam(value = "limit", required = false) Integer limit,
                                             @RequestParam(value = "since", required = false) String since,
                                             @RequestParam(value = "desc", required = false) Boolean desc) {
-        return forumService.getThreads(slug, limit, since, desc);
+        System.out.println("GET THREAD STARTS");
+        ResponseEntity<?> r =  forumService.getThreads(slug, limit, since, desc);
+        System.out.println("GET THREAD END");
+        return r;
     }
 
     @RequestMapping(value = "/{slug}/users", method = RequestMethod.GET,
