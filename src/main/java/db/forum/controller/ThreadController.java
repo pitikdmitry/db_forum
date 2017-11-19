@@ -27,7 +27,6 @@ public class ThreadController {
             consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> createPost(@PathVariable(name = "slug_or_id") String slug_or_id,
                                             @RequestBody ArrayList<Post> posts) {
-        System.out.println("create posts");
         return threadService.createPosts(slug_or_id, posts);
     }
 
@@ -51,10 +50,7 @@ public class ThreadController {
                                       @RequestParam(value = "since", required = false) Integer since,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "desc", required = false) Boolean desc) {
-        System.out.println("GET POSTS START");
-        ResponseEntity<?>  r =  threadService.getPosts(slug_or_id, limit, since, sort, desc);
-        System.out.println("GET POSTS START");
-        return r;
+        return threadService.getPosts(slug_or_id, limit, since, sort, desc);
     }
 
     @RequestMapping(value = "/{slug_or_id}/details", method = RequestMethod.POST,

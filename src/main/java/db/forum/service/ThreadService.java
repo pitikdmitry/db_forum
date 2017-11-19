@@ -66,7 +66,7 @@ public class ThreadService {
             thread = threadRepository.get_by_slug_or_id(slug_or_id);
             forum = forumRepository.get_by_slug(thread.getForum());
         } catch (Exception ex) {
-            Message message = new Message("Can't find post thread by id: " + slug_or_id);
+            Message message = new Message("Can't find thread or forumby: " + slug_or_id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
@@ -189,28 +189,28 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, Integer since, String sort, Boolean desc) {
+        Thread thread = null;
         try{
-            Thread thread = threadRepository.checkThread(slug_or_id);
+             thread = threadRepository.checkThread(slug_or_id);
             if(thread == null) {
-                Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
+                Message message = new Message("CCan't find thread by id: " + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
+            Message message = new Message("CCan't find thread by id: " + slug_or_id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         if(sort == null) {
             try {
-                List<Post> responsePosts = postRepository.getPosts(slug_or_id, limit, since, desc);
+                List<Post> responsePosts = postRepository.getPostFlat(thread, limit, since, desc);
                 return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
             } catch(Exception ex) {
                 System.out.println("[getPosts exc] no sort: ");
             }
-        }
-        else {
+        } else {
             if(sort.equals("flat")) {
                 try {
-                    List<Post> responsePosts = postRepository.getPostFlat(slug_or_id, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostFlat(thread, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(NoThreadException ex) {
                     Message message = new Message("Can't find thread by slug: " + ex.getSlugOrId());
@@ -221,18 +221,25 @@ public class ThreadService {
             }
             else if(sort.equals("tree")) {
                 try {
-                    List<Post> responsePosts = postRepository.getPostTree(slug_or_id, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostTree(thread, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] tree sort: ");
                 }
             }
-            else {
+            else if(sort.equals("parent_tree")) {
                 try {
-                    List<Post> responsePosts = postRepository.getPostsParentTree(slug_or_id, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostsParentTree(thread, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] parenttree sort: ");
+                }
+            } else {
+                try {
+                    List<Post> responsePosts = postRepository.getPostFlat(thread, limit, since, desc);
+                    return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
+                } catch (Exception ex) {
+                    System.out.println("[getPosts exc] no sort: ");
                 }
             }
         }

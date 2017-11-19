@@ -1,13 +1,18 @@
 package db.forum.repository;
 
 import db.forum.Mappers.ForumMapper;
+import db.forum.Mappers.ThreadMapper;
 import db.forum.model.Forum;
+import db.forum.model.Thread;
 import db.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -38,8 +43,7 @@ public class ForumRepository {
     }
 
     public Forum create(User user, Forum forum) {
-        String sql = "INSERT INTO forums (slug, user_id, user_nickname, title) VALUES (?::citext, ?, ?::citext, ?)" +
-                    " RETURNING *;";
+        String sql = "INSERT INTO forums (slug, user_id, user_nickname, title) VALUES (?::citext, ?, ?::citext, ?) RETURNING *;";
         Object[] args = new Object[]{forum.getSlug(), user.getUser_id(), user.getNickname(), forum.getTitle()};
         return jdbcTemplate.queryForObject(sql, args, new ForumMapper());
     }
@@ -66,5 +70,64 @@ public class ForumRepository {
         String sql = "UPDATE forums SET posts = posts + ? WHERE forum_id = ?";
         Object[] args = new Object[]{add, forum_id};
         jdbcTemplate.update(sql, args);
+    }
+
+    public List<Thread> getThreads(Integer forum_id, Integer limit, String since, Boolean desc) {
+        String sql = null;
+        Object[] args = null;
+
+        if((limit == null) && (since == null) && (desc == null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC;";
+            args = new Object[]{forum_id};
+
+        } else if((since == null) && (desc == null) && (limit != null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC LIMIT ?;";
+            args = new Object[]{forum_id, limit};
+
+        } else if((limit == null) && (desc == null) && (since != null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC;";
+            args = new Object[]{forum_id, since};
+
+        } else if((limit == null) && (since == null) && (desc != null)) {
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC;";
+            } else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC;";
+            }
+            args = new Object[]{forum_id};
+
+        } else if((since == null) && (desc != null) && (limit != null)) {
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created DESC LIMIT ?;";
+            } else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? ORDER BY created ASC LIMIT ?;";
+            }
+            args = new Object[]{forum_id, limit};
+
+        } else if((limit == null) && (since != null) && (desc != null)) {
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created <= ?::timestamptz ORDER BY created DESC;";
+            } else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC;";
+            }
+            args = new Object[]{forum_id, since};
+
+        } else if((desc == null) && (since != null) && (limit != null)) {
+            sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
+            args = new Object[]{forum_id, since, limit};
+
+        } else if((desc != null) && (since != null) && (limit != null)) {
+            if(desc == true) {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created <= ?::timestamptz ORDER BY created DESC LIMIT ?;";
+            } else {
+                sql = "SELECT * FROM threads WHERE forum_id = ? and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
+            }
+            args = new Object[]{forum_id, since, limit};
+
+        } else {
+            return null;
+        }
+
+        return jdbcTemplate.query(sql, args, new ThreadMapper());
     }
 }

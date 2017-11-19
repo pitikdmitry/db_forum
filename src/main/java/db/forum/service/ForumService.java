@@ -53,8 +53,8 @@ public class ForumService {
             Forum responseForum = forumRepository.getByUserId(user.getUser_id());
             return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.CONFLICT);
         } catch (Exception ex) {
-            System.out.println("[OTHER EXCEPTION]: " + ex);
-            Message message = new Message("Can't find user with nickname: " + forum.getUser());
+            System.out.println("[FORUMCREATE: EXCEPTION]" + ex);
+            Message message = new Message("[FORUMCREATE: EXCEPTION]");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
@@ -103,71 +103,20 @@ public class ForumService {
     }
 
     public ResponseEntity<?> getThreads(String slug, Integer limit, String since, Boolean desc) {
-        String sql = null;
-        Object[] args = null;
+        Integer forum_id = null;
         try{
-            Integer forum_id = forumRepository.get_id_by_slug(slug);
+            forum_id = forumRepository.get_id_by_slug(slug);
         } catch(EmptyResultDataAccessException ex) {
+            System.out.println("[GET THREADS] CANT FIND FORUM ID !!!!");
             Message message = new Message("Can't find forum by slug: " + slug);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
-
-        if((limit == null) && (since == null) && (desc == null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC;";
-            args = new Object[]{slug};
-        }
-        else if((since == null) && (desc == null) && (limit != null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC LIMIT ?;";
-            args = new Object[]{slug, limit};
-        }else if((limit == null) && (desc == null) && (since != null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC;";
-            args = new Object[]{slug, since};
-        }
-        else if((limit == null) && (since == null) && (desc != null)) {
-            if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created DESC;";
-            }
-            else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC;";
-            }
-            args = new Object[]{slug};
-        }
-        else if((since == null) && (desc != null) && (limit != null)) {
-            if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created DESC LIMIT ?;";
-            }
-            else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC LIMIT ?;";
-            }
-            args = new Object[]{slug, limit};
-        }
-        else if((limit == null) && (since != null) && (desc != null)) {
-            if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created <= ?::timestamptz ORDER BY created DESC;";
-            }
-            else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC;";
-            }
-            args = new Object[]{slug, since};
-        }
-        else if((desc == null) && (since != null) && (limit != null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
-            args = new Object[]{slug, since, limit};
-        }
-        else {
-            if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created <= ?::timestamptz ORDER BY created DESC LIMIT ?;";
-            }
-            else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
-            }
-            args = new Object[]{slug, since, limit};
-        }
         try {
-            List<Thread> threads = jdbcTemplate.query(sql, args, new ThreadMapper());
+            List<Thread> threads = forumRepository.getThreads(forum_id, limit, since, desc);
             return new ResponseEntity<>(Thread.getJsonArray(threads).toString(), HttpStatus.OK);
         } catch(Exception ex) {
             //ign
+            System.out.println("[GET THREADS EXC] : " + ex);
             return null;
         }
     }
