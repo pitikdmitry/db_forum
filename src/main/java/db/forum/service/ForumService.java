@@ -133,8 +133,7 @@ public class ForumService {
         try {
             List<User> responseUsers = userRepository.getUsers(forum_id, limit, since, desc);
             return new ResponseEntity<>(User.getJsonArray(responseUsers).toString(), HttpStatus.OK);
-        }
-        catch(Exception ex) {
+        } catch(Exception ex) {
             //ign
             System.out.println(ex);
             Message message = new Message("[ForumService] Error getUsers: ");

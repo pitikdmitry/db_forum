@@ -25,26 +25,16 @@ public class VoteRepository {
         return jdbcTemplate.queryForObject(sql, args, new VoteMapper());
     }
 
-    public Vote get_exists_vote(String nickname, String slug_or_id) {
-        try{
-            User user = userRepository.get_by_slug_or_id(nickname);
-            Thread thread = threadRepository.get_by_slug_or_id(slug_or_id);
-
-            String sql = "SELECT * FROM vote WHERE user_id = ? and thread_id = ?;";
-
-            Object[] args = new Object[]{user.getUser_id(), thread.getId()};
-            return jdbcTemplate.queryForObject(sql, args, new VoteMapper());
-        }
-        catch (Exception ex) {
-            System.out.println("[VoteRepository.get_by_author_nickname] exc: " + ex);
-            return null;
-        }
+    public Vote get_exists_vote(Integer user_id, Integer thread_id) {
+        String sql = "SELECT * FROM vote WHERE user_id = ? and thread_id = ?;";
+        Object[] args = new Object[]{user_id, thread_id};
+        return jdbcTemplate.queryForObject(sql, args, new VoteMapper());
     }
 
     public void updateVoteValue(Integer vote_id, Integer vote_value) {
-        String sql = "UPDATE vote SET vote_value = ? WHERE vote_id = ? RETURNING *;";
+        String sql = "UPDATE vote SET vote_value = ? WHERE vote_id = ?;";
         Object[] args = new Object[]{vote_value, vote_id};
-        Vote resultVote = jdbcTemplate.queryForObject(sql, args, new VoteMapper());
+        jdbcTemplate.update(sql, args);
     }
 
     public Vote get_by_id(Integer vote_id) {

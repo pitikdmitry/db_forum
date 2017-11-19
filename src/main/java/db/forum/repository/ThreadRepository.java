@@ -140,15 +140,5 @@ public class ThreadRepository {
         return get_by_slug_or_id(slug_or_id);
     }
 
-    public Integer checkThreadGetId(String slug_or_id) {
-        String sql = "SELECT thread_id FROM threads WHERE thread_id = ?;";
-        Integer thread_id = get_id_from_slug_or_id(slug_or_id);
-        if(thread_id == null) {
-            return null;
-            //nno thread
-        }
-        Object[] args = new Object[]{thread_id};
-        return jdbcTemplate.queryForObject(sql, args, Integer.class);
-    }
 }
 

@@ -60,27 +60,28 @@ public class UserService {
     private ResponseEntity<?> checkUpdateParameters(User user, String nickname) {
         if((user.getEmail() == null) && (user.getFullname() == null) && (user.getAbout() == null)) {
             return updateByEmpty(nickname);
-        }
-        else if(user.getEmail() == null && user.getFullname() == null) {
+
+        } else if(user.getEmail() == null && user.getFullname() == null) {
             return updateAboutByNickname(user, nickname);
-        }
-        else if(user.getAbout() == null && user.getFullname() == null) {
+
+        } else if(user.getAbout() == null && user.getFullname() == null) {
             return updateEmailByNickname(user, nickname);
-        }
-        else if(user.getAbout() == null && user.getEmail() == null) {
+
+        } else if(user.getAbout() == null && user.getEmail() == null) {
             return updateFullnameByNickname(user, nickname);
-        }
-        else if(user.getAbout() == null) {
+
+        } else if(user.getAbout() == null) {
             return updateEmailAndFullnameByNickname(user, nickname);
-        }
-        else if(user.getEmail() == null) {
+
+        } else if(user.getEmail() == null) {
             return updateAboutAndFullnameByNickname(user, nickname);
-        }
-        else if(user.getFullname() == null) {
+
+        } else if(user.getFullname() == null) {
             return updateEmailAndAboutByNickname(user, nickname);
-        }
-        else {
+
+        } else {
             return updateAllByNickname(user, nickname);
+
         }
     }
 
@@ -88,8 +89,7 @@ public class UserService {
         try {
             User responseUser = userRepository.updateEmailAndFullnameByNickname(user.getEmail(), user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[updateEmailAndFullnameByNickname user]: " + ex);
             Message message = new Message("Error update by email and fullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -100,8 +100,7 @@ public class UserService {
         try {
             User responseUser = userRepository.updateAboutAndFullnameByNickname(user.getAbout(), user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[Exception in updateByAboutAndFullname user]: " + ex);
             Message message = new Message("Error updateByAboutAndFullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -112,8 +111,7 @@ public class UserService {
         try {
             User responseUser = userRepository.updateEmailAndAboutByNickname(user.getEmail(), user.getAbout(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[updateByEmailAndAbout user]: " + ex);
             Message message = new Message("Error updateByAboutAndFullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -124,8 +122,7 @@ public class UserService {
         try {
             User responseUser = userRepository.get_by_nickname(nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[updateByEmpty user]: " + ex);
             Message message = new Message("Can't find user by nickname: " + nickname);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -136,8 +133,7 @@ public class UserService {
         try {
             User responseUser = userRepository.updateFullnameByNickname(user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[updateByFullname user]: " + ex);
             Message message = new Message("Error update by fullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -148,8 +144,7 @@ public class UserService {
         try {
             User responseUser = userRepository.updateEmailByNickname(user.getEmail(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[Exception in updateByEmail user]: " + ex);
             User existsEmailUser = userRepository.get_by_email(user.getEmail());
             Message message = new Message("This email is already registered by user: " + existsEmailUser.getNickname());
@@ -161,8 +156,7 @@ public class UserService {
         try {
             User responseUser = userRepository.updateAboutByNickname(user.getAbout(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[updateAboutByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
@@ -173,13 +167,11 @@ public class UserService {
         try {
             User responseUser = userRepository.updateAllByNickname(user, nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
-        }
-        catch (EmptyResultDataAccessException ex) {
+        } catch (EmptyResultDataAccessException ex) {
             System.out.println("[updateAllByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[updateAllByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
