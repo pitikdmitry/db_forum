@@ -39,7 +39,7 @@ public class PostService {
         }
         User user = null;
         Thread thread = null;
-        Forum forum = null;
+        Forum forum = null;//НАПИСАть через join
         if(related != null && post != null) {
             if (related.contains("user")) {
                 if(post.getAuthor() != null) {
