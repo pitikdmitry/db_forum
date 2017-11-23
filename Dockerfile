@@ -29,12 +29,12 @@ USER root
 #JDK
 RUN apt-get install -y openjdk-8-jdk-headless
 #maven
-#RUN apt-get install -y maven
+RUN apt-get install -y maven
 
 ENV WORK /project
 ADD . $WORK/java-project/
 WORKDIR $WORK/java-project/
-#RUN mvn package
+RUN mvn package
 
 # Объявлем порт сервера
 EXPOSE 5000
