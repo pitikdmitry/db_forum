@@ -1,8 +1,5 @@
-CREATE INDEX threads_slug ON threads (slug);
+CREATE INDEX idx_t_slug ON threads (slug);
 
-CREATE INDEX threads_threadId ON threads (thread_id);
+CREATE INDEX idx_t_threadId ON threads (thread_id);
 
-CREATE INDEX threads_slug_threadId ON threads (slug, thread_id);
---CREATE INDEX threads_forumId ON threads (forum_id);
---
---CREATE INDEX threads_user_Id ON threads (user_id);
+CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);

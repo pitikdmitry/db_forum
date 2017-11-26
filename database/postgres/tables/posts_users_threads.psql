@@ -1,0 +1,5 @@
+CREATE TABLE posts_users_threads
+(
+    user_id int NOT NULL,
+    forum_id int NOT NULL
+);

@@ -76,9 +76,16 @@ public class ForumService {
         }
         try {
             Thread responseThread = threadRepository.create(thread.getSlug(), user, thread, forum);
-            if(forum != null) {
-                forumRepository.incrementThreadStat(forum.getForum_id());
+
+            forumRepository.incrementThreadStat(forum.getForum_id());
+            try {
+                userRepository.addThreadToUser(user, forum.getForum_id());
+            } catch(DuplicateKeyException ex) {
+                //normal
+            } catch(Exception ex) {
+                System.out.println("[createThread BIG TABLE EXCEPTION!!!] + ex");
             }
+
             return new ResponseEntity<>(responseThread.getJson().toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException dub) {
             Thread threadTemp = threadRepository.get_by_slug(thread.getSlug());

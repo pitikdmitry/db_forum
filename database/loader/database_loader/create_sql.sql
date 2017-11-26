@@ -1,5 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS citext;
 
+
 CREATE TABLE users
 (
     user_id serial primary key,
@@ -9,7 +10,8 @@ CREATE TABLE users
     about TEXT NOT NULL
 );
 
-CREATE INDEX users_nickname ON users (nickname);
+CREATE INDEX idx_u_nickname ON users (nickname);
+
 
 CREATE TABLE forums
 (
@@ -22,15 +24,16 @@ CREATE TABLE forums
     title TEXT NOT NULL
 );
 
-CREATE INDEX forums_slug ON forums (slug);
+CREATE INDEX idx_f_slug ON forums (slug);
 
-CREATE INDEX forums_forumId ON forums (forum_id);
+CREATE INDEX idx_f_forumId ON forums (forum_id);
 
-CREATE INDEX forums_slug_forumId on forums (slug, forum_id);
+CREATE INDEX idx_f_slug_forumId on forums (slug, forum_id);
 
 ALTER TABLE forums
     ADD CONSTRAINT forums_fk_users
     FOREIGN KEY(user_id) REFERENCES users(user_id);
+
 
 CREATE TABLE threads
 (
@@ -46,11 +49,11 @@ CREATE TABLE threads
     votes int DEFAULT 0
 );
 
-CREATE INDEX threads_slug ON threads (slug);
+CREATE INDEX idx_t_slug ON threads (slug);
 
-CREATE INDEX threads_threadId ON threads (thread_id);
+CREATE INDEX idx_t_threadId ON threads (thread_id);
 
-CREATE INDEX threads_slug_threadId ON threads (slug, thread_id);
+CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
 
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_forums
@@ -59,6 +62,7 @@ ALTER TABLE threads
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_users
     FOREIGN KEY(user_id) REFERENCES users(user_id);
+
 
 CREATE TABLE posts
 (
@@ -76,13 +80,13 @@ CREATE TABLE posts
     m_path int []
 );
 
-CREATE INDEX posts_threadId ON posts (thread_id);
+CREATE INDEX idx_p_threadId ON posts (thread_id);
 
-CREATE INDEX posts_postId ON posts (post_id);
+CREATE INDEX idx_p_postId ON posts (post_id);
 
-CREATE INDEX posts_postId_threadId ON posts (post_id, thread_id);
+CREATE INDEX idx_p_postId_threadId ON posts (post_id, thread_id);
 
-CREATE INDEX posts_postId_mPath ON posts (post_id, m_path);
+CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads
@@ -106,12 +110,6 @@ CREATE TABLE vote
     nickname CITEXT NOT NULL
 );
 
-CREATE INDEX vote_users_idx
-  ON vote (user_id);
-
-CREATE INDEX vote_threads_idx
-  ON vote (thread_id);
-
 ALTER TABLE vote
     ADD CONSTRAINT vote_fk_users
     FOREIGN KEY(user_id) REFERENCES users(user_id);
@@ -125,4 +123,19 @@ ALTER TABLE vote
     (
         thread_id,
         user_id
+    );
+
+
+CREATE TABLE posts_users_threads
+(
+    put_id serial primary key,
+    user_id int NOT NULL,
+    forum_id int NOT NULL
+);
+
+ALTER TABLE posts_users_threads
+    ADD CONSTRAINT user_forum_column UNIQUE
+    (
+        user_id,
+        forum_id
     );

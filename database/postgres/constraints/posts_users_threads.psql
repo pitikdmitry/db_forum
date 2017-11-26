@@ -1,0 +1,6 @@
+ALTER TABLE posts_users_threads
+    ADD CONSTRAINT user_forum_column UNIQUE
+    (
+        user_id,
+        forum_id
+    );

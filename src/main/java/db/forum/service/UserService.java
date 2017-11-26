@@ -88,6 +88,7 @@ public class UserService {
     private ResponseEntity<?> updateEmailAndFullnameByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateEmailAndFullnameByNickname(user.getEmail(), user.getFullname(), nickname);
+//            userRepository.updateEmailAndFullnameByNicknamePUT(user.getEmail(), user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.println("[updateEmailAndFullnameByNickname user]: " + ex);
@@ -99,6 +100,7 @@ public class UserService {
     private ResponseEntity<?> updateAboutAndFullnameByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateAboutAndFullnameByNickname(user.getAbout(), user.getFullname(), nickname);
+//            userRepository.updateAboutAndFullnameByNicknamePUT(user.getAbout(), user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.println("[Exception in updateByAboutAndFullname user]: " + ex);
@@ -110,6 +112,7 @@ public class UserService {
     private ResponseEntity<?> updateEmailAndAboutByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateEmailAndAboutByNickname(user.getEmail(), user.getAbout(), nickname);
+//            userRepository.updateEmailAndAboutByNicknamePUT(user.getEmail(), user.getAbout(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.println("[updateByEmailAndAbout user]: " + ex);
@@ -132,6 +135,7 @@ public class UserService {
     private ResponseEntity<?> updateFullnameByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateFullnameByNickname(user.getFullname(), nickname);
+//            userRepository.updateFullnameByNicknamePUT(user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.println("[updateByFullname user]: " + ex);
@@ -143,6 +147,7 @@ public class UserService {
     private ResponseEntity<?> updateEmailByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateEmailByNickname(user.getEmail(), nickname);
+//            userRepository.updateEmailByNicknamePUT(user.getEmail(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.println("[Exception in updateByEmail user]: " + ex);
@@ -155,6 +160,7 @@ public class UserService {
     private ResponseEntity<?> updateAboutByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateAboutByNickname(user.getAbout(), nickname);
+//            userRepository.updateAboutByNicknamePUT(user.getAbout(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.println("[updateAboutByNickname user]: " + ex);
@@ -166,6 +172,7 @@ public class UserService {
     private ResponseEntity<?> updateAllByNickname(User user, String nickname) {
         try {
             User responseUser = userRepository.updateAllByNickname(user, nickname);
+//            userRepository.updateAllByNicknamePUT(user, nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("[updateAllByNickname user]: " + ex);

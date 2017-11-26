@@ -1,5 +1,5 @@
-CREATE INDEX forums_slug ON forums (slug);
+CREATE INDEX idx_f_slug ON forums (slug);
 
-CREATE INDEX forums_forumId ON forums (forum_id);
+CREATE INDEX idx_f_forumId ON forums (forum_id);
 
-CREATE INDEX forums_slug_forumId on forums (slug, forum_id);
+CREATE INDEX idx_f_slug_forumId on forums (slug, forum_id);

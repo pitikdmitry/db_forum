@@ -7,6 +7,7 @@ import db.forum.model.*;
 import db.forum.model.Thread;
 import db.forum.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -41,6 +43,7 @@ public class ThreadService {
     
     public ResponseEntity<?> createPosts(String slug_or_id, ArrayList<Post> posts) {
         ArrayList<Post> resultArr = new ArrayList<>();
+        HashMap<Integer, Integer> userWithForum = new HashMap<>();
         Timestamp created = null;
         try {
             created = Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime());
@@ -73,7 +76,7 @@ public class ThreadService {
         System.out.println("here1");
         for (Post p : posts) {
             try {
-                Post res = createOnePost(thread, forum, p, created);
+                Post res = createOnePost(thread, forum, p, created, userWithForum);
                 if(res != null) {
                     resultArr.add(res);
                 }
@@ -97,10 +100,17 @@ public class ThreadService {
         } catch(Exception e) {
             System.out.println(e);
         }
+        try{
+            userRepository.executeUsersWithForum(userWithForum);
+        } catch(DuplicateKeyException ex) {
+            //normal
+        } catch(Exception ex) {
+            System.out.println("[createPosts BIG TABLE EXCEPTION!!!] + ex");
+        }
         return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
     }
 
-    private Post createOnePost(Thread thread, Forum forum, Post post, Timestamp created) throws NoUserException, NoThreadException, NoPostException {
+    private Post createOnePost(Thread thread, Forum forum, Post post, Timestamp created, HashMap<Integer, Integer> userWithForum) throws NoUserException, NoThreadException, NoPostException {
         User user = null;
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
@@ -133,6 +143,9 @@ public class ThreadService {
         } else {
             m_path = postRepository.get_new_m_path(next_post_id);
         }
+
+        userWithForum.put(user.getUser_id(), forum.getForum_id());
+
         return new Post(next_post_id, user.getNickname(), user.getUser_id(), created, forum.getSlug(),
                                 forum.getForum_id(), false, post.getMessage(), parent_id,
                                 thread.getSlug(), thread.getId(), m_path);
