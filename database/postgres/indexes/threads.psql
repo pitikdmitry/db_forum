@@ -1,8 +1,13 @@
 CREATE INDEX threads_slug ON threads (slug);
 
+<<<<<<< HEAD
 CREATE INDEX threads_threadId ON threads (thread_id);
 
 CREATE INDEX threads_slug_threadId ON threads (slug, thread_id);
 --CREATE INDEX threads_forumId ON threads (forum_id);
 --
 --CREATE INDEX threads_user_Id ON threads (user_id);
+=======
+CREATE INDEX threads_forums_idx
+  ON threads (forum_id);
+>>>>>>> origin/master
