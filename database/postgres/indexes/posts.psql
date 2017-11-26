@@ -1,5 +1,7 @@
 CREATE INDEX posts_threadId ON posts (thread_id);
 
+CREATE INDEX posts_postId ON posts (post_id);
+
 CREATE INDEX posts_postId_threadId ON posts (post_id, thread_id);
 
 CREATE INDEX posts_postId_mPath ON posts (post_id, m_path);

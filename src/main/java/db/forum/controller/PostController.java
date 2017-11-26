@@ -16,14 +16,14 @@ public class PostController {
 
     @RequestMapping(value = "/{id}/details", method = RequestMethod.GET,
             produces = "application/json")
-    public ResponseEntity<?> createThread(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> details(@PathVariable(name = "id") Integer id,
                                           @RequestParam(value = "related", required = false) String related) {
         return postService.details(id, related);
     }
 
     @RequestMapping(value = "/{id}/details", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> createThread(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> update(@PathVariable(name = "id") Integer id,
                                           @RequestBody Post post) {
 
         return postService.update(id, post);

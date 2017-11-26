@@ -9,11 +9,7 @@ CREATE TABLE users
     about TEXT NOT NULL
 );
 
-CREATE INDEX users_nickname_idx
-  ON users (nickname);
-
-CREATE INDEX users_email_idx
-  ON users (email);
+CREATE INDEX users_nickname ON users (nickname);
 
 CREATE TABLE forums
 (
@@ -26,11 +22,11 @@ CREATE TABLE forums
     title TEXT NOT NULL
 );
 
-CREATE INDEX forums_slug_idx
-  ON forums (slug);
+CREATE INDEX forums_slug ON forums (slug);
 
-CREATE INDEX forums_users_idx
-  ON forums (user_id);
+CREATE INDEX forums_forumId ON forums (forum_id);
+
+CREATE INDEX forums_slug_forumId on forums (slug, forum_id);
 
 ALTER TABLE forums
     ADD CONSTRAINT forums_fk_users
@@ -50,11 +46,11 @@ CREATE TABLE threads
     votes int DEFAULT 0
 );
 
-CREATE INDEX threads_slug_idx
-  ON threads (slug);
+CREATE INDEX threads_slug ON threads (slug);
 
-CREATE INDEX threads_forums_idx
-  ON threads (forum_id);
+CREATE INDEX threads_threadId ON threads (thread_id);
+
+CREATE INDEX threads_slug_threadId ON threads (slug, thread_id);
 
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_forums
@@ -80,11 +76,13 @@ CREATE TABLE posts
     m_path int []
 );
 
-CREATE INDEX posts_threads_idx
-  ON posts (thread_id);
+CREATE INDEX posts_threadId ON posts (thread_id);
 
-CREATE INDEX posts_parent_idx
-  ON posts (parent_id);
+CREATE INDEX posts_postId ON posts (post_id);
+
+CREATE INDEX posts_postId_threadId ON posts (post_id, thread_id);
+
+CREATE INDEX posts_postId_mPath ON posts (post_id, m_path);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads
