@@ -111,7 +111,6 @@ public class ThreadRepository {
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
-<<<<<<< HEAD
     public Integer checkThread(String slug_or_id) {
         Integer id = null;
         String sql = null;
@@ -127,11 +126,6 @@ public class ThreadRepository {
 
         return jdbcTemplate.queryForObject(sql, args, Integer.class);
     }
-=======
-    public Thread checkThread(String slug_or_id) {
-        return get_by_slug_or_id(slug_or_id);
-    }
 
->>>>>>> origin/master
 }
 

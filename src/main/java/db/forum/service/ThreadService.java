@@ -246,14 +246,10 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> update(String slug_or_id, Thread thread) {
-        Thread thread = null;
+        Integer thread_id = null;
         try{
-<<<<<<< HEAD
             thread_id = threadRepository.checkThread(slug_or_id);
-=======
-            Thread thread = threadRepository.checkThread(slug_or_id);
->>>>>>> origin/master
-            if(thread == null) {
+            if(thread_id == null) {
                 Message message = new Message("CCan't find thread by id: %!d(string=" + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
@@ -262,19 +258,18 @@ public class ThreadService {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         if(thread.getMessage() != null && thread.getTitle() != null) {
-            Thread resultThread = threadRepository.updateMessageTitle(thread.getId(), thread.getMessage(), thread.getTitle());
+            Thread resultThread = threadRepository.updateMessageTitle(thread_id, thread.getMessage(), thread.getTitle());
             return new ResponseEntity<>(resultThread.getJson().toString(), HttpStatus.OK);
 
         } else if(thread.getTitle() != null) {
-            Thread resultThread = threadRepository.updateTitle(thread.getId(), thread.getTitle());
+            Thread resultThread = threadRepository.updateTitle(thread_id, thread.getTitle());
             return new ResponseEntity<>(resultThread.getJson().toString(), HttpStatus.OK);
 
         } else if(thread.getMessage() != null) {
-            Thread resultThread = threadRepository.updateMessage(thread.getId(), thread.getMessage());
+            Thread resultThread = threadRepository.updateMessage(thread_id, thread.getMessage());
             return new ResponseEntity<>(resultThread.getJson().toString(), HttpStatus.OK);
 
-        }
-        else {
+        } else {
             return new ResponseEntity<>(thread.getJson().toString(), HttpStatus.OK);
 
         }
