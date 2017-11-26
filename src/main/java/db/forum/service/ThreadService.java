@@ -52,7 +52,7 @@ public class ThreadService {
             Thread currentThread = null;
             ArrayList<Post> newArr = new ArrayList<>();
             try {
-                currentThread = threadRepository.checkThread(slug_or_id);
+                currentThread = threadRepository.get_by_slug_or_id(slug_or_id);
             } catch(Exception ex) {
                 Message message = new Message("Can't find post thread by id: " + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
@@ -189,20 +189,20 @@ public class ThreadService {
     }
 
     public ResponseEntity<?> getPosts(String slug_or_id, Integer limit, Integer since, String sort, Boolean desc) {
-        Thread thread = null;
+        Integer threadId = null;
         try{
-             thread = threadRepository.checkThread(slug_or_id);
-            if(thread == null) {
-                Message message = new Message("CCan't find thread by id: " + slug_or_id);
+            threadId = threadRepository.checkThread(slug_or_id);
+            if(threadId == null) {
+                Message message = new Message("CCan't find threadId by id: " + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
         } catch(Exception ex) {
-            Message message = new Message("CCan't find thread by id: " + slug_or_id);
+            Message message = new Message("CCan't find threadId by id: " + slug_or_id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         if(sort == null) {
             try {
-                List<Post> responsePosts = postRepository.getPostFlat(thread, limit, since, desc);
+                List<Post> responsePosts = postRepository.getPostFlat(threadId, limit, since, desc);
                 return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
             } catch(Exception ex) {
                 System.out.println("[getPosts exc] no sort: ");
@@ -210,10 +210,10 @@ public class ThreadService {
         } else {
             if(sort.equals("flat")) {
                 try {
-                    List<Post> responsePosts = postRepository.getPostFlat(thread, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostFlat(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(NoThreadException ex) {
-                    Message message = new Message("Can't find thread by slug: " + ex.getSlugOrId());
+                    Message message = new Message("Can't find threadId by slug: " + ex.getSlugOrId());
                     return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] falt sort: ");
@@ -221,7 +221,7 @@ public class ThreadService {
             }
             else if(sort.equals("tree")) {
                 try {
-                    List<Post> responsePosts = postRepository.getPostTree(thread, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostTree(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] tree sort: ");
@@ -229,14 +229,14 @@ public class ThreadService {
             }
             else if(sort.equals("parent_tree")) {
                 try {
-                    List<Post> responsePosts = postRepository.getPostsParentTree(thread, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostsParentTree(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
                     System.out.println("[getPosts exc] parenttree sort: ");
                 }
             } else {
                 try {
-                    List<Post> responsePosts = postRepository.getPostFlat(thread, limit, since, desc);
+                    List<Post> responsePosts = postRepository.getPostFlat(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch (Exception ex) {
                     System.out.println("[getPosts exc] no sort: ");
@@ -249,7 +249,7 @@ public class ThreadService {
     public ResponseEntity<?> update(String slug_or_id, Thread thread) {
         Integer thread_id = null;
         try{
-            thread_id = threadRepository.checkThreadGetId(slug_or_id);
+            thread_id = threadRepository.checkThread(slug_or_id);
             if(thread == null) {
                 Message message = new Message("CCan't find forum by id: %!d(string=" + slug_or_id);
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);

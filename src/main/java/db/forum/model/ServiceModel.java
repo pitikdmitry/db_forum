@@ -8,6 +8,8 @@ public class ServiceModel {
     private Integer thread;
     private Integer user;
 
+    public ServiceModel() {}
+
     public ServiceModel(Integer forum, Integer post, Integer thread, Integer user) {
         this.forum = forum;
         this.post = post;

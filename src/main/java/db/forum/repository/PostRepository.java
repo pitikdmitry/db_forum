@@ -83,16 +83,15 @@ public class PostRepository {
        return m_path;
     }
 
-    public List<Post> getPostFlat(Thread thread, Integer limit, Integer since, Boolean desc) throws NoThreadException {
+    public List<Post> getPostFlat(Integer threadId, Integer limit, Integer since, Boolean desc) throws NoThreadException {
         List<Object> arguments = new ArrayList<Object>();
         String sql = "SELECT * FROM posts WHERE thread_id = ?";
-        arguments.add(thread.getId());
+        arguments.add(threadId);
 
         if (since != null) {
             if(desc != null && desc) {
                 sql += " AND post_id < ?";
-            }
-            else {
+            } else {
                 sql += " AND post_id > ?";
             }
             arguments.add(since);
@@ -111,10 +110,10 @@ public class PostRepository {
         return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
-    public List<Post> getPostTree(Thread thread, Integer limit, Integer since, Boolean desc) {
+    public List<Post> getPostTree(Integer threadId, Integer limit, Integer since, Boolean desc) {
         List<Object> arguments = new ArrayList<Object>();
         String sql = "SELECT * FROM posts WHERE thread_id = ?";
-        arguments.add(thread.getId());
+        arguments.add(threadId);
 
         if (since != null) {
             if(desc != null && desc) {
@@ -139,10 +138,10 @@ public class PostRepository {
         return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
-    public List<Post> getPostsParentTree(Thread thread, Integer limit, Integer since, Boolean desc) {
+    public List<Post> getPostsParentTree(Integer threadId, Integer limit, Integer since, Boolean desc) {
         List<Object> arguments = new ArrayList<>();
         String sql = null;
-        Integer id = thread.getId();
+        Integer id = threadId;
 
         if(since == null && limit == null && desc == null) {
             sql = "SELECT * FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +

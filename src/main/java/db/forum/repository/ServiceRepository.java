@@ -1,6 +1,7 @@
 package db.forum.repository;
 
 
+import db.forum.Mappers.ServiceModelMapper;
 import db.forum.model.ServiceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,17 +21,13 @@ public class ServiceRepository {
     }
 
     public ServiceModel status() {
-        String sqlForum = "SELECT COUNT(*) from forums;";
-        String sqlPost = "SELECT COUNT(*) from posts;";
-        String sqlThread = "SELECT COUNT(*) from threads;";
-        String sqlUser = "SELECT COUNT(*) from users;";
+        String sqlForum = "SELECT COUNT(*) as forums_count, " +
+                "(SELECT COUNT(*) FROM posts) as posts_count, " +
+                "(SELECT COUNT(*) FROM threads) as threads_count, " +
+                "(SELECT COUNT(*) FROM users) as users_count " +
+                "FROM forums;";
 
-        Integer forumCount = jdbcTemplate.queryForObject(sqlForum, Integer.class);
-        Integer postCount = jdbcTemplate.queryForObject(sqlPost, Integer.class);
-        Integer threadCount = jdbcTemplate.queryForObject(sqlThread, Integer.class);
-        Integer userCount = jdbcTemplate.queryForObject(sqlUser, Integer.class);
-
-        return new ServiceModel(forumCount, postCount, threadCount, userCount);
+        return jdbcTemplate.queryForObject(sqlForum, new ServiceModelMapper());
     }
 
     public void clear() {

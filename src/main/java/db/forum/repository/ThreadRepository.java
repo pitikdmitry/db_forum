@@ -39,12 +39,6 @@ public class ThreadRepository {
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
-    public Integer get_thread_id_by_slug(String slug) {
-        String sql = "SELECT thread_id FROM threads WHERE slug = ?::citext;";
-        Object[] args = new Object[]{slug};
-        return jdbcTemplate.queryForObject(sql, args, Integer.class);
-    }
-
     public Thread get_by_slug_or_id(String slug_or_id) {
         String sql = null;
         Object[] args = null;
@@ -58,12 +52,6 @@ public class ThreadRepository {
             args = new Object[]{slug_or_id};
         }
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
-    }
-
-    public Integer get_forum_id_by_thread_id(int thread_id) {
-        String sql = "SELECT forum_id FROM threads WHERE thread_id = ?;";
-        Object[] args = new Object[]{thread_id};
-        return jdbcTemplate.queryForObject(sql, args, Integer.class);
     }
 
     public Thread increment_vote_rating(Thread old_thread, Integer vote_value, Boolean double_increment) {
@@ -85,19 +73,6 @@ public class ThreadRepository {
             args = new Object[]{vote_value, old_thread.getId()};
         }
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
-    }
-
-    public Integer get_id_from_slug_or_id(String slug_or_id) {
-        Integer id = null;
-        try {
-            id = Integer.parseInt(slug_or_id);
-        }
-        catch(Exception ex) {
-            String sql = "SELECT thread_id FROM threads WHERE slug = ?::citext;";
-            Object[] args = new Object[]{slug_or_id};
-            id = jdbcTemplate.queryForObject(sql, args, Integer.class);
-        }
-        return id;
     }
 
     public Thread create(String slug, User user, Thread thread, Forum forum) {
@@ -136,18 +111,19 @@ public class ThreadRepository {
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
     }
 
-    public Thread checkThread(String slug_or_id) {
-        return get_by_slug_or_id(slug_or_id);
-    }
-
-    public Integer checkThreadGetId(String slug_or_id) {
-        String sql = "SELECT thread_id FROM threads WHERE thread_id = ?;";
-        Integer thread_id = get_id_from_slug_or_id(slug_or_id);
-        if(thread_id == null) {
-            return null;
-            //nno thread
+    public Integer checkThread(String slug_or_id) {
+        Integer id = null;
+        String sql = null;
+        Object[] args = null;
+        try {
+            id = Integer.parseInt(slug_or_id);
+            sql = "SELECT thread_id FROM threads WHERE thread_id = ?;";
+            args = new Object[]{id};
+        } catch(Exception ex) {
+            sql = "SELECT thread_id FROM threads WHERE slug = ?::citext;";
+            args = new Object[]{slug_or_id};;
         }
-        Object[] args = new Object[]{thread_id};
+
         return jdbcTemplate.queryForObject(sql, args, Integer.class);
     }
 }
