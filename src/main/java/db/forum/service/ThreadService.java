@@ -270,8 +270,8 @@ public class ThreadService {
             return new ResponseEntity<>(resultThread.getJson().toString(), HttpStatus.OK);
 
         } else {
-            return new ResponseEntity<>(thread.getJson().toString(), HttpStatus.OK);
-
+            Thread responseThread = threadRepository.get_by_id(thread_id);
+            return new ResponseEntity<>(responseThread.getJson().toString(), HttpStatus.OK);
         }
     }
 
