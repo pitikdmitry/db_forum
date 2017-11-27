@@ -141,10 +141,7 @@ public class PostRepository {
         Integer id = threadId;
 
         if(since == null && limit == null && desc == null) {
-            sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
-                    " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0 ORDER BY post_id)" +
-                    " ORDER BY m_path;";
-            arguments.add(id);
+            sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? ORDER BY m_path;";
             arguments.add(id);
         }
         else if(since != null && limit == null && desc == null) {
@@ -159,30 +156,27 @@ public class PostRepository {
         else if(since == null && limit != null && desc == null) {
             sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                     " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0" +
-                    " ORDER BY post_id LIMIT ?) ORDER BY m_path, post_id;";
+                    " ORDER BY post_id LIMIT ?) ORDER BY m_path;";
             arguments.add(id);
             arguments.add(id);
             arguments.add(limit);
         }
         else if(since == null && limit == null && desc != null) {
             if(desc) {
-                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
-                        " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0" +
-                        " ORDER BY post_id DESC) ORDER BY m_path DESC, post_id DESC;";
+                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? " +
+                        "ORDER BY m_path DESC;";
             }
             else{
-                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
-                        " (SELECT post_id FROM posts WHERE thread_id = ? ORDER BY post_id ASC)" +
-                        " ORDER BY m_path ASC, post_id ASC;";
+                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? " +
+                        "ORDER BY m_path ASC;";
             }
-            arguments.add(id);
             arguments.add(id);
         }
         else if(since != null && limit != null && desc == null) {
             sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                     " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0 AND" +
                     " m_path > (SELECT m_path FROM posts WHERE post_id = ?)" +
-                    " ORDER BY post_id LIMIT ?) ORDER BY m_path, post_id;";
+                    " ORDER BY post_id LIMIT ?) ORDER BY m_path;";
             arguments.add(id);
             arguments.add(id);
             arguments.add(since);
@@ -192,12 +186,12 @@ public class PostRepository {
             if(desc) {
                 sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                         " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0" +
-                        " ORDER BY post_id DESC LIMIT ?) ORDER BY m_path DESC, post_id DESC;";
+                        " ORDER BY post_id DESC LIMIT ?) ORDER BY m_path DESC;";
             }
             else{
                 sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                         " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0" +
-                        " ORDER BY post_id ASC LIMIT ?) ORDER BY m_path ASC, post_id ASC;";
+                        " ORDER BY post_id ASC LIMIT ?) ORDER BY m_path ASC;";
             }
 
             arguments.add(id);
@@ -209,13 +203,13 @@ public class PostRepository {
                 sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                         " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0 AND" +
                         " m_path < (SELECT m_path FROM posts WHERE post_id = ?)" +
-                        " ORDER BY post_id DESC) ORDER BY m_path DESC, post_id DESC;";
+                        " ORDER BY post_id DESC) ORDER BY m_path DESC;";
             }
             else {
-                sql = "SELECT * FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
+                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                         " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0 AND" +
                         " m_path > (SELECT m_path FROM posts WHERE post_id = ?)" +
-                        " ORDER BY post_id ASC) ORDER BY m_path ASC, post_id ASC;";
+                        " ORDER BY post_id ASC) ORDER BY m_path ASC;";
             }
 
             arguments.add(id);
@@ -227,13 +221,13 @@ public class PostRepository {
                 sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                         " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0 AND" +
                         " m_path < (SELECT m_path FROM posts WHERE post_id = ?)" +
-                        " ORDER BY post_id DESC LIMIT ?) ORDER BY m_path DESC, post_id DESC;";
+                        " ORDER BY post_id DESC LIMIT ?) ORDER BY m_path DESC;";
             }
             else{
                 sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? AND m_path[1] = ANY" +
                         " (SELECT post_id FROM posts WHERE thread_id = ? AND parent_id = 0 AND" +
                         " m_path > (SELECT m_path FROM posts WHERE post_id = ?)" +
-                        " ORDER BY post_id ASC LIMIT ?) ORDER BY m_path ASC, post_id ASC;";
+                        " ORDER BY post_id ASC LIMIT ?) ORDER BY m_path ASC;";
             }
             arguments.add(id);
             arguments.add(id);

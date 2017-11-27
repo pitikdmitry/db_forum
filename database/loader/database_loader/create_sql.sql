@@ -44,11 +44,14 @@ CREATE TABLE threads
     title TEXT NOT NULL,
     votes int DEFAULT 0
 );
+
 CREATE INDEX idx_t_slug ON threads (slug);
 
 CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
 
 CREATE INDEX idx_t_forum ON threads (forum);
+
+CREATE INDEX idx_t_forum_created ON threads (forum, created);
 
 CREATE INDEX idx_t_forum_all ON threads (forum, thread_id, slug, author, created, message, title, votes);
 
@@ -76,11 +79,15 @@ CREATE TABLE posts
 
 CREATE INDEX idx_p_threadId ON posts (thread_id);
 
-CREATE INDEX idx_p_postId_threadId ON posts (post_id, thread_id);
+CREATE INDEX idx_p_threadId_postId ON posts (thread_id, post_id);
 
 CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
 
-CREATE INDEX idx_p_postId_mPath_threadId_parentId ON posts (thread_id, m_path, post_id, parent_id);
+CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);
+
+CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id, post_id);
+
+CREATE INDEX idx_p_threadId_parentId_mPath_postId ON posts (thread_id, parent_id, m_path, post_id);
 
 CREATE INDEX idx_p_postId_all ON posts (post_id, author, created, forum, is_edited, message, parent_id, thread_id);
 
