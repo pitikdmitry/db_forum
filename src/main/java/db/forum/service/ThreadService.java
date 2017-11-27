@@ -134,8 +134,8 @@ public class ThreadService {
                 throw new NoPostException(parent_id);
             }
 
-            if(thread.getSlug() != null) {
-                if (!parentPost.getThread().equals(thread.getSlug())) {
+            if(thread.getId() != null) {
+                if (!parentPost.getThreadId().equals(thread.getId())) {
                     throw new NoPostException(parent_id);
                 }
             }
@@ -146,9 +146,9 @@ public class ThreadService {
 
         userWithForum.put(user.getUser_id(), forum.getForum_id());
 
-        return new Post(next_post_id, user.getNickname(), user.getUser_id(), created, forum.getSlug(),
-                                forum.getForum_id(), false, post.getMessage(), parent_id,
-                                thread.getSlug(), thread.getId(), m_path);
+        return new Post(next_post_id, user.getNickname(), created, forum.getSlug(),
+                                false, post.getMessage(), parent_id,
+                                thread.getId(), m_path);
     }
 
     public ResponseEntity<?> vote(String slug_or_id, Vote vote) {

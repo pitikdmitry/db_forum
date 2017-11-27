@@ -4,10 +4,10 @@ ALTER TABLE posts
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_forums
-    FOREIGN KEY(forum_id) REFERENCES forums(forum_id);
+    FOREIGN KEY(forum) REFERENCES forums(slug);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_users
-    FOREIGN KEY(user_id) REFERENCES users(user_id);
+    FOREIGN KEY(author) REFERENCES users(nickname);
 
 

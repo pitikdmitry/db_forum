@@ -1,12 +1,8 @@
 package db.forum.repository;
 
 import db.forum.Mappers.PostMapper;
-import db.forum.Mappers.PostMapperNotAll;
 import db.forum.My_Exceptions.NoThreadException;
-import db.forum.model.Forum;
 import db.forum.model.Post;
-import db.forum.model.User;
-import db.forum.model.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -37,7 +33,7 @@ public class PostRepository {
     public Post getByIdNotAll(Integer post_id) {
         String sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id = ?;";
         Object[] args = new Object[]{post_id};
-        return jdbcTemplate.queryForObject(sql, args, new PostMapperNotAll());
+        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
     }
 
     private java.sql.Array createSqlArray(List<Integer> list){
@@ -114,7 +110,7 @@ public class PostRepository {
         } else {
             sql += ";";
         }
-        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapperNotAll());
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public List<Post> getPostTree(Integer threadId, Integer limit, Integer since, Boolean desc) {
@@ -142,7 +138,7 @@ public class PostRepository {
         } else {
             sql += ";";
         }
-        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapperNotAll());
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public List<Post> getPostsParentTree(Integer threadId, Integer limit, Integer since, Boolean desc) {
@@ -251,7 +247,7 @@ public class PostRepository {
             arguments.add(limit);
         }
 
-        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapperNotAll());
+        return jdbcTemplate.query(sql, arguments.toArray(), new PostMapper());
     }
 
     public Post update(Integer id, Post post) {
@@ -275,25 +271,22 @@ public class PostRepository {
 
     public void executePosts(List<Post> posts) {
         Connection connection = null;
-        String sql = "INSERT INTO posts (post_id, thread_id, thread, forum_id, forum, user_id, author, parent_id, " +
-                "message, created, is_edited, m_path) VALUES (?, ?, ?::citext, ?, ?::citext, ?, ?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
+        String sql = "INSERT INTO posts (post_id, thread_id, forum, author, parent_id, " +
+                "message, created, is_edited, m_path) VALUES (?, ?, ?::citext, ?::citext, ?, ?, ?::timestamptz, ?, ?) RETURNING *;";
 
         try {
             connection = jdbcTemplate.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             for(Post p : posts) {
                 preparedStatement.setInt(1, (int)p.getId());
-                preparedStatement.setInt(2, (int)p.getThread_id());
-                preparedStatement.setString(3, p.getThread());
-                preparedStatement.setInt(4, (int)p.getForum_id());
-                preparedStatement.setString(5, p.getForum());
-                preparedStatement.setInt(6, (int)p.getUser_id());
-                preparedStatement.setString(7, p.getAuthor());
-                preparedStatement.setInt(8, p.getParent());
-                preparedStatement.setString(9, p.getMessage());
-                preparedStatement.setTimestamp(10, p.getCreated());
-                preparedStatement.setBoolean(11, p.getEdited());
-                preparedStatement.setArray(12, createSqlArray(p.getM_path()));
+                preparedStatement.setInt(2, p.getThreadId());
+                preparedStatement.setString(3, p.getForum());
+                preparedStatement.setString(4, p.getAuthor());
+                preparedStatement.setInt(5, p.getParent());
+                preparedStatement.setString(6, p.getMessage());
+                preparedStatement.setTimestamp(7, p.getCreated());
+                preparedStatement.setBoolean(8, p.getEdited());
+                preparedStatement.setArray(9, createSqlArray(p.getM_path()));
                 preparedStatement.addBatch();
             }
 

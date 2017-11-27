@@ -12,12 +12,8 @@ import java.util.List;
 public class Thread {
     private Integer id;
     private String author;//nickname
-    @JsonIgnore
-    private Integer user_id;
     private Timestamp created;
     private String forum;
-    @JsonIgnore
-    private Integer forum_id;
     private String message;
     private String slug;
     private String title;
@@ -25,30 +21,26 @@ public class Thread {
 
     public Thread() {}
 
-    public Thread(Integer id, String author, Integer user_id,
-                  Timestamp created, String forum, Integer forum_id,
+    public Thread(Integer id, String author,
+                  Timestamp created, String forum,
                   String message, String slug, String title, Integer votes) {
         this.id = id;
         this.author = author;
-        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
-        this.forum_id = forum_id;
         this.message = message;
         this.slug = slug;
         this.title = title;
         this.votes = votes;
     }
 
-    public void fill(Integer id, String author, Integer user_id,
-                     Timestamp created, String forum, Integer forum_id,
+    public void fill(Integer id, String author,
+                     Timestamp created, String forum,
                      String message, String slug, String title, Integer votes) {
         this.id = id;
         this.author = author;
-        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
-        this.forum_id = forum_id;
         this.message = message;
         this.slug = slug;
         this.title = title;
@@ -65,8 +57,6 @@ public class Thread {
     public String getSlug() { return slug; }
     public String getTitle() { return title; }
     public Integer getVotes() { return votes; }
-    public Integer getUser_id() { return user_id; }
-    public Integer getForum_id() { return forum_id; }
 
     public void setId(Integer id) { this.id = id; }
     public void setAuthor(String author) { this.author = author; }
@@ -76,9 +66,6 @@ public class Thread {
     public void setSlug(String slug) { this.slug = slug; }
     public void setTitle(String title) { this.title = title; }
     public void setVotes(Integer votes) { this.votes = votes; }
-
-    public void setUser_id(Integer user_id) { this.user_id = user_id; }
-    public void setForum_id(Integer forum_id) { this.forum_id = forum_id; }
 
     public JSONObject getJson() {
         final JSONObject jsonObject = new JSONObject();

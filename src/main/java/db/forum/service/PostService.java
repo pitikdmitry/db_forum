@@ -52,11 +52,11 @@ public class PostService {
                 }
             }
             if(related.contains("thread")) {
-                if(post.getThread_id() != null) {
+                if(post.getThreadId() != null) {
                     try {
-                        thread = threadRepository.get_by_id(post.getThread_id());
+                        thread = threadRepository.get_by_id(post.getThreadId());
                     } catch (Exception ex) {
-                        Message message = new Message("Can't find thread with id: " + post.getThread_id());
+                        Message message = new Message("Can't find thread with id: " + post.getThreadId());
                         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
                     }
                 }

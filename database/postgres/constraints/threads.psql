@@ -1,7 +1,7 @@
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_forums
-    FOREIGN KEY(forum_id) REFERENCES forums(forum_id);
+    FOREIGN KEY(forum) REFERENCES forums(slug);
 
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_users
-    FOREIGN KEY(user_id) REFERENCES users(user_id);
+    FOREIGN KEY(author) REFERENCES users(nickname);

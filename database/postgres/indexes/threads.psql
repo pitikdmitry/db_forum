@@ -1,3 +1,4 @@
 CREATE INDEX idx_t_slug ON threads (slug);
 
 CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
+

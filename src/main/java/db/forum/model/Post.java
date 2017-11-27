@@ -1,6 +1,5 @@
 package db.forum.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,14 +10,11 @@ import java.util.List;
 public class Post {
     private Integer id;
     private String author;
-    private Integer user_id;
     private Timestamp created;
     private String forum;
-    private Integer forum_id;
     private Boolean isEdited;
     private String message;
     private Integer parent;
-    private String thread;
     private Integer thread_id;
     private List<Integer> m_path;
 
@@ -26,20 +22,17 @@ public class Post {
         this.isEdited = false;
     }
 
-    public Post(Integer id, String author, Integer user_id,
-                Timestamp created, String forum, Integer forum_id,
+    public Post(Integer id, String author,
+                Timestamp created, String forum,
                 Boolean isEdited, String message, Integer parent,
-                String thread, Integer thread_id) {
+                Integer thread_id) {
         this.id = id;
         this.author = author;
-        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
-        this.forum_id = forum_id;
         this.isEdited = isEdited;
         this.message = message;
         this.parent = parent;
-        this.thread = thread;
         this.thread_id = thread_id;
     }
 
@@ -47,43 +40,20 @@ public class Post {
         return m_path;
     }
 
-    public void setM_path(List<Integer> m_path) {
-        this.m_path = m_path;
-    }
-
-    public Post(Integer id, String author, Integer user_id,
-                Timestamp created, String forum, Integer forum_id,
+    public Post(Integer id, String author,
+                Timestamp created, String forum,
                 Boolean isEdited, String message, Integer parent,
-                String thread, Integer thread_id, List<Integer> m_path) {
+                Integer thread_id, List<Integer> m_path) {
         this.id = id;
         this.author = author;
-        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
-        this.forum_id = forum_id;
         this.isEdited = isEdited;
         this.message = message;
         this.parent = parent;
-        this.thread = thread;
         this.thread_id = thread_id;
         this.m_path = new ArrayList<Integer>();
         this.m_path.addAll(m_path);
-    }
-
-    public Post(String author, Integer user_id,
-                Timestamp created, String forum, Integer forum_id,
-                Boolean isEdited, String message, Integer parent,
-                String thread, Integer thread_id) {
-        this.author = author;
-        this.user_id = user_id;
-        this.created = created;
-        this.forum = forum;
-        this.forum_id = forum_id;
-        this.isEdited = isEdited;
-        this.message = message;
-        this.parent = parent;
-        this.thread = thread;
-        this.thread_id = thread_id;
     }
 
     public String getAuthor() { return author; }
@@ -93,11 +63,8 @@ public class Post {
     public Boolean getEdited() { return isEdited; }
     public String getMessage() { return message; }
     public Integer getParent() { return parent; }
-    public String getThread() { return thread; }
+    public Integer getThreadId() { return thread_id; }
 
-    public Integer getUser_id() { return user_id; }
-    public Integer getForum_id() { return forum_id; }
-    public Integer getThread_id() { return thread_id; }
 
     public void setAuthor(String author) { this.author = author; }
     public void setCreated(Timestamp created) { this.created = created; }
@@ -106,25 +73,19 @@ public class Post {
     public void setEdited(Boolean edited) { isEdited = edited; }
     public void setMessage(String message) { this.message = message; }
     public void setParent(Integer parent) { this.parent = parent; }
-    public void setThread(String thread) { this.thread = thread; }
-    public void setUser_id(Integer user_id) { this.user_id = user_id; }
-    public void setForum_id(Integer forum_id) { this.forum_id = forum_id; }
-    public void setThread_id(Integer thread_id) { this.thread_id = thread_id; }
+    public void setThreadId(Integer thread_id) { this.thread_id = thread_id; }
 
-    public void fill(Integer id, String author, Integer user_id,
-                     Timestamp created, String forum, Integer forum_id,
+    public void fill(Integer id, String author,
+                     Timestamp created, String forum,
                      Boolean isEdited, String message, Integer parent,
-                     String thread, Integer thread_id) {
+                     Integer thread_id) {
         this.id = id;
         this.author = author;
-        this.user_id = user_id;
         this.created = created;
         this.forum = forum;
-        this.forum_id = forum_id;
         this.isEdited = isEdited;
         this.message = message;
         this.parent = parent;
-        this.thread = thread;
         this.thread_id = thread_id;
     }
 

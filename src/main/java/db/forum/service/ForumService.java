@@ -119,7 +119,7 @@ public class ForumService {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
         try {
-            List<Thread> threads = forumRepository.getThreads(forum_id, limit, since, desc);
+            List<Thread> threads = forumRepository.getThreads(slug, limit, since, desc);
             return new ResponseEntity<>(Thread.getJsonArray(threads).toString(), HttpStatus.OK);
         } catch(Exception ex) {
             //ign

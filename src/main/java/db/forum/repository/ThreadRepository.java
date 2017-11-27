@@ -79,15 +79,15 @@ public class ThreadRepository {
         Object[] args = null;
         String sql = null;
         if(thread.getCreated() != null) {
-            sql = "INSERT INTO threads (slug, forum, forum_id, author, user_id, created, message, title)" +
-                    " VALUES (?::citext, ?::citext, ?, ?::citext, ?, ?::timestamptz, ?, ?) RETURNING *;";
-            args = new Object[]{slug, forum.getSlug(), forum.getForum_id(), user.getNickname(), user.getUser_id(), thread.getCreated(),
+            sql = "INSERT INTO threads (slug, forum, author, created, message, title)" +
+                    " VALUES (?::citext, ?::citext, ?::citext, ?::timestamptz, ?, ?) RETURNING *;";
+            args = new Object[]{slug, forum.getSlug(), user.getNickname(), thread.getCreated(),
                     thread.getMessage(), thread.getTitle()};
         }
         else {
-            sql = "INSERT INTO threads (slug, forum, forum_id, author, user_id, message, title)" +
-                    " VALUES (?::citext, ?::citext, ?, ?::citext, ?, ?, ?) RETURNING *;";
-            args = new Object[]{slug, thread.getForum(), forum.getForum_id(), user.getNickname(), user.getUser_id(),
+            sql = "INSERT INTO threads (slug, forum, author, message, title)" +
+                    " VALUES (?::citext, ?::citext, ?::citext, ?, ?) RETURNING *;";
+            args = new Object[]{slug, thread.getForum(), user.getNickname(),
                     thread.getMessage(), thread.getTitle()};
         }
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());

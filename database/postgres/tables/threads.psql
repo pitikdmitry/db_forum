@@ -2,9 +2,7 @@ CREATE TABLE threads
 (
     thread_id serial primary key,
     slug CITEXT DEFAULT NULL UNIQUE,
-    forum_id int NOT NULL,
     forum CITEXT NOT NULL,
-    user_id int NOT NULL,
     author CITEXT NOT NULL,
     created TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     message TEXT NOT NULL,

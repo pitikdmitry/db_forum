@@ -64,10 +64,7 @@ CREATE TABLE posts
 (
     post_id serial primary key,
     thread_id int NOT NULL,
-    thread CITEXT DEFAULT NULL,
-    forum_id int NOT NULL,
     forum CITEXT NOT NULL,
-    user_id int NOT NULL,
     author CITEXT NOT NULL,
     parent_id int NOT NULL,
     message TEXT NOT NULL,
@@ -92,11 +89,11 @@ ALTER TABLE posts
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_forums
-    FOREIGN KEY(forum_id) REFERENCES forums(forum_id);
+    FOREIGN KEY(forum) REFERENCES forums(slug);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_users
-    FOREIGN KEY(user_id) REFERENCES users(user_id);
+    FOREIGN KEY(author) REFERENCES users(nickname);
 
 
 CREATE TABLE vote
@@ -138,4 +135,5 @@ ALTER TABLE posts_users_threads
         forum_id
     );
 
-CREATE INDEX idx_put_post_forumId_threadId ON posts_users_threads (user_id, forum_id);
+CREATE INDEX idx_put_user_id_forum_id ON posts_users_threads (user_id, forum_id);
+
