@@ -37,27 +37,28 @@ CREATE TABLE threads
 (
     thread_id serial primary key,
     slug CITEXT DEFAULT NULL UNIQUE,
-    forum_id int NOT NULL,
     forum CITEXT NOT NULL,
-    user_id int NOT NULL,
     author CITEXT NOT NULL,
     created TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     message TEXT NOT NULL,
     title TEXT NOT NULL,
     votes int DEFAULT 0
 );
-
 CREATE INDEX idx_t_slug ON threads (slug);
 
 CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
 
+CREATE INDEX idx_t_forum ON threads (forum);
+
+CREATE INDEX idx_t_forum_all ON threads (forum, thread_id, slug, author, created, message, title, votes);
+
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_forums
-    FOREIGN KEY(forum_id) REFERENCES forums(forum_id);
+    FOREIGN KEY(forum) REFERENCES forums(slug);
 
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_users
-    FOREIGN KEY(user_id) REFERENCES users(user_id);
+    FOREIGN KEY(author) REFERENCES users(nickname);
 
 
 CREATE TABLE posts

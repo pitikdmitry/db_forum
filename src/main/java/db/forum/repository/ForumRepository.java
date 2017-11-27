@@ -77,50 +77,50 @@ public class ForumRepository {
         Object[] args = null;
 
         if((limit == null) && (since == null) && (desc == null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC;";
+            sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext ORDER BY created ASC;";
             args = new Object[]{forum_slug};
 
         } else if((since == null) && (desc == null) && (limit != null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC LIMIT ?;";
+            sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext ORDER BY created ASC LIMIT ?;";
             args = new Object[]{forum_slug, limit};
 
         } else if((limit == null) && (desc == null) && (since != null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC;";
+            sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC;";
             args = new Object[]{forum_slug, since};
 
         } else if((limit == null) && (since == null) && (desc != null)) {
             if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created DESC;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext ORDER BY created DESC;";
             } else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext ORDER BY created ASC;";
             }
             args = new Object[]{forum_slug};
 
         } else if((since == null) && (desc != null) && (limit != null)) {
             if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created DESC LIMIT ?;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext ORDER BY created DESC LIMIT ?;";
             } else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext ORDER BY created ASC LIMIT ?;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext ORDER BY created ASC LIMIT ?;";
             }
             args = new Object[]{forum_slug, limit};
 
         } else if((limit == null) && (since != null) && (desc != null)) {
             if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created <= ?::timestamptz ORDER BY created DESC;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext and created <= ?::timestamptz ORDER BY created DESC;";
             } else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC;";
             }
             args = new Object[]{forum_slug, since};
 
         } else if((desc == null) && (since != null) && (limit != null)) {
-            sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
+            sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
             args = new Object[]{forum_slug, since, limit};
 
         } else if((desc != null) && (since != null) && (limit != null)) {
             if(desc == true) {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created <= ?::timestamptz ORDER BY created DESC LIMIT ?;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext and created <= ?::timestamptz ORDER BY created DESC LIMIT ?;";
             } else {
-                sql = "SELECT * FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
+                sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE forum = ?::citext and created >= ?::timestamptz ORDER BY created ASC LIMIT ?;";
             }
             args = new Object[]{forum_slug, since, limit};
 

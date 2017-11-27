@@ -25,13 +25,7 @@ public class PostRepository {
     }
 
     public Post getById(Integer post_id) {
-        String sql = "SELECT * FROM posts WHERE post_id = ?;";
-        Object[] args = new Object[]{post_id};
-        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
-    }
-
-    public Post getByIdNotAll(Integer post_id) {
-        String sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id = ?;";
+        String sql = "SELECT post_id, author, created, forum, is_edited, message, parent_id, thread_id FROM posts WHERE post_id = ?;";
         Object[] args = new Object[]{post_id};
         return jdbcTemplate.queryForObject(sql, args, new PostMapper());
     }
@@ -100,9 +94,9 @@ public class PostRepository {
             arguments.add(since);
         }
         if (desc != null && desc) {
-            sql += " ORDER BY created DESC, post_id DESC";
+            sql += " ORDER BY post_id DESC";
         } else {
-            sql += " ORDER BY created, post_id";
+            sql += " ORDER BY post_id";
         }
         if (limit != null) {
             sql += " LIMIT ?;";
@@ -128,9 +122,9 @@ public class PostRepository {
             arguments.add(since);
         }
         if (desc != null && desc) {
-            sql += " ORDER BY m_path DESC, post_id DESC";
+            sql += " ORDER BY m_path DESC";
         } else {
-            sql += " ORDER BY m_path, post_id";
+            sql += " ORDER BY m_path";
         }
         if (limit != null) {
             sql += " LIMIT ?;";

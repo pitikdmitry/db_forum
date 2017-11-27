@@ -1,8 +1,10 @@
 CREATE INDEX idx_p_threadId ON posts (thread_id);
 
-CREATE INDEX idx_p_postId_threadId ON posts (post_id, thread_id);
+CREATE INDEX idx_p_threadId_postId ON posts (thread_id, post_id);
 
 CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
+
+CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);
 
 CREATE INDEX idx_p_postId_mPath_threadId_parentId ON posts (thread_id, m_path, post_id, parent_id);
 

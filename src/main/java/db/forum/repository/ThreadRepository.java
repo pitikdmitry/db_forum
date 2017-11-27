@@ -15,14 +15,8 @@ public class ThreadRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Integer countThreads(Integer forum_id) {
-        String sql = "SELECT count(*) FROM threads WHERE forum_id = ?;";
-        Object[] args = new Object[]{forum_id};
-        return jdbcTemplate.queryForObject(sql, args, Integer.class);
-    }
-
     public Thread get_by_id(int thread_id) {
-        String sql = "SELECT * FROM threads WHERE thread_id = ?;";
+        String sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE thread_id = ?;";
         try {
             Object[] args = new Object[]{thread_id};
             return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
@@ -44,11 +38,11 @@ public class ThreadRepository {
         Object[] args = null;
         try {
             Integer id = Integer.parseInt(slug_or_id);
-            sql = "SELECT * FROM threads WHERE thread_id = ?;";
+            sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE thread_id = ?;";
             args = new Object[]{id};
         }
         catch(Exception ex) {
-            sql = "SELECT * FROM threads WHERE slug = ?::citext;";
+            sql = "SELECT forum, thread_id, slug, author, created, message, title, votes FROM threads WHERE slug = ?::citext;";
             args = new Object[]{slug_or_id};
         }
         return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
