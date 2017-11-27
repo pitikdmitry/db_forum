@@ -18,6 +18,7 @@
 /home/oem/db_forum/src/main/java/db/forum/repository/ServiceRepository.java
 /home/oem/db_forum/src/main/java/db/forum/controller/ThreadController.java
 /home/oem/db_forum/src/main/java/db/forum/model/ServiceModel.java
+/home/oem/db_forum/src/main/java/db/forum/Mappers/PostMapperNotAll.java
 /home/oem/db_forum/src/main/java/db/forum/Mappers/ThreadMapper.java
 /home/oem/db_forum/src/main/java/db/forum/controller/ServiceController.java
 /home/oem/db_forum/src/main/java/db/forum/model/User.java

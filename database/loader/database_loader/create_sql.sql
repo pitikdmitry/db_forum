@@ -26,8 +26,6 @@ CREATE TABLE forums
 
 CREATE INDEX idx_f_slug ON forums (slug);
 
-CREATE INDEX idx_f_forumId ON forums (forum_id);
-
 CREATE INDEX idx_f_slug_forumId on forums (slug, forum_id);
 
 ALTER TABLE forums
@@ -50,8 +48,6 @@ CREATE TABLE threads
 );
 
 CREATE INDEX idx_t_slug ON threads (slug);
-
-CREATE INDEX idx_t_threadId ON threads (thread_id);
 
 CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
 
@@ -82,11 +78,13 @@ CREATE TABLE posts
 
 CREATE INDEX idx_p_threadId ON posts (thread_id);
 
-CREATE INDEX idx_p_postId ON posts (post_id);
-
 CREATE INDEX idx_p_postId_threadId ON posts (post_id, thread_id);
 
 CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
+
+CREATE INDEX idx_p_postId_mPath_threadId_parentId ON posts (thread_id, m_path, post_id, parent_id);
+
+CREATE INDEX idx_p_postId_all ON posts (post_id, author, created, forum, is_edited, message, parent_id, thread_id);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads
@@ -139,3 +137,5 @@ ALTER TABLE posts_users_threads
         user_id,
         forum_id
     );
+
+CREATE INDEX idx_put_post_forumId_threadId ON posts_users_threads (user_id, forum_id);

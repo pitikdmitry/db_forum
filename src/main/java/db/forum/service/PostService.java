@@ -32,7 +32,7 @@ public class PostService {
 
         Post post = null;
         try {
-            post = postRepository.getById(id);
+            post = postRepository.getByIdNotAll(id);
         } catch (Exception ex) {
             Message message = new Message("Can't find post with id: " + id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);

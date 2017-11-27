@@ -15,6 +15,16 @@ public class User {
     private String fullname;
     private String nickname;
 
+    private Boolean createdSmth;
+
+    public Boolean getCreatedSmth() {
+        return createdSmth;
+    }
+
+    public void setCreatedSmth(Boolean createdSmth) {
+        this.createdSmth = createdSmth;
+    }
+
     public User() {}
 
     public User(Integer user_id, String about, String email, String fullname, String nickname) {

@@ -1,3 +1,1 @@
-CREATE INDEX idx_put_post_forumId ON posts_users_threads (post_forum_id);
-
-CREATE INDEX idx_put_thread_forumId ON posts_users_threads (thread_forum_id);
+CREATE INDEX idx_put_post_forumId_threadId ON posts_users_threads (post_forum_id, thread_forum_id);
