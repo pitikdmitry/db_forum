@@ -77,7 +77,11 @@ CREATE TABLE posts
     m_path int []
 );
 
+CREATE INDEX idx_p_postId ON posts (post_id);
+
 CREATE INDEX idx_p_threadId ON posts (thread_id);
+
+CREATE INDEX idx_p_m_path ON posts (m_path DESC);
 
 CREATE INDEX idx_p_threadId_postId ON posts (thread_id, post_id);
 
@@ -85,11 +89,16 @@ CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
 
 CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);
 
-CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id, post_id);
+CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id DESC, post_id);
 
-CREATE INDEX idx_p_threadId_parentId_mPath_postId ON posts (thread_id, parent_id, m_path, post_id);
+CREATE INDEX idx_p_threadId_parentId_postId_desc ON posts (thread_id, parent_id DESC, post_id DESC);
+
+CREATE INDEX idx_p_threadId_parentId_mPath_postId ON posts (thread_id, parent_id DESC, m_path, post_id);
+
+CREATE INDEX idx_p_threadId_parentId_mPath_postId_desc ON posts (thread_id, parent_id DESC, m_path, post_id DESC);
 
 CREATE INDEX idx_p_postId_all ON posts (post_id, author, created, forum, is_edited, message, parent_id, thread_id);
+
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads
