@@ -89,6 +89,11 @@ public class Post {
         this.thread_id = thread_id;
     }
 
+    public void unset()
+    {
+        this.m_path = null;
+    }
+
     public JSONObject getJson() {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("author", author);

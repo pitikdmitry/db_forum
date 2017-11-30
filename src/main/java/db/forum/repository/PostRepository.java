@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Transactional
@@ -17,17 +18,34 @@ import java.util.List;
 public class PostRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ThreadRepository threadRepository;
+    private HashMap<Integer, Post> postHash;
 
     @Autowired
     public PostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.threadRepository = new ThreadRepository(jdbcTemplate);
+        this.postHash = new HashMap<>();
+    }
+
+    public void addToPost(ArrayList<Post> posts) {
+        for(Post p : posts) {
+            if(p.getId() % 3 == 0) {
+                p.unset();
+                postHash.put(p.getId(), p);
+            }
+        }
     }
 
     public Post getById(Integer post_id) {
+        Post p = postHash.get(post_id);
+        if(p != null) {
+            return p;
+        }
         String sql = "SELECT post_id, author, created, forum, is_edited, message, parent_id, thread_id FROM posts WHERE post_id = ?;";
         Object[] args = new Object[]{post_id};
-        return jdbcTemplate.queryForObject(sql, args, new PostMapper());
+        Post responsePost = jdbcTemplate.queryForObject(sql, args, new PostMapper());
+        postHash.put(responsePost.getId(), responsePost);
+        return responsePost;
     }
 
     private java.sql.Array createSqlArray(List<Integer> list){

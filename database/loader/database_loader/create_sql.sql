@@ -79,6 +79,8 @@ CREATE TABLE posts
 
 CREATE INDEX idx_p_postId ON posts (post_id);
 
+CREATE INDEX idx_p_postId_desc ON posts (post_id DESC);
+
 CREATE INDEX idx_p_threadId ON posts (thread_id);
 
 CREATE INDEX idx_p_m_path ON posts (m_path DESC);
