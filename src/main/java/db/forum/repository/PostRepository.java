@@ -68,7 +68,6 @@ public class PostRepository {
             list.add(post_id);
             return list;
         } catch (Exception ex) {
-            System.out.println("CANT GET MASS MAPTH: " + ex);
             return null;
         }
     }
@@ -279,7 +278,6 @@ public class PostRepository {
 
             preparedStatement.executeBatch();
         } catch (Exception e) {
-            System.out.println(e);
         } finally {
             try {
                 if (connection != null) {

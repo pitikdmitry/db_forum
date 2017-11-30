@@ -27,13 +27,11 @@ public class UserService {
             User responseUser = userRepository.create(user, nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException ex) {
-            System.out.println("[UserService.create insert DuplicateKeyException] " + ex);
         }
         try{
             List<User> responseUsers = userRepository.getByNicknameAndEmail(nickname, user.getEmail());
             return new ResponseEntity<>(User.getJsonArray(responseUsers).toString(), HttpStatus.CONFLICT);
         } catch(Exception ex) {
-            System.out.println("[UserService.create select exc + ] " + ex);
             //ignored
         }
         return null;
@@ -45,7 +43,6 @@ public class UserService {
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[Exception in getProfile user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -91,7 +88,6 @@ public class UserService {
 //            userRepository.updateEmailAndFullnameByNicknamePUT(user.getEmail(), user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[updateEmailAndFullnameByNickname user]: " + ex);
             Message message = new Message("Error update by email and fullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -103,7 +99,6 @@ public class UserService {
 //            userRepository.updateAboutAndFullnameByNicknamePUT(user.getAbout(), user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[Exception in updateByAboutAndFullname user]: " + ex);
             Message message = new Message("Error updateByAboutAndFullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -115,7 +110,6 @@ public class UserService {
 //            userRepository.updateEmailAndAboutByNicknamePUT(user.getEmail(), user.getAbout(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[updateByEmailAndAbout user]: " + ex);
             Message message = new Message("Error updateByAboutAndFullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -126,7 +120,6 @@ public class UserService {
             User responseUser = userRepository.get_by_nickname(nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[updateByEmpty user]: " + ex);
             Message message = new Message("Can't find user by nickname: " + nickname);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -138,7 +131,6 @@ public class UserService {
 //            userRepository.updateFullnameByNicknamePUT(user.getFullname(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[updateByFullname user]: " + ex);
             Message message = new Message("Error update by fullname: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -150,7 +142,6 @@ public class UserService {
 //            userRepository.updateEmailByNicknamePUT(user.getEmail(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[Exception in updateByEmail user]: " + ex);
             User existsEmailUser = userRepository.get_by_email(user.getEmail());
             Message message = new Message("This email is already registered by user: " + existsEmailUser.getNickname());
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
@@ -163,7 +154,6 @@ public class UserService {
 //            userRepository.updateAboutByNicknamePUT(user.getAbout(), nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (Exception ex) {
-            System.out.println("[updateAboutByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
@@ -175,11 +165,9 @@ public class UserService {
 //            userRepository.updateAllByNicknamePUT(user, nickname);
             return new ResponseEntity<>(responseUser.getJson().toString(), HttpStatus.OK);
         } catch (EmptyResultDataAccessException ex) {
-            System.out.println("[updateAllByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            System.out.println("[updateAllByNickname user]: " + ex);
             Message message = new Message("Can't find user with id #42");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }

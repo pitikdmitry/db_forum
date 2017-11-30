@@ -46,19 +46,16 @@ public class UserRepository {
                 preparedStatement.setInt(2, forum_id);
                 try {
                     preparedStatement.execute();
-                    System.out.println("done");
                 } catch (DuplicateKeyException ex) {
                     //normal
                 } catch(Exception ex) {
                     //normal
-                    System.out.println(ex);
                 }
 //                preparedStatement.addBatch();
             }
 
 //            preparedStatement.executeBatch();
         } catch (Exception e) {
-            System.out.println(e);
         } finally {
             try {
                 if (connection != null) {

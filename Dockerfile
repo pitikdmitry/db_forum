@@ -28,9 +28,7 @@ RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "shared_buffers = 1024MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "work_mem = 400MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "maintenance_work_mem = 2048MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "commit_delay = 100" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "commit_siblings = 10" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "effective_cache_size = 6000MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "effective_cache_size = 4000MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "cpu_tuple_cost = 0.001" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "cpu_index_tuple_cost = 0.0005" >> /etc/postgresql/$PGVER/main/postgresql.conf
 

@@ -48,7 +48,6 @@ public class ThreadService {
         try {
             created = Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime());
         } catch(Exception ex) {
-            System.out.println(ex);
         }
 
         if(posts.size() == 0) {
@@ -73,7 +72,6 @@ public class ThreadService {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
-        System.out.println("here1");
         for (Post p : posts) {
             try {
                 Post res = createOnePost(thread, forum, p, created, userWithForum);
@@ -89,23 +87,21 @@ public class ThreadService {
             } catch (Exception ex) {
                 //ignored
                 Message message = new Message("[ThreadService] POST NOT CREATED database post exception: ");
-                System.out.println("[ThreadService] POST NOT CREATED database post exception: " + ex);
                 return new ResponseEntity<>(message, HttpStatus.BAD_GATEWAY);
             }
         }
-        System.out.println("here2");
+
         try {
             postRepository.executePosts(resultArr);
             forumRepository.addPostStat(resultArr.size(), forum.getForum_id());
         } catch(Exception e) {
-            System.out.println(e);
+
         }
         try{
             userRepository.executeUsersWithForum(userWithForum);
         } catch(DuplicateKeyException ex) {
             //normal
         } catch(Exception ex) {
-            System.out.println("[createPosts BIG TABLE EXCEPTION!!!] + ex");
         }
         return new ResponseEntity<>(Post.getJsonArray(resultArr).toString(), HttpStatus.CREATED);
     }
@@ -115,7 +111,6 @@ public class ThreadService {
         try {
             user = userRepository.get_by_nickname(post.getAuthor());
         } catch (Exception ex) {
-            System.out.println("[ThreadService] User not found!");
             throw new NoUserException(post.getAuthor());
         }
 
@@ -217,7 +212,6 @@ public class ThreadService {
                 List<Post> responsePosts = postRepository.getPostFlat(threadId, limit, since, desc);
                 return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
             } catch(Exception ex) {
-                System.out.println("[getPosts exc] no sort: ");
             }
         } else {
             if(sort.equals("flat")) {
@@ -228,7 +222,6 @@ public class ThreadService {
                     Message message = new Message("Can't find threadId by slug: " + ex.getSlugOrId());
                     return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
                 } catch(Exception ex) {
-                    System.out.println("[getPosts exc] falt sort: ");
                 }
             }
             else if(sort.equals("tree")) {
@@ -236,7 +229,6 @@ public class ThreadService {
                     List<Post> responsePosts = postRepository.getPostTree(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
-                    System.out.println("[getPosts exc] tree sort: ");
                 }
             }
             else if(sort.equals("parent_tree")) {
@@ -244,14 +236,12 @@ public class ThreadService {
                     List<Post> responsePosts = postRepository.getPostsParentTree(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch(Exception ex) {
-                    System.out.println("[getPosts exc] parenttree sort: ");
                 }
             } else {
                 try {
                     List<Post> responsePosts = postRepository.getPostFlat(threadId, limit, since, desc);
                     return new ResponseEntity<>(Post.getJsonArray(responsePosts).toString(), HttpStatus.OK);
                 } catch (Exception ex) {
-                    System.out.println("[getPosts exc] no sort: ");
                 }
             }
         }

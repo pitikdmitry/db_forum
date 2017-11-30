@@ -32,7 +32,6 @@ public class Service {
             return new ResponseEntity<>("", HttpStatus.OK);
         } catch(Exception ex) {
             //ign
-            System.out.println(ex);
             return new ResponseEntity<>("", HttpStatus.BAD_GATEWAY);
         }
     }

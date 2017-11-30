@@ -22,7 +22,6 @@ public class ThreadRepository {
             return jdbcTemplate.queryForObject(sql, args, new ThreadMapper());
         }
         catch (Exception ex) {
-            System.out.println("[ThreadRepository.get_by_id] exc: " + ex);
             return null;
         }
     }

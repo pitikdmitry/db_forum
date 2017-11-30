@@ -44,7 +44,6 @@ public class VoteRepository {
             return jdbcTemplate.queryForObject(sql, args, new VoteMapper());
         }
         catch (Exception ex) {
-            System.out.println("[VoteRepository.get_by_id] exc: " + ex);
             return null;
         }
     }
@@ -59,7 +58,6 @@ public class VoteRepository {
             return jdbcTemplate.queryForObject(sql, args, new VoteMapper());
         }
         catch (Exception ex) {
-            System.out.println("[VoteRepository.get_by_author_nickname] exc: " + ex);
             return null;
         }
     }

@@ -49,11 +49,9 @@ public class ForumService {
             Forum responseForum = forumRepository.create(user, forum);
             return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.CREATED);
         } catch (DuplicateKeyException ex) {
-            System.out.println("[ForumService.DuplicateKeyException] " + ex);
             Forum responseForum = forumRepository.getByUserId(user.getUser_id());
             return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.CONFLICT);
         } catch (Exception ex) {
-            System.out.println("[FORUMCREATE: EXCEPTION]" + ex);
             Message message = new Message("[FORUMCREATE: EXCEPTION]");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -83,7 +81,6 @@ public class ForumService {
             } catch(DuplicateKeyException ex) {
                 //normal
             } catch(Exception ex) {
-                System.out.println("[createThread BIG TABLE EXCEPTION!!!] + ex");
             }
 
             return new ResponseEntity<>(responseThread.getJson().toString(), HttpStatus.CREATED);
@@ -91,7 +88,6 @@ public class ForumService {
             Thread threadTemp = threadRepository.get_by_slug(thread.getSlug());
             return new ResponseEntity<>(threadTemp.getJson().toString(), HttpStatus.CONFLICT);
         } catch (Exception ex) {
-            System.out.println("[OTHER EXCEPTION]: " + ex);
             Message message = new Message("Can't 42");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -103,7 +99,6 @@ public class ForumService {
             return new ResponseEntity<>(responseForum.getJson().toString(), HttpStatus.OK);
         }
         catch (Exception ex) {
-            System.out.println("[ForumService] get details exc: " + ex);
             Message message = new Message("Error getDetails FORUM: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -114,7 +109,6 @@ public class ForumService {
         try{
             forum_id = forumRepository.get_id_by_slug(slug);
         } catch(EmptyResultDataAccessException ex) {
-            System.out.println("[GET THREADS] CANT FIND FORUM ID !!!!");
             Message message = new Message("Can't find forum by slug: " + slug);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -123,7 +117,6 @@ public class ForumService {
             return new ResponseEntity<>(Thread.getJsonArray(threads).toString(), HttpStatus.OK);
         } catch(Exception ex) {
             //ign
-            System.out.println("[GET THREADS EXC] : " + ex);
             return null;
         }
     }
@@ -133,7 +126,6 @@ public class ForumService {
         try {
             forum_id = forumRepository.get_id_by_slug(slug);
         } catch(Exception ex) {
-            System.out.println(ex);
             Message message = new Message("Can't find forum by slug: " + slug);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
@@ -142,7 +134,6 @@ public class ForumService {
             return new ResponseEntity<>(User.getJsonArray(responseUsers).toString(), HttpStatus.OK);
         } catch(Exception ex) {
             //ign
-            System.out.println(ex);
             Message message = new Message("[ForumService] Error getUsers: ");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }

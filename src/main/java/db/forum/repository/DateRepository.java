@@ -47,7 +47,6 @@ public class DateRepository {
         if(str == null) {
             return null;
         }
-        System.out.println(str.length() + str);
         if(str.length() == 23) {
             str += str.substring(19, 20);
         }
