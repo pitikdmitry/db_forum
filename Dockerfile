@@ -25,15 +25,23 @@ RUN cat /etc/postgresql/$PGVER/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "synchronous_commit = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "shared_buffers = 1024MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "work_mem = 400MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "maintenance_work_mem = 2048MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "commit_delay = 100" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "commit_siblings = 10" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "effective_cache_size = 6000MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "cpu_tuple_cost = 0.001" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "cpu_index_tuple_cost = 0.0005" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
- RUN echo "log_statement = none" >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "log_duration = off " >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "log_lock_waits = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "log_min_duration_statement = 50" >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "log_filename = 'query.log'" >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "log_directory = '/var/log/postgresql'" >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "log_destination = 'csvlog'" >> /etc/postgresql/$PGVER/main/postgresql.conf
- RUN echo "logging_collector = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_statement = none" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_duration = off " >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_lock_waits = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_min_duration_statement = 50" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_filename = 'query.log'" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_directory = '/var/log/postgresql'" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "log_destination = 'csvlog'" >> /etc/postgresql/$PGVER/main/postgresql.conf
+# RUN echo "logging_collector = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
 # Expose the PostgreSQL port
 EXPOSE 5432

@@ -96,7 +96,6 @@ public class ThreadService {
         System.out.println("here2");
         try {
             postRepository.executePosts(resultArr);
-            postRepository.addToPost(resultArr);
             forumRepository.addPostStat(resultArr.size(), forum.getForum_id());
         } catch(Exception e) {
             System.out.println(e);

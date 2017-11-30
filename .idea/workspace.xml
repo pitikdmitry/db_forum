@@ -7,17 +7,13 @@
     <list default="true" id="e96f4375-a850-4fc7-a924-f8a2f8371178" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/DataBaseProject-1.0.jar" afterPath="$PROJECT_DIR$/target/DataBaseProject-1.0.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/DataBaseProject-1.0.jar.original" afterPath="$PROJECT_DIR$/target/DataBaseProject-1.0.jar.original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/model/Post.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/model/Post.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/repository/PostRepository.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/repository/PostRepository.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/forum/service/ThreadService.class" afterPath="$PROJECT_DIR$/target/classes/db/forum/service/ThreadService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/loader/database_loader/create_sql.sql" afterPath="$PROJECT_DIR$/database/loader/database_loader/create_sql.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/postgres/indexes/posts.psql" afterPath="$PROJECT_DIR$/database/postgres/indexes/posts.psql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" afterPath="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,7 +58,59 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
+      <file leaf-file-name="PostRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="484">
+              <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+              <folding>
+                <marker date="1512058734017" expanded="true" signature="750:859" ph="SELECT post_... posts" />
+                <marker date="1512058734017" expanded="true" signature="1762:1804" ph="SELECT m_pat... posts" />
+                <marker date="1512058734017" expanded="true" signature="2753:2864" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="3692:3803" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="4843:4970" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="5100:5481" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="5676:5964" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="6186:6347" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="6406:6566" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="6710:7081" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="7337:7643" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="7702:8006" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="8244:8629" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="8689:9072" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="9309:9702" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="9761:10152" ph="SELECT autho... posts" />
+                <marker date="1512058734017" expanded="true" signature="10677:10750" ph="UPDATE posts... " />
+                <marker date="1512058734017" expanded="true" signature="10995:11032" ph="SELECT * FRO... posts" />
+                <marker date="1512058734017" expanded="true" signature="11266:11464" ph="INSERT INTO posts... " />
+                <marker date="1512058734017" expanded="true" signature="12747:12782" ph="SELECT nextv... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreadService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1738">
+              <caret line="97" column="51" lean-forward="false" selection-start-line="97" selection-start-column="51" selection-end-line="97" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -119,12 +167,12 @@
         <option value="$PROJECT_DIR$/database/postgres/indexes/threads.psql" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/ThreadRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/ForumRepository.java" />
-        <option value="$PROJECT_DIR$/Dockerfile" />
-        <option value="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
         <option value="$PROJECT_DIR$/src/main/java/db/forum/model/Post.java" />
-        <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
         <option value="$PROJECT_DIR$/database/loader/database_loader/create_sql.sql" />
         <option value="$PROJECT_DIR$/database/postgres/indexes/posts.psql" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java" />
+        <option value="$PROJECT_DIR$/Dockerfile" />
       </list>
     </option>
   </component>
@@ -150,7 +198,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="width" value="1600" />
     <option name="height" value="873" />
   </component>
@@ -170,18 +218,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="DataBaseProject" type="1abcf292:AndroidViewProjectNode" />
-              <item name="DataBaseProject" type="1039202d:NonAndroidModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -313,6 +349,18 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="DataBaseProject" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DataBaseProject" type="1039202d:NonAndroidModuleNode" />
             </path>
           </expand>
           <select />
@@ -450,71 +498,50 @@
       <workItem from="1511764622300" duration="944000" />
       <workItem from="1511769554936" duration="6222000" />
       <workItem from="1511892576045" duration="5073000" />
+      <workItem from="1512059746122" duration="558000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51767000" />
+    <option name="totallyTimeSpent" value="53435000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="873" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18597169" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6698895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0952381" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3743094" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32596686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16859716" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19305019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14736165" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955848" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09386667" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14853333" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955848" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37527594" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294702" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1936" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955848" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294702" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,7 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="32" column="19" lean-forward="false" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -608,15 +634,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/ServiceRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -648,7 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -743,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="29">
           <caret line="1" column="55" lean-forward="false" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -849,60 +864,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/model/Post.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="92" column="4" lean-forward="false" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3035#3036#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="47" column="28" lean-forward="false" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
-          <folding>
-            <element signature="e#3342#3350#0" expanded="true" />
-            <element signature="e#4281#4289#0" expanded="true" />
-            <marker date="1512056780216" expanded="true" signature="1273:1382" ph="SELECT post_... posts" />
-            <marker date="1512056780216" expanded="true" signature="2385:2427" ph="SELECT m_pat... posts" />
-            <marker date="1512056780216" expanded="true" signature="3376:3487" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="4315:4426" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="5466:5593" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="5723:6104" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="6299:6587" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="6809:6970" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="7029:7189" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="7333:7704" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="7960:8266" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="8325:8629" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="8867:9252" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="9312:9695" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="9932:10325" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="10384:10775" ph="SELECT autho... posts" />
-            <marker date="1512056780216" expanded="true" signature="11300:11373" ph="UPDATE posts... " />
-            <marker date="1512056780216" expanded="true" signature="11618:11655" ph="SELECT * FRO... posts" />
-            <marker date="1512056780216" expanded="true" signature="11889:12087" ph="INSERT INTO posts... " />
-            <marker date="1512056780216" expanded="true" signature="13370:13405" ph="SELECT nextv... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1364">
-          <caret line="98" column="48" lean-forward="false" selection-start-line="98" selection-start-column="48" selection-end-line="98" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
           <caret line="81" column="30" lean-forward="false" selection-start-line="81" selection-start-column="30" selection-end-line="81" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -918,6 +885,63 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/ServiceRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+          <folding>
+            <marker date="1511708261189" expanded="true" signature="596:862" ph="SELECT COUNT... forums" />
+            <marker date="1511708261189" expanded="true" signature="651:677" ph="SELECT COUNT... posts" />
+            <marker date="1511708261189" expanded="true" signature="717:745" ph="SELECT COUNT... threads" />
+            <marker date="1511708261189" expanded="true" signature="787:813" ph="SELECT COUNT... users" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/repository/PostRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding>
+            <marker date="1512058734017" expanded="true" signature="750:859" ph="SELECT post_... posts" />
+            <marker date="1512058734017" expanded="true" signature="1762:1804" ph="SELECT m_pat... posts" />
+            <marker date="1512058734017" expanded="true" signature="2753:2864" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="3692:3803" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="4843:4970" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="5100:5481" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="5676:5964" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="6186:6347" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="6406:6566" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="6710:7081" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="7337:7643" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="7702:8006" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="8244:8629" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="8689:9072" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="9309:9702" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="9761:10152" ph="SELECT autho... posts" />
+            <marker date="1512058734017" expanded="true" signature="10677:10750" ph="UPDATE posts... " />
+            <marker date="1512058734017" expanded="true" signature="10995:11032" ph="SELECT * FRO... posts" />
+            <marker date="1512058734017" expanded="true" signature="11266:11464" ph="INSERT INTO posts... " />
+            <marker date="1512058734017" expanded="true" signature="12747:12782" ph="SELECT nextv... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/db/forum/service/ThreadService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1738">
+          <caret line="97" column="51" lean-forward="false" selection-start-line="97" selection-start-column="51" selection-end-line="97" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
