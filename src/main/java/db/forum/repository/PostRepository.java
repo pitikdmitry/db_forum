@@ -21,6 +21,7 @@ public class PostRepository {
     @Autowired
     public PostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+
     }
 
     public Post getById(Integer post_id) {
