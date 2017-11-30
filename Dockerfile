@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 MAINTAINER Pitik Dmitry
 
 RUN apt-get -y update
-ENV PGVER 9.5
+ENV PGVER 9.6
 RUN apt-get install -y postgresql-$PGVER
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-$PGVER`` package when it was ``apt-get installed``
@@ -26,11 +26,13 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "synchronous_commit = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "shared_buffers = 1024MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "work_mem = 400MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "maintenance_work_mem = 2048MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "effective_cache_size = 4000MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "cpu_tuple_cost = 0.001" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "cpu_index_tuple_cost = 0.0005" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "work_mem = 32MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "maintenance_work_mem = 512MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "wal_buffers = 8MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "effective_cache_size = 3072MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "cpu_tuple_cost = 0.0030" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "cpu_index_tuple_cost = 0.0010" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "cpu_operator_cost = 0.0005" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
 # RUN echo "log_statement = none" >> /etc/postgresql/$PGVER/main/postgresql.conf
 # RUN echo "log_duration = off " >> /etc/postgresql/$PGVER/main/postgresql.conf
