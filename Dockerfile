@@ -35,7 +35,7 @@ RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "cpu_index_tuple_cost = 0.0010" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "cpu_operator_cost = 0.0005" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
-RUN echo "shared_buffers = 1024MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "shared_buffers = 512MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "work_mem = 32MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "maintenance_work_mem = 512MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "wal_buffers = 8MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
