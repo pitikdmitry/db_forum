@@ -88,9 +88,9 @@ CREATE INDEX idx_p_postId_threadId_desc ON posts (post_id DESC, thread_id);-- ge
 
 CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);-- get posts tree покрывающий 1
 
-CREATE INDEX idx_p_mPath_threadId ON posts (m_path, thread_id);-- get posts tree 0 + get posts parent tree
+CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);-- get posts tree 0 + get posts parent tree
 
-CREATE INDEX idx_p_mPath_threadId_desc ON posts (m_path DESC, thread_id);-- get posts tree 0 + get posts parent tree
+CREATE INDEX idx_p_threadId_mPath_desc ON posts (thread_id, m_path DESC);-- get posts tree 0 + get posts parent tree
 
 CREATE INDEX idx_p_m_path ON posts (m_path DESC);
 
@@ -99,6 +99,10 @@ CREATE INDEX idx_p_postId_parentId_mPath ON posts (post_id, parent_id DESC, m_pa
 CREATE INDEX idx_p_threadId_parentId_mPath_post_id ON posts (thread_id, parent_id DESC, m_path, post_id);-- get posts parent tree 0.5
 
 CREATE INDEX idx_p_mPath1_threadId ON posts ((m_path[1]), thread_id);
+
+CREATE INDEX idx_p_threadId_parentId_postId_desc ON posts (thread_id, parent_id DESC, post_id DESC);
+
+CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id DESC, post_id);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads

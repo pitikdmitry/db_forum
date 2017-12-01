@@ -81,16 +81,19 @@ public class PostRepository {
 
     public List<Post> getPostFlat(Integer threadId, Integer limit, Integer since, Boolean desc) throws NoThreadException {
         List<Object> arguments = new ArrayList<Object>();
-        String sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ?";
-        arguments.add(threadId);
+        String sql = null;
 
         if (since != null) {
             if(desc != null && desc) {
-                sql += " AND post_id < ?";
+                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id < ? AND thread_id = ?";
             } else {
-                sql += " AND post_id > ?";
+                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id < ? AND thread_id = ?";
             }
             arguments.add(since);
+            arguments.add(threadId);
+        } else {
+            sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ?";
+            arguments.add(threadId);
         }
         if (desc != null && desc) {
             sql += " ORDER BY post_id DESC";
