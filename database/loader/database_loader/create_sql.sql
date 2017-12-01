@@ -81,25 +81,25 @@ CREATE INDEX idx_p_postId ON posts (post_id);
 
 CREATE INDEX idx_p_postId_desc ON posts (post_id DESC);
 
-CREATE INDEX idx_p_threadId ON posts (thread_id);
+CREATE INDEX idx_p_threadId ON posts (thread_id);-- get posts flat 1
 
-CREATE INDEX idx_p_m_path ON posts (m_path DESC);
+CREATE INDEX idx_p_threadId_desc ON posts (thread_id DESC);-- get posts flat
 
-CREATE INDEX idx_p_threadId_postId ON posts (thread_id, post_id);
+CREATE INDEX idx_p_postId_threadId ON posts (post_id, thread_id);-- get posts flat with order by 1
 
-CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
+CREATE INDEX idx_p_postId_threadId_desc ON posts (post_id DESC, thread_id);-- get posts flat with order by
 
-CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);
+CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);-- get posts tree покрывающий 1
 
-CREATE INDEX idx_p_threadId_mPath_desc ON posts (thread_id, m_path DESC);
+CREATE INDEX idx_p_postId_mPath_desc ON posts (post_id DESC, m_path);-- get posts tree покрывающий
 
-CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id DESC, post_id);
+CREATE INDEX idx_p_mPath_threadId ON posts (m_path, thread_id);-- get posts tree 0 + get posts parent tree
 
-CREATE INDEX idx_p_threadId_parentId_postId_desc ON posts (thread_id, parent_id DESC, post_id DESC);
+CREATE INDEX idx_p_mPath_threadId_desc ON posts (m_path DESC, thread_id);-- get posts tree 0 + get posts parent tree
 
-CREATE INDEX idx_p_threadId_parentId_mPath_postId ON posts (thread_id, parent_id DESC, m_path, post_id);
+CREATE INDEX idx_p_postId_parentId_mPath ON posts (post_id, parent_id DESC, m_path);-- get posts parent tree 1
 
-CREATE INDEX idx_p_threadId_parentId_mPath_postId_desc ON posts (thread_id, parent_id DESC, m_path, post_id DESC);
+CREATE INDEX idx_p_postId_threadId_parentId_mPath ON posts (post_id, thread_id, parent_id DESC, m_path);-- get posts parent tree 0.5
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads
