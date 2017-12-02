@@ -87,7 +87,7 @@ public class PostRepository {
             if(desc != null && desc) {
                 sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id < ? AND thread_id = ?";
             } else {
-                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id < ? AND thread_id = ?";
+                sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE post_id > ? AND thread_id = ?";
             }
             arguments.add(since);
             arguments.add(threadId);
