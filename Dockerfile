@@ -35,14 +35,14 @@ RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "cpu_index_tuple_cost = 0.0010" >> /etc/postgresql/$PGVER/main/postgresql.conf
 #RUN echo "cpu_operator_cost = 0.0005" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
-# RUN echo "log_statement = none" >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "log_duration = off " >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "log_lock_waits = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "log_min_duration_statement = 50" >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "log_filename = 'query.log'" >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "log_directory = '/var/log/postgresql'" >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "log_destination = 'csvlog'" >> /etc/postgresql/$PGVER/main/postgresql.conf
-# RUN echo "logging_collector = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_statement = none" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_duration = off " >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_lock_waits = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_min_duration_statement = 50" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_filename = 'query.log'" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_directory = '/var/log/postgresql'" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "log_destination = 'csvlog'" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "logging_collector = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
 # Expose the PostgreSQL port
 EXPOSE 5432

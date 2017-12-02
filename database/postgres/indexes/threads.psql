@@ -6,3 +6,5 @@ CREATE INDEX idx_t_forum ON threads (forum);
 
 CREATE INDEX idx_t_forum_created ON threads (forum, created);
 
+CREATE INDEX idx_t_forum_created_desc ON threads (forum, created DESC);
+
