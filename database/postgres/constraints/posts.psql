@@ -9,5 +9,3 @@ ALTER TABLE posts
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_users
     FOREIGN KEY(author) REFERENCES users(nickname);
-
-

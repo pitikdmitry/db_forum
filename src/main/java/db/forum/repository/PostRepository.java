@@ -143,7 +143,7 @@ public class PostRepository {
         Integer id = threadId;
 
         if(since == null && limit == null && desc == null) {
-            sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? ORDER BY m_path;";
+            sql = "SELECT author, created, forum, post_id, is_edited, message, parent_id, thread_id FROM posts WHERE thread_id = ? ORDER BY m_path;";//не использует индекс для сортировки
             arguments.add(id);
         }
         else if(since != null && limit == null && desc == null) {

@@ -45,6 +45,8 @@ CREATE TABLE threads
     votes int DEFAULT 0
 );
 
+CREATE INDEX idx_t_threadId ON threads (thread_id);
+
 CREATE INDEX idx_t_slug ON threads (slug);
 
 CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
@@ -52,8 +54,6 @@ CREATE INDEX idx_t_slug_threadId ON threads (slug, thread_id);
 CREATE INDEX idx_t_forum ON threads (forum);
 
 CREATE INDEX idx_t_forum_created ON threads (forum, created);
-
-CREATE INDEX idx_t_forum_all ON threads (forum, thread_id, slug, author, created, message, title, votes);
 
 ALTER TABLE threads
     ADD CONSTRAINT threads_fk_forums
@@ -76,33 +76,23 @@ CREATE TABLE posts
     is_edited BOOLEAN NOT NULL,
     m_path int []
 );
+
 CREATE INDEX idx_p_postId ON posts (post_id);
 
-CREATE INDEX idx_p_postId_desc ON posts (post_id DESC);
+CREATE INDEX idx_p_threadId ON posts (thread_id);
 
-CREATE INDEX idx_p_threadId ON posts (thread_id);-- get posts flat 1
+CREATE INDEX idx_p_threadId_postId_desc ON posts (thread_id, post_id DESC);
 
-CREATE INDEX idx_p_postId_threadId ON posts (post_id, thread_id);-- get posts flat with order by 1
+CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);
 
-CREATE INDEX idx_p_postId_threadId_desc ON posts (post_id DESC, thread_id);-- get posts flat with order by
+CREATE INDEX idx_p_threadId_mPath_desc ON posts (thread_id, m_path DESC);
 
-CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);-- get posts tree покрывающий 1
+CREATE INDEX idx_p_threadId_parentId_desc_postId_desc ON posts (thread_id, parent_id DESC, post_id DESC);
 
-CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);-- get posts tree 0 + get posts parent tree
+CREATE INDEX idx_p_threadId_mPath1 ON posts (thread_id, (m_path[1]));
+--CREATE INDEX idx_p_threadId_mPath1_mPath_desc ON posts (thread_id, (m_path[1]), m_path DESC);
 
-CREATE INDEX idx_p_threadId_mPath_desc ON posts (thread_id, m_path DESC);-- get posts tree 0 + get posts parent tree
-
-CREATE INDEX idx_p_m_path ON posts (m_path DESC);
-
-CREATE INDEX idx_p_postId_parentId_mPath ON posts (post_id, parent_id DESC, m_path);-- get posts parent tree 1
-
-CREATE INDEX idx_p_threadId_parentId_mPath_post_id ON posts (thread_id, parent_id DESC, m_path, post_id);-- get posts parent tree 0.5
-
-CREATE INDEX idx_p_mPath1_threadId ON posts ((m_path[1]), thread_id);
-
-CREATE INDEX idx_p_threadId_parentId_postId_desc ON posts (thread_id, parent_id DESC, post_id DESC);
-
-CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id DESC, post_id);
+CREATE INDEX idx_p_threadId_parentId_desc_mPath_post_id_desc ON posts (thread_id, parent_id DESC, m_path, post_id DESC)
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads

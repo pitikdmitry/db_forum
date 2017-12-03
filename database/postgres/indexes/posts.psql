@@ -7,17 +7,15 @@ CREATE INDEX idx_p_threadId ON posts (thread_id);-- get posts flat 1
 
 CREATE INDEX idx_p_threadId_postId ON posts (thread_id, post_id);-- get posts flat with order by 1
 
-CREATE INDEX idx_p_threadId_postId_desc ON posts (thread_id, post_id DESC);-- get posts flat with order by
-
 --get posts tree
-CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);-- get posts tree покрывающий 1
+CREATE INDEX idx_p_postId_mPath ON posts (post_id, m_path);-- стало медленнее почему то, потом стало быстрее
 
 CREATE INDEX idx_p_threadId_mPath ON posts (thread_id, m_path);-- get posts tree 0 + get posts parent tree
 
 CREATE INDEX idx_p_threadId_mPath_desc ON posts (thread_id, m_path DESC);-- get posts tree 0 + get posts parent tree
 
 --get posts parent tree
-CREATE INDEX idx_p_m_path ON posts (m_path DESC);
+CREATE INDEX idx_p_m_path ON posts (m_path DESC);--не используетс/
 
 CREATE INDEX idx_p_postId_parentId_mPath ON posts (post_id, parent_id DESC, m_path);-- get posts parent tree 1
 
@@ -25,9 +23,10 @@ CREATE INDEX idx_p_threadId_parentId_mPath_post_id ON posts (thread_id, parent_i
 
 CREATE INDEX idx_p_threadId_parentId_mPath_post_id_desc ON posts (thread_id, parent_id DESC, m_path DESC, post_id);-- get posts parent tree 0.5
 
-CREATE INDEX idx_p_threadId_mPath1 ON posts (thread_id, (m_path[1]), m_path);--for ordering by mpath
+--CREATE INDEX idx_p_threadId_mPath1_mPath ON posts (thread_id, (m_path[1]), m_path);--for ordering by mpath его не использует для сорировки
 
-CREATE INDEX idx_p_threadId_mPath1_mPath ON posts (thread_id, (m_path[1]));
+
+CREATE INDEX idx_p_threadId_mPath1 ON posts (thread_id, (m_path[1]));
 
 CREATE INDEX idx_p_threadId_parentId_postId ON posts (thread_id, parent_id DESC, post_id);
 
@@ -36,3 +35,4 @@ CREATE INDEX idx_p_threadId_parentId_postId_desc ON posts (thread_id, parent_id 
 CREATE INDEX idx_p_postId_mPath_desc ON posts (post_id DESC, m_path);
 
 --unknown
+CREATE INDEX idx_p_mPath1 ON posts ((m_path[1]));
