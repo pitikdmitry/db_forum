@@ -1,3 +1,0 @@
-CREATE INDEX idx_f_slug ON forums (slug);
-
-CREATE INDEX idx_f_slug_forumId on forums (slug, forum_id);

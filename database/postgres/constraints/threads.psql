@@ -1,7 +1,0 @@
-ALTER TABLE threads
-    ADD CONSTRAINT threads_fk_forums
-    FOREIGN KEY(forum) REFERENCES forums(slug);
-
-ALTER TABLE threads
-    ADD CONSTRAINT threads_fk_users
-    FOREIGN KEY(author) REFERENCES users(nickname);

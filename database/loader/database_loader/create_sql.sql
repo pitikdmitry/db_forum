@@ -92,7 +92,7 @@ CREATE INDEX idx_p_threadId_parentId_desc_postId_desc ON posts (thread_id, paren
 CREATE INDEX idx_p_threadId_mPath1 ON posts (thread_id, (m_path[1]));
 --CREATE INDEX idx_p_threadId_mPath1_mPath_desc ON posts (thread_id, (m_path[1]), m_path DESC);
 
-CREATE INDEX idx_p_threadId_parentId_desc_mPath_post_id_desc ON posts (thread_id, parent_id DESC, m_path, post_id DESC)
+CREATE INDEX idx_p_threadId_parentId_desc_mPath_post_id_desc ON posts (thread_id, parent_id DESC, m_path, post_id DESC);
 
 ALTER TABLE posts
     ADD CONSTRAINT posts_fk_threads
